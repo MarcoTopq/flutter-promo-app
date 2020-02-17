@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:warnakaltim/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -96,7 +98,10 @@ class _LoginState extends State<Login> {
                     child: MaterialButton(
                       minWidth: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Home()));
+                      },
                       child: Text("Login",
                           textAlign: TextAlign.center,
                           style: TextStyle(

@@ -1,0 +1,36 @@
+[
+    {
+        "id": 1,
+        "title": "Sang Ahli Kimia",
+        "image": "http:\/\/rpm.warnakaltim.com\/rpm\/public\/storage\/images\/ny0rnQ5UYxQ2zO0eqv6OyW9POSNfP3ceafeHgqyn.jpeg",
+        "url": "http:\/\/rpm.warnakaltim.com\/rpm\/public\/news\/read\/sang-ahli-kimia",
+        "created_at": "15 February 2020",
+        "category": [
+            {
+                "id": 3,
+                "name": "comedy"
+            },
+            {
+                "id": 4,
+                "name": "drama"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Hujan",
+        "image": "http:\/\/rpm.warnakaltim.com\/rpm\/public\/storage\/images\/2zAG3C4Q2NxRMWm9l0gtqWZCpimkd8rR8kIb43zn.jpeg",
+        "url": "http:\/\/rpm.warnakaltim.com\/rpm\/public\/news\/read\/hujan",
+        "created_at": "15 February 2020",
+        "category": [
+            {
+                "id": 3,
+                "name": "comedy"
+            },
+            {
+                "id": 5,
+                "name": "entertaiment"
+            }
+        ]
+    }
+]
