@@ -67,7 +67,7 @@ class DetailPromoModel with ChangeNotifier {
 
   Future<void> fetchDataDetailPromo(String id) async {
     final response = await http.get(
-        Uri.encodeFull('http://rpm.warnakaltim.com/rpm/public/api/promo/'+id),
+        Uri.encodeFull('http://rpm.kantordesa.com/api/promo/'+id),
         headers: {"Accept": "application/JSON"});
     if (response.statusCode == 200) {
       var convertData = json.decode(response.body);

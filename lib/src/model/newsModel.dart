@@ -80,7 +80,7 @@ class NewsModel with ChangeNotifier {
 
   Future<void> fetchDataNews() async {
     final response = await http.get(
-        Uri.encodeFull('http://rpm.warnakaltim.com/rpm/public/api/news'),
+        Uri.encodeFull('http://rpm.kantordesa.com/api/news'),
         headers: {"Accept": "application/JSON"});
     if (response.statusCode == 200) {
       var convertData = jsonDecode(response.body);

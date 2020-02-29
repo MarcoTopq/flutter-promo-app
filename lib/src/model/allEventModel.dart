@@ -80,7 +80,7 @@ class EventModel with ChangeNotifier {
 
   Future<void> fetchDataEvent() async {
     final response = await http.get(
-        Uri.encodeFull('http://rpm.warnakaltim.com/rpm/public/api/event'),
+        Uri.encodeFull('http://rpm.kantordesa.com/api/event'),
         headers: {"Accept": "application/JSON"});
     if (response.statusCode == 200) {
       var convertData = jsonDecode(response.body);

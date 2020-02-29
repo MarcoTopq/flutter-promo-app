@@ -28,7 +28,7 @@ class _DetailEventState extends State<DetailEvent> {
             color: Colors.white, //change your color here
           ),
           title: Text(
-            'Detail News',
+            'Detail Event',
             style: new TextStyle(
               fontSize: 16.0,
               color: Colors.white,

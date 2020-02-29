@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:warnakaltim/src/model/profileDetailModel.dart';
-import 'package:warnakaltim/src/model/profileModel.dart';
+// import 'package:warnakaltim/src/model/DistributorDetailModel.dart';
+import 'package:warnakaltim/src/model/distributorModel.dart';
 
-class Profile extends StatefulWidget {
+class DistributorProfile extends StatefulWidget {
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _DistributorProfileState createState() => _DistributorProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _DistributorProfileState extends State<DistributorProfile> {
   Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<ProfileDetailModel>(context, listen: false)
-        .fetchDataProfileDetail();
+    await Provider.of<DistributorDetailModel>(context, listen: false)
+        .fetchDataDistributorDetail();
   }
 
   @override
@@ -34,7 +34,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Detail Promo',
+            'Contact Person',
             style: new TextStyle(
               fontSize: 16.0,
               color: Colors.white,
@@ -46,8 +46,8 @@ class _ProfileState extends State<Profile> {
         body: RefreshIndicator(
             onRefresh: () => _refreshData(context),
             child: FutureBuilder(
-                future: Provider.of<ProfileDetailModel>(context, listen: false)
-                    .fetchDataProfileDetail(),
+                future: Provider.of<DistributorDetailModel>(context, listen: false)
+                    .fetchDataDistributorDetail(),
                 builder: (ctx, snapshop) {
                   if (snapshop.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -59,8 +59,8 @@ class _ProfileState extends State<Profile> {
                         child: Text("Error Loading Data"),
                       );
                     }
-                    return Consumer<ProfileDetailModel>(
-                        builder: (ctx, _listProfileDetail, child) => Center(
+                    return Consumer<DistributorDetailModel>(
+                        builder: (ctx, _listDistributorDetail, child) => Center(
                                 child: ListView(
                               children: <Widget>[
                                 Padding(padding: EdgeInsets.all(20)),
@@ -73,8 +73,8 @@ class _ProfileState extends State<Profile> {
                                           borderRadius:
                                               BorderRadius.circular(50.0),
                                           child: Image.asset(
-                                            _listProfileDetail
-                                                .listProfileDetail[0].logo,
+                                            _listDistributorDetail
+                                                .listDistributorDetail[0].employee.distributor.logo,
                                             fit: BoxFit.cover,
                                             width: 100,
                                             height: 100,
@@ -95,8 +95,8 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listProfileDetail
-                                            .listProfileDetail[0].name,
+                                        _listDistributorDetail
+                                            .listDistributorDetail[0].employee.distributor.name,
                                         style: new TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.white,
@@ -124,12 +124,12 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listProfileDetail.listProfileDetail[0]
+                                        _listDistributorDetail.listDistributorDetail[0]
                                                     .email ==
                                                 "null"
                                             ? " - "
-                                            : _listProfileDetail
-                                                .listProfileDetail[0].email,
+                                            : _listDistributorDetail
+                                                .listDistributorDetail[0].email,
                                         style: new TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.white,
@@ -157,13 +157,13 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listProfileDetail
-                                                    .listProfileDetail[0].phone
+                                        _listDistributorDetail
+                                                    .listDistributorDetail[0].employee.distributor.phone
                                                     .toString() ==
                                                 "null"
                                             ? " - "
-                                            : _listProfileDetail
-                                                .listProfileDetail[0].phone
+                                            : _listDistributorDetail
+                                                .listDistributorDetail[0].employee.distributor.phone
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
@@ -192,13 +192,48 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listProfileDetail.listProfileDetail[0]
-                                                    .website
+                                        _listDistributorDetail.listDistributorDetail[0]
+                                                    .employee.distributor.website
                                                     .toString() ==
                                                 "null"
                                             ? " - "
-                                            : _listProfileDetail
-                                                .listProfileDetail[0].website
+                                            : _listDistributorDetail
+                                                .listDistributorDetail[0].employee.distributor.website
+                                                .toString(),
+                                        style: new TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      endIndent: 70.0,
+                                      indent: 70.0,
+                                      height: 1.0,
+                                      color: gold,
+                                    ),
+                                     Padding(padding: EdgeInsets.all(20)),
+                                    ListTile(
+                                      leading: Icon(
+                                        Icons.map,
+                                        color: gold,
+                                        size: 50,
+                                      ),
+                                      title: Text(
+                                        'Address',
+                                        style: new TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        _listDistributorDetail.listDistributorDetail[0]
+                                                    .employee.distributor.address
+                                                    .toString() ==
+                                                "null"
+                                            ? " - "
+                                            : _listDistributorDetail
+                                                .listDistributorDetail[0].employee.distributor.address
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
@@ -213,7 +248,7 @@ class _ProfileState extends State<Profile> {
                                       color: gold,
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             )));
                   }

@@ -84,8 +84,12 @@ class _DetailPromoState extends State<DetailPromo> {
                                       child: Column(
                                         children: <Widget>[
                                           Image.network(
-                                            _listPromoDetail.listDetailPromo[0].image,
-                                            height: MediaQuery.of(context).size.height * 0.3,
+                                            _listPromoDetail
+                                                .listDetailPromo[0].image,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.3,
                                             fit: BoxFit.cover,
                                           ),
                                         ],
@@ -97,7 +101,8 @@ class _DetailPromoState extends State<DetailPromo> {
                                       child: Padding(
                                           padding: EdgeInsets.all(10),
                                           child: Text(
-                                            _listPromoDetail.listDetailPromo[0].description,
+                                            _listPromoDetail
+                                                .listDetailPromo[0].description,
                                             style: new TextStyle(
                                               fontSize: 16.0,
                                               color: Colors.white,
@@ -110,7 +115,9 @@ class _DetailPromoState extends State<DetailPromo> {
                                   left: 0.0,
                                   child: Container(
                                       width: 500,
-                                      height: MediaQuery.of(context).size.height / 6,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              6,
                                       child: Card(
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -129,24 +136,47 @@ class _DetailPromoState extends State<DetailPromo> {
                                             children: <Widget>[
                                               Padding(
                                                   padding: EdgeInsets.all(10)),
-                                              Column(
+                                            Container(
+                                              width: 200,
+                                              child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: <Widget>[
-                                                  Text(_listPromoDetail.listDetailPromo[0].point.toString() +'Poin',
+                                                  Text(
+                                                      _listPromoDetail
+                                                              .listDetailPromo[
+                                                                  0]
+                                                              .point
+                                                              .toString() +
+                                                          'Poin',
                                                       style: TextStyle(
                                                           color: gold,
                                                           fontSize: 30)),
-                                                  Text(_listPromoDetail.listDetailPromo[0].title.toString())
+                                                  Expanded(
+                                                      child: Text(
+                                                    _listPromoDetail
+                                                        .listDetailPromo[0]
+                                                        .title
+                                                        .toString(),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 3,
+                                                  ))
                                                 ],
-                                              ),
+                                              )),
                                               Padding(
-                                                  padding: EdgeInsets.all(50)),
+                                                  padding: EdgeInsets.all(5)),
                                               Container(
-                                                  width: MediaQuery.of(context).size.width / 3,
-                                                  height: MediaQuery.of(context).size.height / 15,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      3,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      15,
                                                   child: Card(
                                                     shape:
                                                         RoundedRectangleBorder(

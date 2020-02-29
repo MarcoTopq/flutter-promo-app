@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-List<AllPromoClass> allPromoClassFromJson(String str) => List<AllPromoClass>.from(json.decode(str).map((x) => AllPromoClass.fromJson(x)));
+List<AllPromoHotClass> allPromoHotClassFromJson(String str) => List<AllPromoHotClass>.from(json.decode(str).map((x) => AllPromoHotClass.fromJson(x)));
 
-String allPromoClassToJson(List<AllPromoClass> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String allPromoHotClassToJson(List<AllPromoHotClass> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class AllPromoClass {
+class AllPromoHotClass {
     int id;
     String title;
     String image;
@@ -18,7 +18,7 @@ class AllPromoClass {
     String createdAt;
     String createdBy;
 
-    AllPromoClass({
+    AllPromoHotClass({
         this.id,
         this.title,
         this.image,
@@ -31,7 +31,7 @@ class AllPromoClass {
         this.createdBy,
     });
 
-    factory AllPromoClass.fromJson(Map<String, dynamic> json) => AllPromoClass(
+    factory AllPromoHotClass.fromJson(Map<String, dynamic> json) => AllPromoHotClass(
         id: json["id"],
         title: json["title"],
         image: json["image"],
@@ -58,28 +58,28 @@ class AllPromoClass {
     };
 }
 
-class AllPromoModel with ChangeNotifier {
-  List<AllPromoClass> _listAllPromo = [];
+class AllHotPromoModel with ChangeNotifier {
+  List<AllPromoHotClass> _listAllHotPromo = [];
   List filteredAllPromo = new List();
-  List<AllPromoClass> get listAllPromo {
-    return [..._listAllPromo];
+  List<AllPromoHotClass> get listAllHotPromo {
+    return [..._listAllHotPromo];
   }
 
-  Future<void> fetchDataAllPromo() async {
+  Future<void> fetchDataAllHotPromo() async {
     final response = await http.get(
-        Uri.encodeFull('http://rpm.kantordesa.com/api/promo/normal'),
+        Uri.encodeFull('http://rpm.kantordesa.com/api/promo/hot'),
         headers: {"Accept": "application/JSON"});
     if (response.statusCode == 200) {
       var convertData = json.decode(response.body);
-      List<AllPromoClass> newData = [];
+      List<AllPromoHotClass> newData = [];
 
       // var data = Map<String, dynamic>.from(convertData);
-      //   newData.add(AllPromoClass.fromJson(data));
+      //   newData.add(AllPromoHotClass.fromJson(data));
 
       for (Map i in convertData) {
-        newData.add(AllPromoClass.fromJson(i));
+        newData.add(AllPromoHotClass.fromJson(i));
       }
-      _listAllPromo = newData;
+      _listAllHotPromo = newData;
 
       notifyListeners();
     }
