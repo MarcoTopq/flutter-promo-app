@@ -32,9 +32,11 @@ class _DistributorProfileState extends State<DistributorProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(iconTheme: IconThemeData(
+            color: Colors.white, //change your color here
+          ),
           title: Text(
-            'Contact Person',
+            'Contact Distributor',
             style: new TextStyle(
               fontSize: 16.0,
               color: Colors.white,
@@ -72,7 +74,7 @@ class _DistributorProfileState extends State<DistributorProfile> {
                                       child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(50.0),
-                                          child: Image.asset(
+                                          child: Image.network(
                                             _listDistributorDetail
                                                 .listDistributorDetail[0].employee.distributor.logo,
                                             fit: BoxFit.cover,

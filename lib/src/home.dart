@@ -134,16 +134,18 @@ class _HomeState extends State<Home> {
                                           // Image.asset(
                                           //   'assets/pertamina.png',
                                           Expanded(
-                                              child: Image.network(
+                                              child: Container(
+                                                  // width: 100,
+                                                  child: Image.network(
                                             _listNews
                                                 .listHomeDetail[0].company.logo,
-                                            fit: BoxFit.cover,
+                                            fit: BoxFit.fill,
                                             width: MediaQuery.of(context)
                                                     .size
-                                                    .width *
-                                                0.3,
+                                                    .width /
+                                                4,
                                             // height: MediaQuery.of(context).size.height / 200,
-                                          )),
+                                          ))),
                                         ],
                                       ),
                                       Padding(
@@ -955,8 +957,8 @@ class _HomeState extends State<Home> {
                                   height: 200,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        _listNews.listHomeDetail[0].hot.length,
+                                    itemCount: 4,
+                                    // _listNews.listHomeDetail[0].hot.length,
                                     itemBuilder: (context, index) {
                                       return Container(
                                           padding: EdgeInsets.all(10),
@@ -1196,9 +1198,8 @@ class _HomeState extends State<Home> {
                                               ],
                                             ),
                                           )));
-                                },
-                                    childCount:
-                                        _listNews.listHomeDetail[0].news.length
+                                }, childCount: 4
+                                    // _listNews.listHomeDetail[0].news.length
                                     // _listNews.listHomeDetail[0].news.length,
                                     ),
                               ),
@@ -1267,59 +1268,55 @@ class _HomeState extends State<Home> {
                                 //   // childAspectRatio: 4.0,
                                 // ),
                                 delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                    return Container(
-                                        padding: EdgeInsets.all(10),
-                                        width: e_width,
-                                        height: e_height,
-                                        child: InkWell(
-                                            onTap: () {
-                                              email == null
-                                                  ? null
-                                                  : Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            DetailPromo(
-                                                                id: _listNews
-                                                                    .listHomeDetail[
-                                                                        0]
-                                                                    .normal[
-                                                                        index]
-                                                                    .toString()),
-                                                      ));
-                                            },
-                                            child: Card(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  side: BorderSide(
-                                                    color: gold,
-                                                    width: 2.0,
-                                                  ),
+                                    (BuildContext context, int index) {
+                                  return Container(
+                                      padding: EdgeInsets.all(10),
+                                      width: e_width,
+                                      height: e_height,
+                                      child: InkWell(
+                                          onTap: () {
+                                            email == null
+                                                ? null
+                                                : Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DetailPromo(
+                                                              id: _listNews
+                                                                  .listHomeDetail[
+                                                                      0]
+                                                                  .normal[index]
+                                                                  .toString()),
+                                                    ));
+                                          },
+                                          child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                side: BorderSide(
+                                                  color: gold,
+                                                  width: 2.0,
                                                 ),
-                                                color: Colors.black12,
-                                                child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    child: Image.network(
-                                                      _listNews
-                                                          .listHomeDetail[0]
-                                                          .normal[index]
-                                                          .image
-                                                          .toString(),
-                                                      // Image.asset(
-                                                      //   'assets/iklan-max.jpg',
-                                                      fit: BoxFit.cover,
-                                                      // width: e_width,
-                                                      // height: e_height,
-                                                    )))));
-                                  },
-                                  childCount:
-                                      _listNews.listHomeDetail[0].normal.length,
-                                  // ),
-                                ),
+                                              ),
+                                              color: Colors.black12,
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  child: Image.network(
+                                                    _listNews.listHomeDetail[0]
+                                                        .normal[index].image
+                                                        .toString(),
+                                                    // Image.asset(
+                                                    //   'assets/iklan-max.jpg',
+                                                    fit: BoxFit.cover,
+                                                    // width: e_width,
+                                                    // height: e_height,
+                                                  )))));
+                                }, childCount: 4
+                                    // _listNews.listHomeDetail[0].normal.length,
+                                    // ),
+                                    ),
                               ),
                             ],
                           )));

@@ -19,22 +19,39 @@ import 'package:warnakaltim/src/model/HomeUserModel.dart';
 import 'package:warnakaltim/src/model/allEventModel.dart';
 import 'package:warnakaltim/src/model/allHotPromoModel.dart';
 import 'package:warnakaltim/src/model/allPromoModel.dart';
+import 'package:warnakaltim/src/model/chartModel.dart';
+import 'package:warnakaltim/src/model/couponModel.dart';
 import 'package:warnakaltim/src/model/detailPromoModel.dart';
 import 'package:warnakaltim/src/model/distributorModel.dart';
-// import 'package:marquee/marquee.dart';
 import 'package:warnakaltim/src/model/newsModel.dart';
 import 'package:warnakaltim/src/model/profileModel.dart';
+import 'package:warnakaltim/src/model/voucherModel.dart';
+import 'package:warnakaltim/src/model/detailVoucherModel.dart';
 import 'package:warnakaltim/src/profile.dart';
 import 'package:warnakaltim/src/ringkasan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:warnakaltim/src/talk.dart';
 import 'package:warnakaltim/src/userHome.dart';
 
-void main() => runApp(MyApp());
 var email;
 var token;
 var document;
+var login;
 String pdf;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  email = prefs.get('Email');
+  print(email);
+  if (email == null) {
+    login = false;
+  } else {
+    login = true;
+  }
+  runApp(MaterialApp(home: MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -64,10 +81,25 @@ class MyApp extends StatelessWidget {
             value: AllHotPromoModel(),
           ),
           ChangeNotifierProvider.value(
+            value: AllPromoModel(),
+          ),
+          ChangeNotifierProvider.value(
             value: ProfileDetailModel(),
           ),
           ChangeNotifierProvider.value(
             value: DistributorDetailModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: VoucherDetailModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: CouponModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: ChartModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: DetailVoucherModel(),
           ),
         ],
         child: MaterialApp(
@@ -126,7 +158,7 @@ class _HomepageState extends State<Homepage>
   void initState() {
     // this._getToken();
     super.initState();
-    // _getToken();
+    _getToken();
     // WidgetsBinding.instance.addObserver(this);
     // _refreshData(context);
   }
@@ -134,14 +166,10 @@ class _HomepageState extends State<Homepage>
   TabController controller;
   int _currentIndex = 0;
   final List<Widget> _children = [
-    email == null
-        ? Home()
-        : UserHomeDetail(
-            token: token,
-          ),
-    SimpleBarChart.withSampleData(),
-    Profile(),
-    Home()
+    login == false ? Home() : UserHomeDetail(),
+    email == null ? Login() : Chart(),
+    email == null ? Login() : Profile(),
+    TalkService()
   ];
 
   void onTabTapped(int index) {

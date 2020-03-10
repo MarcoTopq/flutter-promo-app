@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:warnakaltim/src/detail_Promo.dart';
-import 'package:warnakaltim/src/model/allPromoModel.dart';
+import 'package:warnakaltim/src/detail_voucher.dart';
+import 'package:warnakaltim/src/model/voucherModel.dart';
 
-class AllPromo extends StatefulWidget {
+class VoucherUser extends StatefulWidget {
   @override
-  _AllPromoState createState() => _AllPromoState();
+  _VoucherUserState createState() => _VoucherUserState();
 }
 
-class _AllPromoState extends State<AllPromo> {
+class _VoucherUserState extends State<VoucherUser> {
   Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<AllPromoModel>(context, listen: false)
-        .fetchDataAllPromo();
+    await Provider.of<VoucherDetailModel>(context, listen: false)
+        .fetchDatVoucherDetail();
   }
 
   @override
@@ -36,7 +36,7 @@ class _AllPromoState extends State<AllPromo> {
             color: Colors.white, //change your color here
           ),
           title: Text(
-            'All Promo',
+            'Voucher History',
             style: new TextStyle(
               fontSize: 16.0,
               color: Colors.white,
@@ -48,8 +48,8 @@ class _AllPromoState extends State<AllPromo> {
         body: RefreshIndicator(
             onRefresh: () => _refreshData(context),
             child: FutureBuilder(
-                future: Provider.of<AllPromoModel>(context, listen: false)
-                    .fetchDataAllPromo(),
+                future: Provider.of<VoucherDetailModel>(context, listen: false)
+                    .fetchDatVoucherDetail(),
                 builder: (ctx, snapshop) {
                   if (snapshop.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -61,11 +61,11 @@ class _AllPromoState extends State<AllPromo> {
                         child: Text("Error Loading Data"),
                       );
                     }
-                    return Consumer<AllPromoModel>(
-                        builder: (ctx, _listPromoAll, child) => Center(
+                    return Consumer<VoucherDetailModel>(
+                        builder: (ctx, _listVoucher, child) => Center(
                               // child: Stack(children: <Widget>[
                               child: ListView.builder(
-                                  itemCount: _listPromoAll.listAllPromo.length,
+                                  itemCount: _listVoucher.listAllVoucher.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     // children: <Widget>[
@@ -86,7 +86,7 @@ class _AllPromoState extends State<AllPromo> {
                                     //       fontWeight: FontWeight.bold,
                                     //     ),
                                     //   ),
-                                    // )),
+                                    // ));
                                     // Padding(padding: EdgeInsets.all(20)),
                                     return InkWell(
                                         onTap: () {
@@ -94,9 +94,10 @@ class _AllPromoState extends State<AllPromo> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    DetailPromo(
-                                                        id: _listPromoAll
-                                                            .listAllPromo[0].id
+                                                    DetailVoucher(
+                                                        id: _listVoucher
+                                                            .listAllVoucher[0]
+                                                            .promo.id
                                                             .toString()),
                                               ));
                                         },
@@ -123,11 +124,13 @@ class _AllPromoState extends State<AllPromo> {
                                                             BorderRadius
                                                                 .circular(10.0),
                                                         child: Image.network(
-                                                          _listPromoAll
-                                                              .listAllPromo[
-                                                                  index]
-                                                              .image
-                                                              .toString(),
+                                                          'http://rpm.kantordesa.com/uploads/' +
+                                                              _listVoucher
+                                                                  .listAllVoucher[
+                                                                      index]
+                                                                  .promo
+                                                                  .image
+                                                                  .toString(),
                                                           width: 400,
                                                           // height: 300,
                                                           fit: BoxFit.cover,
@@ -191,7 +194,7 @@ class _AllPromoState extends State<AllPromo> {
                                                                   children: <
                                                                       Widget>[
                                                                     Text(
-                                                                        _listPromoAll.listAllPromo[index].point.toString() +
+                                                                        _listVoucher.listAllVoucher[index].promo.point.toString() +
                                                                             ' Point',
                                                                         textAlign:
                                                                             TextAlign
@@ -200,17 +203,24 @@ class _AllPromoState extends State<AllPromo> {
                                                                             color:
                                                                                 gold,
                                                                             fontSize:
-                                                                                30)),
-                                                                    Text(_listPromoAll
-                                                                        .listAllPromo[
-                                                                            index]
-                                                                        .title)
+                                                                                25)),
+                                                                    Text(
+                                                                        _listVoucher
+                                                                            .listAllVoucher[
+                                                                                index]
+                                                                            .promo
+                                                                            .name,
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                gold,
+                                                                            fontSize:
+                                                                                15))
                                                                   ],
                                                                 )),
                                                                 Padding(
                                                                     padding:
                                                                         EdgeInsets.all(
-                                                                            20)),
+                                                                            10)),
                                                                 Container(
                                                                     width: 100,
                                                                     height: 50,

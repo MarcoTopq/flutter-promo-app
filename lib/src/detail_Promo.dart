@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:warnakaltim/src/all_promo.dart';
 import 'package:warnakaltim/src/model/detailPromoModel.dart';
+import 'package:http/http.dart' as http;
 
 class DetailPromo extends StatefulWidget {
   final String id;
@@ -13,7 +18,9 @@ class DetailPromo extends StatefulWidget {
   _DetailPromoState createState() => _DetailPromoState();
 }
 
-class _DetailPromoState extends State<DetailPromo> {
+class _DetailPromoState extends State<DetailPromo>
+    with SingleTickerProviderStateMixin {
+  String promoId;
   Future<void> _refreshData(BuildContext context) async {
     await Provider.of<DetailPromoModel>(context, listen: false)
         .fetchDataDetailPromo(widget.id);
@@ -23,8 +30,51 @@ class _DetailPromoState extends State<DetailPromo> {
   void initState() {
     // this.getdata();
     super.initState();
+    // this.kirimdata();
+
     // WidgetsBinding.instance.addObserver(this);
     _refreshData(context);
+  }
+
+  Future<http.Response> kirimdata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.get('Token');
+    Map<String, String> headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      "Accept": "application/JSON",
+      "Authorization": 'Bearer ' + token
+    };
+    http.Response hasil = await http.post(
+        Uri.decodeFull("http://rpm.kantordesa.com/api/promo/take"),
+        body: {
+          "promo_id": promoId,
+        },
+        headers: headers);
+    print('Berhasillllllllllllllllllllllllllllll');
+
+    return Future.value(hasil);
+  }
+
+  void _showDialog(String title) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("Penukaran Promo " + title + " telah Berhasi !!!"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Ok"),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => AllPromo()),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   var gold = Color.fromRGBO(
@@ -86,10 +136,10 @@ class _DetailPromoState extends State<DetailPromo> {
                                           Image.network(
                                             _listPromoDetail
                                                 .listDetailPromo[0].image,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.3,
+                                            // height: MediaQuery.of(context)
+                                            //         .size
+                                            //         .height *
+                                            //     0.3,
                                             fit: BoxFit.cover,
                                           ),
                                         ],
@@ -98,15 +148,48 @@ class _DetailPromoState extends State<DetailPromo> {
                                   //     flex: 1,
                                   //     child:
                                   SingleChildScrollView(
-                                      child: Padding(
+                                      // scrollDirection: Axis.vertical,
+                                      child: Container(
+                                          height: 2000,
                                           padding: EdgeInsets.all(10),
-                                          child: Text(
-                                            _listPromoDetail
-                                                .listDetailPromo[0].description,
-                                            style: new TextStyle(
-                                              fontSize: 16.0,
-                                              color: Colors.white,
-                                            ),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text(
+                                                'KETERANGAN',
+                                                style: new TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Padding(
+                                                  padding: EdgeInsets.all(10)),
+                                              Text(
+                                                _listPromoDetail
+                                                    .listDetailPromo[0]
+                                                    .description,
+                                                style: new TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Text(
+                                                'PERSYARATAN',
+                                                style: new TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Padding(
+                                                  padding: EdgeInsets.all(10)),
+                                              Text(
+                                                _listPromoDetail
+                                                    .listDetailPromo[0].terms,
+                                                style: new TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            ],
                                           ))),
                                 ],
                               ),
@@ -136,36 +219,40 @@ class _DetailPromoState extends State<DetailPromo> {
                                             children: <Widget>[
                                               Padding(
                                                   padding: EdgeInsets.all(10)),
-                                            Container(
-                                              width: 200,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Text(
-                                                      _listPromoDetail
-                                                              .listDetailPromo[
-                                                                  0]
-                                                              .point
-                                                              .toString() +
-                                                          'Poin',
-                                                      style: TextStyle(
-                                                          color: gold,
-                                                          fontSize: 30)),
-                                                  Expanded(
-                                                      child: Text(
-                                                    _listPromoDetail
-                                                        .listDetailPromo[0]
-                                                        .title
-                                                        .toString(),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 3,
-                                                  ))
-                                                ],
-                                              )),
+                                              Container(
+                                                  width: 200,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Text(
+                                                          _listPromoDetail
+                                                                  .listDetailPromo[
+                                                                      0]
+                                                                  .point
+                                                                  .toString() +
+                                                              ' Point',
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                              color: gold,
+                                                              fontSize: 30)),
+                                                      Expanded(
+                                                          child: Text(
+                                                        _listPromoDetail
+                                                            .listDetailPromo[0]
+                                                            .title
+                                                            .toString(),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 3,
+                                                      ))
+                                                    ],
+                                                  )),
                                               Padding(
                                                   padding: EdgeInsets.all(5)),
                                               Container(
@@ -177,24 +264,89 @@ class _DetailPromoState extends State<DetailPromo> {
                                                           .size
                                                           .height /
                                                       15,
-                                                  child: Card(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      side: BorderSide(
-                                                        color: gold,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    color: Colors.white,
-                                                    child: Center(
-                                                        child: Text('Tukar',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 20))),
-                                                  ))
+                                                  child: InkWell(
+                                                      onTap: () async {
+                                                        promoId =
+                                                            _listPromoDetail
+                                                                .listDetailPromo[
+                                                                    0]
+                                                                .id
+                                                                .toString();
+                                                        kirimdata().then(
+                                                            (value) async {
+                                                          if (value
+                                                                  .statusCode ==
+                                                              200) {
+                                                            print(
+                                                                'hahahahahaahah');
+                                                            final responseJson =
+                                                                json.decode(
+                                                                    value.body);
+                                                            // _showDialog(
+                                                            //     responseJson[0]
+                                                            //                 [
+                                                            //                 'data']
+                                                            //             [
+                                                            //             "title"]
+                                                            //         .toString());
+                                                            await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (BuildContext
+                                                                        context) {
+                                                                  return AlertDialog(
+                                                                    title: new Text(
+                                                                        "Penukaran Promo "
+                                                                        " telah Berhasil !!!"),
+                                                                    actions: <
+                                                                        Widget>[
+                                                                      new FlatButton(
+                                                                        child: new Text(
+                                                                            "Ok"),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator
+                                                                              .pushReplacement(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => AllPromo()),
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                });
+                                                          } else {
+                                                            Navigator.pushReplacement(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (context) => DetailPromo(
+                                                                        id: _listPromoDetail
+                                                                            .listDetailPromo[0]
+                                                                            .id
+                                                                            .toString())));
+                                                          }
+                                                        });
+                                                      },
+                                                      child: Card(
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          side: BorderSide(
+                                                            color: gold,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        color: Colors.white,
+                                                        child: Center(
+                                                            child: Text('Tukar',
+                                                                style: TextStyle(
+                                                                    color: gold,
+                                                                    fontSize:
+                                                                        20))),
+                                                      )))
                                             ]),
                                       )))
                             ]))));

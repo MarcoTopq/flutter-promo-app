@@ -67,16 +67,16 @@ class _ProfileState extends State<Profile> {
                                 Column(
                                   children: <Widget>[
                                     Container(
-                                      width: 100,
-                                      height: 100,
+                                      // width: 100,
+                                      // height: 100,
                                       child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                          child: Image.asset(
+                                          // borderRadius:
+                                          //     BorderRadius.circular(0.0),
+                                          child: Image.network(
                                             _listProfileDetail
                                                 .listProfileDetail[0].logo,
                                             fit: BoxFit.cover,
-                                            width: 100,
+                                            // width: 100,
                                             height: 100,
                                           )),
                                     ),

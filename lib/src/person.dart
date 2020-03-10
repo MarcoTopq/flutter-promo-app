@@ -33,6 +33,9 @@ class _PersonDetailState extends State<PersonDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+           iconTheme: IconThemeData(
+            color: Colors.white, //change your color here
+          ),
           title: Text(
             'Contact Person',
             style: new TextStyle(
@@ -72,7 +75,7 @@ class _PersonDetailState extends State<PersonDetail> {
                                       child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(50.0),
-                                          child: Image.asset(
+                                          child: Image.network(
                                             _listDistributorDetail
                                                 .listDistributorDetail[0].employee.avatar,
                                             fit: BoxFit.cover,

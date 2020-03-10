@@ -57,6 +57,7 @@ class Company {
     dynamic website;
     DateTime createdAt;
     DateTime updatedAt;
+    String profiledownload;
 
     Company({
         this.id,
@@ -69,6 +70,7 @@ class Company {
         this.website,
         this.createdAt,
         this.updatedAt,
+        this.profiledownload,
     });
 
     factory Company.fromJson(Map<String, dynamic> json) => Company(
@@ -82,6 +84,7 @@ class Company {
         website: json["website"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        profiledownload: json["profiledownload"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -95,22 +98,27 @@ class Company {
         "website": website,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "profiledownload": profiledownload,
     };
 }
 
 class Event {
     int id;
     String title;
+    String start;
+    String end;
     String image;
     String url;
     int view;
-    String createdAt;
-    String createdBy;
+    CreatedAt createdAt;
+    CreatedBy createdBy;
     List<Category> category;
 
     Event({
         this.id,
         this.title,
+        this.start,
+        this.end,
         this.image,
         this.url,
         this.view,
@@ -122,22 +130,26 @@ class Event {
     factory Event.fromJson(Map<String, dynamic> json) => Event(
         id: json["id"],
         title: json["title"],
+        start: json["start"] == null ? null : json["start"],
+        end: json["end"] == null ? null : json["end"],
         image: json["image"],
         url: json["url"],
         view: json["view"],
-        createdAt: json["created_at"],
-        createdBy: json["created_by"],
+        createdAt: createdAtValues.map[json["created_at"]],
+        createdBy: createdByValues.map[json["created_by"]],
         category: List<Category>.from(json["category"].map((x) => Category.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
+        "start": start == null ? null : start,
+        "end": end == null ? null : end,
         "image": image,
         "url": url,
         "view": view,
-        "created_at": createdAt,
-        "created_by": createdBy,
+        "created_at": createdAtValues.reverse[createdAt],
+        "created_by": createdByValues.reverse[createdBy],
         "category": List<dynamic>.from(category.map((x) => x.toJson())),
     };
 }
@@ -162,23 +174,37 @@ class Category {
     };
 }
 
+enum CreatedAt { THE_01_MARCH_2020 }
+
+final createdAtValues = EnumValues({
+    "01 March 2020": CreatedAt.THE_01_MARCH_2020
+});
+
+enum CreatedBy { ADMINISTRATOR }
+
+final createdByValues = EnumValues({
+    "administrator": CreatedBy.ADMINISTRATOR
+});
+
 class Hot {
     int id;
     String title;
     String image;
     String description;
+    String terms;
     int point;
     int total;
     int view;
-    String status;
-    String createdAt;
-    String createdBy;
+    Status status;
+    CreatedAt createdAt;
+    CreatedBy createdBy;
 
     Hot({
         this.id,
         this.title,
         this.image,
         this.description,
+        this.terms,
         this.point,
         this.total,
         this.view,
@@ -192,12 +218,13 @@ class Hot {
         title: json["title"],
         image: json["image"],
         description: json["description"],
+        terms: json["terms"],
         point: json["point"],
         total: json["total"],
         view: json["view"],
-        status: json["status"],
-        createdAt: json["created_at"],
-        createdBy: json["created_by"],
+        status: statusValues.map[json["status"]],
+        createdAt: createdAtValues.map[json["created_at"]],
+        createdBy: createdByValues.map[json["created_by"]],
     );
 
     Map<String, dynamic> toJson() => {
@@ -205,13 +232,35 @@ class Hot {
         "title": title,
         "image": image,
         "description": description,
+        "terms": terms,
         "point": point,
         "total": total,
         "view": view,
-        "status": status,
-        "created_at": createdAt,
-        "created_by": createdBy,
+        "status": statusValues.reverse[status],
+        "created_at": createdAtValues.reverse[createdAt],
+        "created_by": createdByValues.reverse[createdBy],
     };
+}
+
+enum Status { HOT, NORMAL }
+
+final statusValues = EnumValues({
+    "hot": Status.HOT,
+    "normal": Status.NORMAL
+});
+
+class EnumValues<T> {
+    Map<String, T> map;
+    Map<T, String> reverseMap;
+
+    EnumValues(this.map);
+
+    Map<T, String> get reverse {
+        if (reverseMap == null) {
+            reverseMap = map.map((k, v) => new MapEntry(v, k));
+        }
+        return reverseMap;
+    }
 }
 
 class HomeDetailModel with ChangeNotifier {

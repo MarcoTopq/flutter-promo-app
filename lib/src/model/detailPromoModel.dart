@@ -11,6 +11,7 @@ class DetailPromoClass {
     String title;
     String image;
     String description;
+    String terms;
     int point;
     int total;
     int view;
@@ -23,6 +24,7 @@ class DetailPromoClass {
         this.title,
         this.image,
         this.description,
+        this.terms,
         this.point,
         this.total,
         this.view,
@@ -36,6 +38,7 @@ class DetailPromoClass {
         title: json["title"],
         image: json["image"],
         description: json["description"],
+        terms: json["terms"],
         point: json["point"],
         total: json["total"],
         view: json["view"],
@@ -49,6 +52,7 @@ class DetailPromoClass {
         "title": title,
         "image": image,
         "description": description,
+        "terms": terms,
         "point": point,
         "total": total,
         "view": view,

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:warnakaltim/src/all_coupon.dart';
 import 'package:warnakaltim/src/all_event.dart';
 import 'package:warnakaltim/src/all_hotPromo.dart';
 import 'package:warnakaltim/src/all_news.dart';
 import 'package:warnakaltim/src/all_promo.dart';
+import 'package:warnakaltim/src/all_voucher.dart';
 import 'package:warnakaltim/src/company.dart';
 import 'package:warnakaltim/src/detail_Promo.dart';
 import 'package:warnakaltim/src/detail_event.dart';
@@ -19,13 +21,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warnakaltim/src/person.dart';
 
 class UserHomeDetail extends StatefulWidget {
-  final email;
-  final token;
-  UserHomeDetail({
-    Key key,
-    this.email,
-    this.token,
-  }) : super(key: key);
+  // final email;
+  // final token;
+  // UserHomeDetail({
+  //   Key key,
+  //   this.email,
+  //   this.token,
+  // }) : super(key: key);
 
   @override
   _UserHomeState createState() => _UserHomeState();
@@ -140,16 +142,18 @@ class _UserHomeState extends State<UserHomeDetail> {
                                           // Image.asset(
                                           //   'assets/pertamina.png',
                                           Expanded(
-                                              child: Image.network(
+                                              child: Container(
+                                                // width: 100,
+                                                  child: Image.network(
                                             _listNews
                                                 .listHomeDetail[0].company.logo,
-                                            fit: BoxFit.cover,
+                                            fit: BoxFit.fill,
                                             width: MediaQuery.of(context)
                                                     .size
-                                                    .width *
-                                                0.3,
+                                                    .width /
+                                                4,
                                             // height: MediaQuery.of(context).size.height / 200,
-                                          )),
+                                          ))),
                                         ],
                                       ),
                                       Padding(
@@ -231,16 +235,20 @@ class _UserHomeState extends State<UserHomeDetail> {
                               SliverList(
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
+                                    pdf = _listNews
+                                        .listHomeDetail[0].company.profile
+                                        .toString();
+
                                     return email != null
                                         ? Container()
                                         : Container(
                                             // color: Colors.black12,
                                             padding: EdgeInsets.all(10),
-                                            width: c_width,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.32,
+                                            // width: c_width,
+                                            // height: MediaQuery.of(context)
+                                            //         .size
+                                            //         .height * 100,
+                                            // 0.32,
                                             child: Card(
                                                 // shape: RoundedRectangleBorder(
                                                 //   borderRadius:
@@ -380,8 +388,8 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                       itemBuilder:
                                                           (context, index) {
                                                         return Container(
-                                                            width: 400,
-                                                            height: a_height,
+                                                            // width: 400,
+                                                            // height: 300,
                                                             child: InkWell(
                                                                 onTap: () {
                                                                   Navigator.push(
@@ -454,7 +462,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                             // color: Colors.black12,
                                             padding: EdgeInsets.all(10),
                                             width: c_width,
-                                            height: 200,
+                                            height: 300,
                                             child: Card(
                                                 color: Colors.black12,
                                                 child: Column(
@@ -515,10 +523,11 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                     //         EdgeInsets.only(
                                                     //             top: 5)),
                                                     new Expanded(
-                                                        child: Container ( 
-                                                          // height: 200,
-                                                          // width: 200,
-                                                          child :ListView.builder(
+                                                        child: Container(
+                                                            // height: 200,
+                                                            // width: 200,
+                                                            child: ListView
+                                                                .builder(
                                                       scrollDirection:
                                                           Axis.horizontal,
                                                       itemCount: 4,
@@ -560,39 +569,38 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                 //             2.0,
                                                                 //       ),
                                                                 //     ),
-                                                                    child: Image
-                                                                        .network(
-                                                                      _listNews
-                                                                          .listHomeDetail[
-                                                                              0]
-                                                                          .event[
-                                                                              index]
-                                                                          .image,
-                                                                      //   fit: BoxFit
-                                                                      //       .cover,
-                                                                      // )
-                                                                      //   Image
-                                                                      //       .asset(
-                                                                      // 'assets/iklan-pertamina.png',
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    )));
+                                                                child: Image
+                                                                    .network(
+                                                                  _listNews
+                                                                      .listHomeDetail[
+                                                                          0]
+                                                                      .event[
+                                                                          index]
+                                                                      .image,
+                                                                  //   fit: BoxFit
+                                                                  //       .cover,
+                                                                  // )
+                                                                  //   Image
+                                                                  //       .asset(
+                                                                  // 'assets/iklan-pertamina.png',
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                )));
                                                       },
                                                     )
-                                                        //         new Swiper(
-                                                        //   itemBuilder:
-                                                        //       (BuildContext context,
-                                                        //           int index) {
-                                                        //     return new Image.asset(
-                                                        //       'assets/iklan-pertamina.png',
-                                                        //       fit: BoxFit.fill,
-                                                        //     );
-                                                        //   },
-                                                        //   itemCount: 10,
-                                                        //   viewportFraction: 0.8,
-                                                        //   scale: 0.9,
-                                                        )
-                                                        ),
+                                                            //         new Swiper(
+                                                            //   itemBuilder:
+                                                            //       (BuildContext context,
+                                                            //           int index) {
+                                                            //     return new Image.asset(
+                                                            //       'assets/iklan-pertamina.png',
+                                                            //       fit: BoxFit.fill,
+                                                            //     );
+                                                            //   },
+                                                            //   itemCount: 10,
+                                                            //   viewportFraction: 0.8,
+                                                            //   scale: 0.9,
+                                                            )),
 
                                                     //     Column(
                                                     //   children: <Widget>[
@@ -727,12 +735,22 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                             50,
                                                                         right:
                                                                             10)),
-                                                            Icon(
-                                                              Icons
-                                                                  .notifications_active,
-                                                              size: 30,
-                                                              color: gold,
-                                                            )
+                                                            InkWell(
+                                                                onTap: () {
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                VoucherUser(),
+                                                                      ));
+                                                                },
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .notifications_active,
+                                                                  size: 30,
+                                                                  color: gold,
+                                                                ))
                                                           ],
                                                         )),
                                                     Divider(
@@ -806,108 +824,52 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: <Widget>[
+                                                        // Expanded(
+                                                        //     child: Column(
+                                                        //   children: <Widget>[
+                                                        //     Text(
+                                                        //       _listNews
+                                                        //           .listHomeDetail[
+                                                        //               0]
+                                                        //           .user
+                                                        //           .employee
+                                                        //           .distributor
+                                                        //           .loyalty
+                                                        //           .toString(),
+                                                        //       style: TextStyle(
+                                                        //           color: gold,
+                                                        //           fontSize: 30),
+                                                        //     ),
+                                                        //     Padding(
+                                                        //         padding: EdgeInsets.all(
+                                                        //             MediaQuery.of(context)
+                                                        //                     .size
+                                                        //                     .width /
+                                                        //                 100)),
+                                                        //     Text(
+                                                        //       "Loyalty Point",
+                                                        //       style: TextStyle(
+                                                        //           color: gold,
+                                                        //           fontSize: 20),
+                                                        //     ),
+                                                        //     Padding(
+                                                        //         padding: EdgeInsets
+                                                        //             .only(
+                                                        //                 top:
+                                                        //                     10)),
+                                                        //   ],
+                                                        // )),
+                                                        // Container(
+                                                        //     child:
+                                                        //         VerticalDivider(
+                                                        //   endIndent: 0.0,
+                                                        //   indent: 10.0,
+                                                        //   width: 0.0,
+                                                        //   color: gold,
+                                                        // )),
                                                         Expanded(
                                                             child: Column(
                                                           children: <Widget>[
-                                                            Text(
-                                                              _listNews
-                                                                  .listHomeDetail[
-                                                                      0]
-                                                                  .user
-                                                                  .employee
-                                                                  .distributor
-                                                                  .loyalty
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  color: gold,
-                                                                  fontSize: 30),
-                                                            ),
-                                                            Padding(
-                                                                padding: EdgeInsets.all(
-                                                                    MediaQuery.of(context)
-                                                                            .size
-                                                                            .width /
-                                                                        100)),
-                                                            Text(
-                                                              "Loyalty Point",
-                                                              style: TextStyle(
-                                                                  color: gold,
-                                                                  fontSize: 20),
-                                                            ),
-                                                            Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        top:
-                                                                            10)),
-                                                          ],
-                                                        )),
-                                                        Container(
-                                                            child:
-                                                                VerticalDivider(
-                                                          endIndent: 0.0,
-                                                          indent: 10.0,
-                                                          width: 0.0,
-                                                          color: gold,
-                                                        )),
-                                                        Expanded(
-                                                            child: Column(
-                                                          children: <Widget>[
-                                                            Text(
-                                                              _listNews
-                                                                  .listHomeDetail[
-                                                                      0]
-                                                                  .user
-                                                                  .employee
-                                                                  .distributor
-                                                                  .coupon
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  color: gold,
-                                                                  fontSize: 30),
-                                                            ),
-                                                            Padding(
-                                                                padding: EdgeInsets.all(
-                                                                    MediaQuery.of(context)
-                                                                            .size
-                                                                            .width /
-                                                                        100)),
-                                                            Text(
-                                                              "Coupon",
-                                                              style: TextStyle(
-                                                                  color: gold,
-                                                                  fontSize: 20),
-                                                            ),
-                                                            Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        bottom:
-                                                                            10)),
-                                                          ],
-                                                        )),
-                                                      ],
-                                                    )),
-                                                    Divider(
-                                                      endIndent: 20.0,
-                                                      indent: 20.0,
-                                                      height: 1.0,
-                                                      color: gold,
-                                                    ),
-                                                    IntrinsicHeight(
-                                                        child: Row(
-                                                      // crossAxisAlignment: CrossAxisAlignment.center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      // mainAxisSize: MainAxisSize.min,
-                                                      children: <Widget>[
-                                                        Expanded(
-                                                            child: Column(
-                                                          children: <Widget>[
-                                                            Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        top:
-                                                                            10)),
                                                             Text(
                                                               _listNews
                                                                   .listHomeDetail[
@@ -932,56 +894,128 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                               style: TextStyle(
                                                                   color: gold,
                                                                   fontSize: 20),
-                                                            )
-                                                          ],
-                                                        )),
-                                                        Container(
-                                                            child:
-                                                                VerticalDivider(
-                                                          endIndent: 10.0,
-                                                          indent: 0.0,
-                                                          width: 0.0,
-                                                          color: gold,
-                                                        )),
-                                                        Expanded(
-                                                            child: Column(
-                                                          children: <Widget>[
+                                                            ),
                                                             Padding(
                                                                 padding: EdgeInsets
                                                                     .only(
-                                                                        top:
+                                                                        bottom:
                                                                             10)),
-
-                                                            Text(
-                                                              _listNews
-                                                                  .listHomeDetail[
-                                                                      0]
-                                                                  .user
-                                                                  .employee
-                                                                  .distributor
-                                                                  .reward
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  color: gold,
-                                                                  fontSize: 30),
-                                                            ),
-                                                            Padding(
-                                                                padding: EdgeInsets.all(
-                                                                    MediaQuery.of(context)
-                                                                            .size
-                                                                            .width /
-                                                                        100)),
-                                                            Text(
-                                                              "reward",
-                                                              style: TextStyle(
-                                                                  color: gold,
-                                                                  fontSize: 20),
-                                                            ),
-                                                            // Padding(padding: EdgeInsets.only(bottom: 10)),
                                                           ],
                                                         )),
                                                       ],
                                                     )),
+                                                    Divider(
+                                                      endIndent: 20.0,
+                                                      indent: 20.0,
+                                                      height: 1.0,
+                                                      color: gold,
+                                                    ),
+                                                    IntrinsicHeight(
+                                                        child: InkWell(
+                                                            onTap: () {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            AllCoupon(),
+                                                                  ));
+                                                            },
+                                                            child: Row(
+                                                              // crossAxisAlignment: CrossAxisAlignment.center,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              // mainAxisSize: MainAxisSize.min,
+                                                              children: <
+                                                                  Widget>[
+                                                                Expanded(
+                                                                    child:
+                                                                        Column(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Padding(
+                                                                        padding:
+                                                                            EdgeInsets.only(top: 10)),
+                                                                    Text(
+                                                                      _listNews
+                                                                          .listHomeDetail[
+                                                                              0]
+                                                                          .user
+                                                                          .employee
+                                                                          .distributor
+                                                                          .coupon
+                                                                          .toString(),
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              gold,
+                                                                          fontSize:
+                                                                              30),
+                                                                    ),
+                                                                    Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(MediaQuery.of(context).size.width /
+                                                                                100)),
+                                                                    Text(
+                                                                      "Coupon",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              gold,
+                                                                          fontSize:
+                                                                              20),
+                                                                    )
+                                                                  ],
+                                                                )),
+                                                                Container(
+                                                                    child:
+                                                                        VerticalDivider(
+                                                                  endIndent:
+                                                                      10.0,
+                                                                  indent: 0.0,
+                                                                  width: 0.0,
+                                                                  color: gold,
+                                                                )),
+                                                                Expanded(
+                                                                    child:
+                                                                        Column(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Padding(
+                                                                        padding:
+                                                                            EdgeInsets.only(top: 10)),
+
+                                                                    Text(
+                                                                      _listNews
+                                                                          .listHomeDetail[
+                                                                              0]
+                                                                          .user
+                                                                          .employee
+                                                                          .distributor
+                                                                          .reward
+                                                                          .toString(),
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              gold,
+                                                                          fontSize:
+                                                                              30),
+                                                                    ),
+                                                                    Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(MediaQuery.of(context).size.width /
+                                                                                100)),
+                                                                    Text(
+                                                                      "Reward Point",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              gold,
+                                                                          fontSize:
+                                                                              20),
+                                                                    ),
+                                                                    // Padding(padding: EdgeInsets.only(bottom: 10)),
+                                                                  ],
+                                                                )),
+                                                              ],
+                                                            ))),
                                                   ],
                                                 )),
                                           );
@@ -1035,8 +1069,8 @@ class _UserHomeState extends State<UserHomeDetail> {
                                   height: 200,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        _listNews.listHomeDetail[0].hot.length,
+                                    itemCount: 4,
+                                    // _listNews.listHomeDetail[0].hot.length,
                                     itemBuilder: (context, index) {
                                       return Container(
                                           padding: EdgeInsets.all(10),
@@ -1273,9 +1307,8 @@ class _UserHomeState extends State<UserHomeDetail> {
                                               ],
                                             ),
                                           )));
-                                },
-                                    childCount:
-                                        _listNews.listHomeDetail[0].news.length
+                                }, childCount: 4
+                                    // _listNews.listHomeDetail[0].news.length
                                     // _listNews.listHomeDetail[0].news.length,
                                     ),
                               ),
@@ -1344,56 +1377,53 @@ class _UserHomeState extends State<UserHomeDetail> {
                                 //   // childAspectRatio: 4.0,
                                 // ),
                                 delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                    return Container(
-                                        padding: EdgeInsets.all(10),
-                                        width: e_width,
-                                        height: e_height,
-                                        child: InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DetailPromo(
-                                                            id: _listNews
-                                                                .listHomeDetail[
-                                                                    0]
-                                                                .normal[index]
-                                                                .toString()),
-                                                  ));
-                                            },
-                                            child: Card(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  side: BorderSide(
-                                                    color: gold,
-                                                    width: 2.0,
-                                                  ),
+                                    (BuildContext context, int index) {
+                                  return Container(
+                                      padding: EdgeInsets.all(10),
+                                      width: e_width,
+                                      height: e_height,
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetailPromo(
+                                                          id: _listNews
+                                                              .listHomeDetail[0]
+                                                              .normal[index]
+                                                              .id
+                                                              .toString()),
+                                                ));
+                                          },
+                                          child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                side: BorderSide(
+                                                  color: gold,
+                                                  width: 2.0,
                                                 ),
-                                                color: Colors.black12,
-                                                child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    child: Image.network(
-                                                      _listNews
-                                                          .listHomeDetail[0]
-                                                          .normal[index]
-                                                          .image
-                                                          .toString(),
-                                                      // Image.asset(
-                                                      //   'assets/iklan-max.jpg',
-                                                      fit: BoxFit.cover,
-                                                      // width: e_width,
-                                                      // height: e_height,
-                                                    )))));
-                                  },
-                                  childCount:
-                                      _listNews.listHomeDetail[0].normal.length,
-                                  // ),
-                                ),
+                                              ),
+                                              color: Colors.black12,
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  child: Image.network(
+                                                    _listNews.listHomeDetail[0]
+                                                        .normal[index].image
+                                                        .toString(),
+                                                    // Image.asset(
+                                                    //   'assets/iklan-max.jpg',
+                                                    fit: BoxFit.cover,
+                                                    // width: e_width,
+                                                    // height: e_height,
+                                                  )))));
+                                }, childCount: 4
+                                    // _listNews.listHomeDetail[0].normal.length,
+                                    // ),
+                                    ),
                               ),
                             ],
                           )));
@@ -1551,14 +1581,14 @@ class _UserHomeState extends State<UserHomeDetail> {
                                       }
                                     : () async {
                                         // setState(() async{
-                                          SharedPreferences prefs =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          prefs.remove('Email');
-                                          prefs.remove('Token');
-
-                                          email = null;
-                                          token = null;
+                                        SharedPreferences prefs =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        prefs.remove('Email');
+                                        prefs.remove('Token');
+                                        login = false;
+                                        email = null;
+                                        token = null;
                                         // });
 
                                         Navigator.pushReplacement(
@@ -1569,35 +1599,35 @@ class _UserHomeState extends State<UserHomeDetail> {
                                       },
                               )),
                           Padding(padding: EdgeInsets.only(top: 300)),
-                          Container(
-                              height: 100,
-                              padding: EdgeInsets.only(top: 10),
-                              decoration: new BoxDecoration(
-                                  color: Colors.black12,
-                                  border: new Border(
-                                      bottom: new BorderSide(
-                                          color: Colors.grey[850]))),
-                              child: Center(
-                                  child: ListTile(
-                                // leading: Icon(Icons.assessment, color: gold),
-                                title: Text('Build by Topq',
-                                    style: TextStyle(
-                                        color: gold,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                subtitle: Text('Topq@gmail.com',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      // fontSize: 15,
-                                      // fontWeight: FontWeight.bold
-                                    )),
-                                // isThreeLine: true,
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                    '/mangas',
-                                  );
-                                },
-                              ))),
+                          // Container(
+                          //     height: 100,
+                          //     padding: EdgeInsets.only(top: 10),
+                          //     decoration: new BoxDecoration(
+                          //         color: Colors.black12,
+                          //         border: new Border(
+                          //             bottom: new BorderSide(
+                          //                 color: Colors.grey[850]))),
+                          //     child: Center(
+                          //         child: ListTile(
+                          //       // leading: Icon(Icons.assessment, color: gold),
+                          //       title: Text('Build by Topq',
+                          //           style: TextStyle(
+                          //               color: gold,
+                          //               fontSize: 15,
+                          //               fontWeight: FontWeight.bold)),
+                          //       subtitle: Text('Topq@gmail.com',
+                          //           style: TextStyle(
+                          //             color: Colors.white,
+                          //             // fontSize: 15,
+                          //             // fontWeight: FontWeight.bold
+                          //           )),
+                          //       // isThreeLine: true,
+                          //       onTap: () {
+                          //         Navigator.of(context).pushNamed(
+                          //           '/mangas',
+                          //         );
+                          //       },
+                          //     ))),
                         ],
                       ),
                     )),

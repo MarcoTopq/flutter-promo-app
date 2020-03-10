@@ -24,8 +24,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    this.kirimdata();
     super.initState();
+    this.kirimdata();
   }
 
   Future<http.Response> kirimdata() async {
@@ -191,6 +191,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         print('Token  :' + prefs.get('Email'));
 
                                         setState(() {
+                                          login = true;
                                           email = prefs.get('Email');
                                           token = prefs.get('Token');
                                         });
