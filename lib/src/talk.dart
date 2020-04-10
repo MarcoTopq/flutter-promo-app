@@ -20,26 +20,26 @@ class _TalkServiceState extends State<TalkService> {
     55,
     2,
   );
-     @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-           iconTheme: IconThemeData(
-            color: Colors.white, //change your color here
-          ),
-          title: Text(
-            'Talk Service',
-            style: new TextStyle(
-              fontSize: 16.0,
-              color: Colors.white,
-            ),
-          ),
-          backgroundColor: Colors.black.withOpacity(0.5),
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
         ),
-        backgroundColor: Colors.grey[850],
-        body: new WebviewScaffold(
+        title: Text(
+          'Talk Service',
+          style: new TextStyle(
+            fontSize: 16.0,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.black.withOpacity(0.5),
+      ),
+      backgroundColor: Colors.grey[850],
+      body: new WebviewScaffold(
         url: 'http://rpm.kantordesa.com/chat/us',
-      ),        
+      ),
     );
   }
 }

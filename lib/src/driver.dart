@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:warnakaltim/src/model/profileDetailModel.dart';
-import 'package:warnakaltim/src/model/profileModel.dart';
+import 'package:warnakaltim/src/model/driverModel.dart';
+// import 'package:warnakaltim/src/model/distributorModel.dart';
 
-class Profile extends StatefulWidget {
-
+class DriverDetail extends StatefulWidget {
   @override
-  _ProfileState createState() => _ProfileState();
+  _DriverDetailState createState() => _DriverDetailState();
 }
 
-class _ProfileState extends State<Profile> {
+class _DriverDetailState extends State<DriverDetail> {
   Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<ProfileDetailModel>(context, listen: false)
-        .fetchDataProfileDetail();
+    await Provider.of<DriverPersonModel>(context, listen: false)
+        .fetchDataDriverPerson();
   }
 
   @override
@@ -33,11 +32,11 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           iconTheme: IconThemeData(
+          iconTheme: IconThemeData(
             color: Colors.white, //change your color here
           ),
           title: Text(
-            'Profil Company',
+            'Contact Driver',
             style: new TextStyle(
               fontSize: 16.0,
               color: Colors.white,
@@ -49,8 +48,8 @@ class _ProfileState extends State<Profile> {
         body: RefreshIndicator(
             onRefresh: () => _refreshData(context),
             child: FutureBuilder(
-                future: Provider.of<ProfileDetailModel>(context, listen: false)
-                    .fetchDataProfileDetail(),
+                future: Provider.of<DriverPersonModel>(context, listen: false)
+                    .fetchDataDriverPerson(),
                 builder: (ctx, snapshop) {
                   if (snapshop.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -62,23 +61,26 @@ class _ProfileState extends State<Profile> {
                         child: Text("Error Loading Data"),
                       );
                     }
-                    return Consumer<ProfileDetailModel>(
-                        builder: (ctx, _listProfileDetail, child) => Center(
+                    return Consumer<DriverPersonModel>(
+                        builder: (ctx, _listDriverPerson, child) => Center(
                                 child: ListView(
                               children: <Widget>[
                                 Padding(padding: EdgeInsets.all(20)),
                                 Column(
                                   children: <Widget>[
                                     Container(
-                                      // width: 100,
-                                      // height: 100,
+                                      width: 100,
+                                      height: 100,
                                       child: ClipRRect(
-                                          // borderRadius:
-                                          //     BorderRadius.circular(0.0),
-                                          child: Image.asset(
-                                            'assets/pertamina.png',
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                          child: Image.network(
+                                            _listDriverPerson
+                                                .listDriverPerson[0]
+                                                .driver
+                                                .avatar,
                                             fit: BoxFit.cover,
-                                            // width: 100,
+                                            width: 100,
                                             height: 100,
                                           )),
                                     ),
@@ -97,8 +99,8 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listProfileDetail
-                                            .listProfileDetail[0].name,
+                                        _listDriverPerson
+                                            .listDriverPerson[0].driver.name,
                                         style: new TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.white,
@@ -126,12 +128,12 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listProfileDetail.listProfileDetail[0]
+                                        _listDriverPerson.listDriverPerson[0]
                                                     .email ==
                                                 "null"
                                             ? " - "
-                                            : _listProfileDetail
-                                                .listProfileDetail[0].email,
+                                            : _listDriverPerson
+                                                .listDriverPerson[0].email,
                                         style: new TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.white,
@@ -159,13 +161,15 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listProfileDetail
-                                                    .listProfileDetail[0].phone
+                                        _listDriverPerson.listDriverPerson[0]
+                                                    .driver.phone
                                                     .toString() ==
                                                 "null"
                                             ? " - "
-                                            : _listProfileDetail
-                                                .listProfileDetail[0].phone
+                                            : _listDriverPerson
+                                                .listDriverPerson[0]
+                                                .driver
+                                                .phone
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
@@ -187,20 +191,50 @@ class _ProfileState extends State<Profile> {
                                         size: 50,
                                       ),
                                       title: Text(
-                                        'Website',
+                                        'Type',
                                         style: new TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.white,
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listProfileDetail.listProfileDetail[0]
-                                                    .website
+                                        'Driver',
+                                        style: new TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      endIndent: 70.0,
+                                      indent: 70.0,
+                                      height: 1.0,
+                                      color: gold,
+                                    ),
+                                    Padding(padding: EdgeInsets.all(20)),
+                                    ListTile(
+                                      leading: Icon(
+                                        Icons.map,
+                                        color: gold,
+                                        size: 50,
+                                      ),
+                                      title: Text(
+                                        'Address',
+                                        style: new TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        _listDriverPerson.listDriverPerson[0]
+                                                    .driver.address
                                                     .toString() ==
                                                 "null"
                                             ? " - "
-                                            : _listProfileDetail
-                                                .listProfileDetail[0].website
+                                            : _listDriverPerson
+                                                .listDriverPerson[0]
+                                                .driver
+                                                .address
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
@@ -215,7 +249,7 @@ class _ProfileState extends State<Profile> {
                                       color: gold,
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             )));
                   }

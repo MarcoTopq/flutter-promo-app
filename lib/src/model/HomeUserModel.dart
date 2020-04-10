@@ -20,6 +20,7 @@ class UserHome {
     List<Event> event;
     List<Hot> hot;
     List<Hot> normal;
+    List<Video> videos;
     Company company;
     Company contact;
 
@@ -29,6 +30,7 @@ class UserHome {
         this.event,
         this.hot,
         this.normal,
+        this.videos,
         this.company,
         this.contact,
     });
@@ -39,6 +41,7 @@ class UserHome {
         event: List<Event>.from(json["event"].map((x) => Event.fromJson(x))),
         hot: List<Hot>.from(json["hot"].map((x) => Hot.fromJson(x))),
         normal: List<Hot>.from(json["normal"].map((x) => Hot.fromJson(x))),
+        videos: List<Video>.from(json["videos"].map((x) => Video.fromJson(x))),
         company: Company.fromJson(json["company"]),
         contact: Company.fromJson(json["contact"]),
     );
@@ -49,6 +52,7 @@ class UserHome {
         "event": List<dynamic>.from(event.map((x) => x.toJson())),
         "hot": List<dynamic>.from(hot.map((x) => x.toJson())),
         "normal": List<dynamic>.from(normal.map((x) => x.toJson())),
+        "videos": List<dynamic>.from(videos.map((x) => x.toJson())),
         "company": company.toJson(),
         "contact": contact.toJson(),
     };
@@ -57,7 +61,6 @@ class UserHome {
 class Company {
     int id;
     String name;
-    String logo;
     dynamic description;
     String profile;
     String email;
@@ -70,7 +73,6 @@ class Company {
     Company({
         this.id,
         this.name,
-        this.logo,
         this.description,
         this.profile,
         this.email,
@@ -84,7 +86,6 @@ class Company {
     factory Company.fromJson(Map<String, dynamic> json) => Company(
         id: json["id"],
         name: json["name"],
-        logo: json["logo"],
         description: json["description"],
         profile: json["profile"],
         email: json["email"],
@@ -98,7 +99,6 @@ class Company {
     Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "logo": logo,
         "description": description,
         "profile": profile,
         "email": email,
@@ -373,6 +373,7 @@ class Distributor {
     int transaction;
     String chart;
     List<Transaction> transactions;
+    List<Delivery> delivery;
     List<Coupon> coupons;
     List<Voucher> vouchers;
 
@@ -392,6 +393,7 @@ class Distributor {
         this.transaction,
         this.chart,
         this.transactions,
+        this.delivery,
         this.coupons,
         this.vouchers,
     });
@@ -412,6 +414,7 @@ class Distributor {
         transaction: json["transaction"],
         chart: json["chart"],
         transactions: List<Transaction>.from(json["transactions"].map((x) => Transaction.fromJson(x))),
+        delivery: List<Delivery>.from(json["delivery"].map((x) => Delivery.fromJson(x))),
         coupons: List<Coupon>.from(json["coupons"].map((x) => Coupon.fromJson(x))),
         vouchers: List<Voucher>.from(json["vouchers"].map((x) => Voucher.fromJson(x))),
     );
@@ -432,6 +435,7 @@ class Distributor {
         "transaction": transaction,
         "chart": chart,
         "transactions": List<dynamic>.from(transactions.map((x) => x.toJson())),
+        "delivery": List<dynamic>.from(delivery.map((x) => x.toJson())),
         "coupons": List<dynamic>.from(coupons.map((x) => x.toJson())),
         "vouchers": List<dynamic>.from(vouchers.map((x) => x.toJson())),
     };
@@ -469,6 +473,94 @@ class Coupon {
     };
 }
 
+class Delivery {
+    int id;
+    DateTime deliveryAt;
+    int distributorId;
+    int driverId;
+    DateTime createdAt;
+    DateTime updatedAt;
+    String deliveryDate;
+    Driver driver;
+
+    Delivery({
+        this.id,
+        this.deliveryAt,
+        this.distributorId,
+        this.driverId,
+        this.createdAt,
+        this.updatedAt,
+        this.deliveryDate,
+        this.driver,
+    });
+
+    factory Delivery.fromJson(Map<String, dynamic> json) => Delivery(
+        id: json["id"],
+        deliveryAt: DateTime.parse(json["delivery_at"]),
+        distributorId: json["distributor_id"],
+        driverId: json["driver_id"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        deliveryDate: json["delivery_date"],
+        driver: Driver.fromJson(json["driver"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "delivery_at": deliveryAt.toIso8601String(),
+        "distributor_id": distributorId,
+        "driver_id": driverId,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "delivery_date": deliveryDate,
+        "driver": driver.toJson(),
+    };
+}
+
+class Driver {
+    int id;
+    String name;
+    String address;
+    String phone;
+    String avatar;
+    int userId;
+    DateTime createdAt;
+    DateTime updatedAt;
+
+    Driver({
+        this.id,
+        this.name,
+        this.address,
+        this.phone,
+        this.avatar,
+        this.userId,
+        this.createdAt,
+        this.updatedAt,
+    });
+
+    factory Driver.fromJson(Map<String, dynamic> json) => Driver(
+        id: json["id"],
+        name: json["name"],
+        address: json["address"],
+        phone: json["phone"],
+        avatar: json["avatar"],
+        userId: json["user_id"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "address": address,
+        "phone": phone,
+        "avatar": avatar,
+        "user_id": userId,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+    };
+}
+
 class Transaction {
     int id;
     int quantity;
@@ -478,6 +570,7 @@ class Transaction {
     DateTime createdAt;
     DateTime updatedAt;
     String noSo;
+    String date;
 
     Transaction({
         this.id,
@@ -488,6 +581,7 @@ class Transaction {
         this.createdAt,
         this.updatedAt,
         this.noSo,
+        this.date,
     });
 
     factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
@@ -499,17 +593,19 @@ class Transaction {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         noSo: json["no_so"],
+        date: json["date"],
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "quantity": quantity,
         "total": total,
-        "billing_date": "${billingDate.year.toString().padLeft(4, '0')}-${billingDate.month.toString().padLeft(2, '0')}-${billingDate.day.toString().padLeft(2, '0')}",
+        "billing_date": billingDate.toIso8601String(),
         "distributor_id": distributorId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "no_so": noSo,
+        "date": date,
     };
 }
 
@@ -574,6 +670,38 @@ class Role {
         "name": name,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+    };
+}
+
+class Video {
+    int id;
+    String title;
+    String url;
+    String image;
+    String createdAt;
+
+    Video({
+        this.id,
+        this.title,
+        this.url,
+        this.image,
+        this.createdAt,
+    });
+
+    factory Video.fromJson(Map<String, dynamic> json) => Video(
+        id: json["id"],
+        title: json["title"],
+        url: json["url"],
+        image: json["image"],
+        createdAt: json["created_at"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "url": url,
+        "image": image,
+        "created_at": createdAt,
     };
 }
 

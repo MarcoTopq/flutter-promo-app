@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:warnakaltim/src/model/chartModel.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 //code never lies
 
@@ -11,6 +12,8 @@ class Chart extends StatefulWidget {
 }
 
 class _ChartState extends State<Chart> {
+  var series;
+
   Future<void> _refreshData(BuildContext context) async {
     await Provider.of<ChartModel>(context, listen: false).fetchDataChart();
   }
@@ -26,7 +29,7 @@ class _ChartState extends State<Chart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+        appBar: AppBar(
           iconTheme: IconThemeData(
             color: Colors.white, //change your color here
           ),
@@ -63,67 +66,87 @@ class _ChartState extends State<Chart> {
                                 child: Container(
                                   child: Column(
                                     children: <Widget>[
+                                      Padding(padding: EdgeInsets.all(20)),
+                                      Text(
+                                        'Grafik Ringkasan',
+                                        style: new TextStyle(
+                                          fontSize: 26.0,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      // Container(
+                                      //     child: SfCartesianChart(
+                                      //         primaryXAxis: CategoryAxis(
+                                      //             title:
+                                      //                 AxisTitle(text: 'Tahun')),
+                                      //         primaryYAxis: NumericAxis(
+                                      //             title:
+                                      //                 AxisTitle(text: 'QTY')),
+                                      //         series: <ChartSeries>[
+                                      //       ColumnSeries<SalesData, String>(
+                                      //           dataSource: _listChart.listChart
+                                      //               .map((i) => SalesData(
+                                      //                   i.date.toString(),
+                                      //                   i.quantity))
+                                      //               .toList(),
+                                      //           dataLabelSettings:
+                                      //               DataLabelSettings(
+                                      //                   isVisible: true,
+                                      //                   labelPosition:
+                                      //                       ChartDataLabelPosition
+                                      //                           .inside),
+                                      //           xValueMapper:
+                                      //               (SalesData sales, _) =>
+                                      //                   sales.x,
+                                      //           yValueMapper:
+                                      //               (SalesData sales, _) =>
+                                      //                   sales.y)
+                                      //     ])),
                                       Container(
-                                          child: SfCartesianChart(
-                                              primaryXAxis: CategoryAxis(
-                                                  title:
-                                                      AxisTitle(text: 'Tahun')),
-                                              primaryYAxis: NumericAxis(
-                                                  title:
-                                                      AxisTitle(text: 'QTY')),
-                                              series: <ChartSeries>[
-                                            ColumnSeries<SalesData, String>(
-                                                dataSource: _listChart.listChart
-                                                    .map((i) => SalesData(
-                                                        i.date
-                                                            .toString(),
-                                                        i.quantity))
-                                                    .toList(),
-                                                dataLabelSettings:
-                                                    DataLabelSettings(
-                                                        isVisible: true,
-                                                        labelPosition:
-                                                            ChartDataLabelPosition
-                                                                .inside),
-                                                xValueMapper:
-                                                    (SalesData sales, _) =>
-                                                        sales.x,
-                                                yValueMapper:
-                                                    (SalesData sales, _) =>
-                                                        sales.y)
-                                          ])),
-                                      Container(
-                                          child: SfCartesianChart(
-                                              // Initialize category axis
-                                              primaryXAxis: CategoryAxis(
-                                                  title:
-                                                      AxisTitle(text: 'Tahun')),
-                                              primaryYAxis: NumericAxis(
-                                                  title:
-                                                      AxisTitle(text: 'Revenue')),
-                                              series: <ChartSeries>[
-                                            ColumnSeries<SalesData, String>(
-                                                // Bind data source
-
-                                                dataSource: _listChart.listChart
-                                                    .map((i) => SalesData(
-                                                        i.date
-                                                            .toString(),
-                                                        i.total))
-                                                    .toList(),
-                                                dataLabelSettings:
-                                                    DataLabelSettings(
-                                                        isVisible: true,
-                                                        labelPosition:
-                                                            ChartDataLabelPosition
-                                                                .inside),
-                                                xValueMapper:
-                                                    (SalesData sales, _) =>
-                                                        sales.x,
-                                                yValueMapper:
-                                                    (SalesData sales, _) =>
-                                                        sales.y)
-                                          ]))
+                                          padding: EdgeInsets.all(20),
+                                          child: SizedBox(
+                                              height: 400,
+                                              child: charts.BarChart(
+                                                series = [
+                                                  charts.Series<SalesData,
+                                                      String>(
+                                                    id: 'Grafik',
+                                                    data: _listChart.listChart
+                                                        .map((i) => SalesData(
+                                                              i.date
+                                                                  .toString()
+                                                                  .substring(
+                                                                      0, 8),
+                                                              i.quantity,
+                                                            ))
+                                                        .toList(),
+                                                    domainFn:
+                                                        (SalesData sales, _) =>
+                                                            sales.x,
+                                                    measureFn:
+                                                        (SalesData sales, _) =>
+                                                            sales.y,
+                                                    // colorFn: (SalesData sales,
+                                                    //         _) =>
+                                                    //     charts.ColorUtil
+                                                    //         .fromDartColor(
+                                                    //             sales.color)
+                                                    //  colorFn: Colors.pink
+                                                  ),
+                                                ],
+                                                animate: true,
+                                                // defaultRenderer: new charts
+                                                //         .LineRendererConfig(
+                                                //     includePoints: true),
+                                              ))),
+                                              // Padding(padding: EdgeInsets.all(5)),
+                                      Text(
+                                        'Tanggal',
+                                        style: new TextStyle(
+                                          fontSize: 10.0,
+                                          color: Colors.black,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ))));
@@ -136,4 +159,5 @@ class SalesData {
   SalesData(this.x, this.y);
   final String x;
   final int y;
+  Color color;
 }

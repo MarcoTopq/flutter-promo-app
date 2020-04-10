@@ -9,11 +9,13 @@ import 'package:warnakaltim/src/all_news.dart';
 import 'package:warnakaltim/src/all_promo.dart';
 import 'package:warnakaltim/src/all_voucher.dart';
 import 'package:warnakaltim/src/company.dart';
+import 'package:warnakaltim/src/deliveryHistory.dart';
 import 'package:warnakaltim/src/detail_Promo.dart';
 import 'package:warnakaltim/src/detail_event.dart';
 import 'package:warnakaltim/src/detail_news.dart';
-import 'package:warnakaltim/src/event.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:warnakaltim/main.dart';
+import 'package:warnakaltim/src/inputCode.dart';
 import 'package:warnakaltim/src/login.dart';
 import 'package:warnakaltim/src/distributor.dart';
 import 'package:warnakaltim/src/model/HomeUserModel.dart';
@@ -77,6 +79,14 @@ class _UserHomeState extends State<UserHomeDetail> {
       2,
     );
 
+    _launchURL(String url) async {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.grey[850],
@@ -102,6 +112,9 @@ class _UserHomeState extends State<UserHomeDetail> {
                               child: CustomScrollView(
                             slivers: <Widget>[
                               SliverAppBar(
+                                iconTheme: IconThemeData(
+                                  color: Colors.white, //change your color here
+                                ),
                                 backgroundColor: Colors.black.withOpacity(0.5),
                                 floating: false,
                                 pinned: true,
@@ -139,21 +152,21 @@ class _UserHomeState extends State<UserHomeDetail> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: <Widget>[
-                                          // Image.asset(
-                                          //   'assets/pertamina.png',
-                                          Expanded(
-                                              child: Container(
-                                                // width: 100,
-                                                  child: Image.network(
-                                            _listNews
-                                                .listHomeDetail[0].company.logo,
+                                          Image.asset(
+                                            'assets/pertamina.png',
+                                            // Expanded(
+                                            //     child: Container(
+                                            //         // width: 100,
+                                            //         child: Image.network(
+                                            //   _listNews
+                                            //       .listHomeDetail[0].company.,
                                             fit: BoxFit.fill,
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width /
                                                 4,
                                             // height: MediaQuery.of(context).size.height / 200,
-                                          ))),
+                                          ),
                                         ],
                                       ),
                                       Padding(
@@ -462,153 +475,97 @@ class _UserHomeState extends State<UserHomeDetail> {
                                             // color: Colors.black12,
                                             padding: EdgeInsets.all(10),
                                             width: c_width,
-                                            height: 300,
-                                            child: Card(
-                                                color: Colors.black12,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 15)),
-                                                    Container(
-                                                      // padding: EdgeInsets.all(),
-                                                      child: Expanded(
-                                                          child: Marquee(
-                                                              direction: Axis
-                                                                  .horizontal,
-                                                              textDirection:
-                                                                  TextDirection
-                                                                      .rtl,
-                                                              animationDuration:
-                                                                  Duration(
-                                                                      seconds:
-                                                                          3),
-                                                              backDuration:
-                                                                  Duration(
-                                                                      milliseconds:
-                                                                          3000),
-                                                              pauseDuration:
-                                                                  Duration(
-                                                                      milliseconds:
-                                                                          100),
-                                                              // directionMarguee:
-                                                              //     DirectionMarguee.oneDirection,
-                                                              child: Text(
-                                                                _listNews
-                                                                            .listHomeDetail[
-                                                                                0]
-                                                                            .company
-                                                                            .description ==
-                                                                        null
-                                                                    ? "Welcome To RPM (Reward Point Management) PT PERTAMINA PATRA NIAGA"
-                                                                    : _listNews
-                                                                        .listHomeDetail[
-                                                                            0]
-                                                                        .company
-                                                                        .description,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                    color: Colors
-                                                                        .white),
-                                                              ))),
-                                                    ),
-                                                    // Padding(
-                                                    //     padding:
-                                                    //         EdgeInsets.only(
-                                                    //             top: 5)),
-                                                    new Expanded(
-                                                        child: Container(
-                                                            // height: 200,
-                                                            // width: 200,
-                                                            child: ListView
-                                                                .builder(
-                                                      scrollDirection:
+                                            height: 200,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 15)),
+                                                Container(
+                                                  // padding: EdgeInsets.all(),
+                                                  child: Marquee(
+                                                      direction:
                                                           Axis.horizontal,
-                                                      itemCount: 4,
-                                                      //  _listNews
-                                                      //     .listHomeDetail[0]
-                                                      //     .promo
-                                                      //     .length,
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return Container(
-                                                            width: 400,
-                                                            height: 400,
-                                                            // MediaQuery.of(
-                                                            //             context)
-                                                            //         .size
-                                                            //         .height *
-                                                            //     50,
-                                                            child: InkWell(
-                                                                onTap: () {
-                                                                  Navigator.push(
-                                                                      context,
-                                                                      MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                DetailEvent(url: _listNews.listHomeDetail[0].event[index].url.toString()),
-                                                                      ));
-                                                                },
-                                                                // child: Card(
-                                                                //     shape:
-                                                                //         RoundedRectangleBorder(
-                                                                //       borderRadius:
-                                                                //           BorderRadius.circular(
-                                                                //               2),
-                                                                //       side:
-                                                                //           BorderSide(
-                                                                //         color:
-                                                                //             gold,
-                                                                //         width:
-                                                                //             2.0,
-                                                                //       ),
-                                                                //     ),
-                                                                child: Image
-                                                                    .network(
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .event[
-                                                                          index]
-                                                                      .image,
-                                                                  //   fit: BoxFit
-                                                                  //       .cover,
-                                                                  // )
-                                                                  //   Image
-                                                                  //       .asset(
-                                                                  // 'assets/iklan-pertamina.png',
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                )));
-                                                      },
-                                                    )
-                                                            //         new Swiper(
-                                                            //   itemBuilder:
-                                                            //       (BuildContext context,
-                                                            //           int index) {
-                                                            //     return new Image.asset(
-                                                            //       'assets/iklan-pertamina.png',
-                                                            //       fit: BoxFit.fill,
-                                                            //     );
-                                                            //   },
-                                                            //   itemCount: 10,
-                                                            //   viewportFraction: 0.8,
-                                                            //   scale: 0.9,
-                                                            )),
-
-                                                    //     Column(
-                                                    //   children: <Widget>[
-                                                    //     Image.asset('assets/pertamina-loyalty-card.png')
-                                                    //   ],
-                                                    // ))
-                                                  ],
-                                                )));
+                                                      textDirection:
+                                                          TextDirection.rtl,
+                                                      animationDuration:
+                                                          Duration(seconds: 3),
+                                                      backDuration: Duration(
+                                                          milliseconds: 3000),
+                                                      pauseDuration: Duration(
+                                                          milliseconds: 100),
+                                                      // directionMarguee:
+                                                      //     DirectionMarguee.oneDirection,
+                                                      child: Text(
+                                                        _listNews
+                                                                    .listHomeDetail[
+                                                                        0]
+                                                                    .company
+                                                                    .description ==
+                                                                null
+                                                            ? "Welcome To RPM (Reward Point Management)"
+                                                            : _listNews
+                                                                .listHomeDetail[
+                                                                    0]
+                                                                .company
+                                                                .description,
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            color:
+                                                                Colors.white),
+                                                      )),
+                                                ),
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 10)),
+                                                new Expanded(
+                                                    child: Container(
+                                                        // height: 200,
+                                                        // width: 200,
+                                                        child: ListView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount: 4,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return Container(
+                                                        width: 400,
+                                                        height: 400,
+                                                        // MediaQuery.of(
+                                                        //             context)
+                                                        //         .size
+                                                        //         .height *
+                                                        //     50,
+                                                        child: InkWell(
+                                                            onTap: () {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder: (context) => DetailEvent(
+                                                                        url: _listNews
+                                                                            .listHomeDetail[0]
+                                                                            .event[index]
+                                                                            .url
+                                                                            .toString()),
+                                                                  ));
+                                                            },
+                                                            child:
+                                                                Image.network(
+                                                              _listNews
+                                                                  .listHomeDetail[
+                                                                      0]
+                                                                  .event[index]
+                                                                  .image,
+                                                              fit: BoxFit.cover,
+                                                            )));
+                                                  },
+                                                ))),
+                                              ],
+                                            ));
                                   },
                                   childCount: 1,
                                 ),
@@ -621,11 +578,11 @@ class _UserHomeState extends State<UserHomeDetail> {
                                         : Container(
                                             // color: Colors.black12,
                                             padding: EdgeInsets.all(10),
-                                            width: c_width,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.42,
+                                            // width: c_width,
+                                            // height: MediaQuery.of(context)
+                                            //         .size
+                                            //         .height *
+                                            //     0.42,
                                             child: Card(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -658,11 +615,8 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                     BorderRadius
                                                                         .circular(
                                                                             50.0),
-                                                                child:
-                                                                    //   Image.asset(
-                                                                    // 'assets/lux.jpg',
-                                                                    Image
-                                                                        .network(
+                                                                child: Image
+                                                                    .network(
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
@@ -911,7 +865,16 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                       color: gold,
                                                     ),
                                                     IntrinsicHeight(
-                                                        child: InkWell(
+                                                        child:  Row(
+                                                              // crossAxisAlignment: CrossAxisAlignment.center,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              // mainAxisSize: MainAxisSize.min,
+                                                              children: <
+                                                                  Widget>[
+                                                                Expanded(
+                                                                    child:InkWell(
                                                             onTap: () {
                                                               Navigator.push(
                                                                   context,
@@ -921,16 +884,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                             AllCoupon(),
                                                                   ));
                                                             },
-                                                            child: Row(
-                                                              // crossAxisAlignment: CrossAxisAlignment.center,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              // mainAxisSize: MainAxisSize.min,
-                                                              children: <
-                                                                  Widget>[
-                                                                Expanded(
-                                                                    child:
+                                                            child:
                                                                         Column(
                                                                   children: <
                                                                       Widget>[
@@ -965,7 +919,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                               20),
                                                                     )
                                                                   ],
-                                                                )),
+                                                                ))),
                                                                 Container(
                                                                     child:
                                                                         VerticalDivider(
@@ -1015,7 +969,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                   ],
                                                                 )),
                                                               ],
-                                                            ))),
+                                                            )),
                                                   ],
                                                 )),
                                           );
@@ -1114,6 +1068,104 @@ class _UserHomeState extends State<UserHomeDetail> {
                                   ),
                                 ),
                               ),
+
+                              SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (BuildContext context, int index) {
+                                    return Container(
+                                        padding: EdgeInsets.fromLTRB(
+                                            20.0, 20.0, 0.0, 0.0),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text('Videos',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20)),
+                                            Padding(
+                                                padding: EdgeInsets.all(20)),
+                                            FlatButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AllHotPromo(),
+                                                      ));
+                                                },
+                                                child: Text(
+                                                  "View All",
+                                                  style: TextStyle(
+                                                      fontSize: 10,
+                                                      color: Colors.white),
+                                                ))
+                                          ],
+                                        ));
+                                  },
+                                  childCount: 1,
+                                ),
+                              ),
+                              SliverToBoxAdapter(
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  width: a_width,
+                                  height: 200,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 4,
+                                    // _listNews.listHomeDetail[0].hot.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                          padding: EdgeInsets.all(10),
+                                          width: a_width,
+                                          height: a_height,
+                                          child: InkWell(
+                                              onTap: () {
+                                                // Navigator.push(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //       builder: (context) =>
+                                                //           DetailPromo(
+                                                //               id: _listNews
+                                                //                   .listHomeDetail[
+                                                //                       0]
+                                                //                   .videos[index]
+                                                //                   .id
+                                                //                   .toString()),
+                                                //     ));
+                                                _launchURL(_listNews
+                                                    .listHomeDetail[0]
+                                                    .videos[index]
+                                                    .url
+                                                    .toString());
+                                              },
+                                              child: Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2),
+                                                    side: BorderSide(
+                                                      color: gold,
+                                                      width: 2.0,
+                                                    ),
+                                                  ),
+                                                  child: Image.network(
+                                                    _listNews.listHomeDetail[0]
+                                                        .videos[index].image,
+                                                    //   fit: BoxFit.cover,
+                                                    // )
+                                                    //   Image.asset(
+                                                    // 'assets/promo2.jpg',
+                                                    fit: BoxFit.cover,
+                                                  ))));
+                                    },
+                                  ),
+                                ),
+                              ),
+
                               SliverList(
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
@@ -1249,9 +1301,9 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                 Flexible(
                                                     child: Column(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.start,
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.center,
                                                   children: <Widget>[
                                                     Text(
                                                         _listNews
@@ -1276,32 +1328,25 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                             EdgeInsets.only(
                                                                 top: 10)),
 
-                                                    Text(
-                                                        _listNews
-                                                            .listHomeDetail[0]
-                                                            .news[index]
-                                                            .createdAt
-                                                            .toString(),
-                                                        // '18 February 2020',
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 5,
-                                                        style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 15,
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          textBaseline:
-                                                              TextBaseline
-                                                                  .alphabetic,
-                                                        )),
                                                     // Text(
-                                                    //   'Jakarta - Presiden Joko Widodo (Jokowi) mengunjungi kawasan Mount Ainslie di Canberra, Australia.',
-                                                    //   softWrap: true,
-                                                    //   overflow: TextOverflow
-                                                    //       .ellipsis,
-                                                    //   maxLines: 2,
-                                                    // ),
+                                                    //     _listNews
+                                                    //         .listHomeDetail[0]
+                                                    //         .news[index]
+                                                    //         .createdAt
+                                                    //         .toString(),
+                                                    //     // '18 February 2020',
+                                                    //     overflow: TextOverflow
+                                                    //         .ellipsis,
+                                                    //     maxLines: 5,
+                                                    //     style: TextStyle(
+                                                    //       color: Colors.black54,
+                                                    //       fontSize: 15,
+                                                    //       fontStyle:
+                                                    //           FontStyle.italic,
+                                                    //       textBaseline:
+                                                    //           TextBaseline
+                                                    //               .alphabetic,
+                                                    //     )),
                                                   ],
                                                 ))
                                               ],
@@ -1546,6 +1591,53 @@ class _UserHomeState extends State<UserHomeDetail> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => AllEvent()));
+                                },
+                              )),
+                          Container(
+                              padding: EdgeInsets.only(top: 2),
+                              decoration: new BoxDecoration(
+                                  color: Colors.black12,
+                                  border: new Border(
+                                      bottom: new BorderSide(
+                                          color: Colors.grey[850]))),
+                              child: ListTile(
+                                leading:
+                                    Icon(Icons.local_car_wash, color: gold),
+
+                                title: Text('Driver Arrival Input',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold)),
+                                // isThreeLine: true,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => InputCode()));
+                                },
+                              )),
+                          Container(
+                              padding: EdgeInsets.only(top: 2),
+                              decoration: new BoxDecoration(
+                                  color: Colors.black12,
+                                  border: new Border(
+                                      bottom: new BorderSide(
+                                          color: Colors.grey[850]))),
+                              child: ListTile(
+                                leading: Icon(Icons.history, color: gold),
+
+                                title: Text('Driver Arrival History',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold)),
+                                // isThreeLine: true,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DeliveryHistoryDetail()));
                                 },
                               )),
                           Container(

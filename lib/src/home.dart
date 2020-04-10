@@ -131,21 +131,21 @@ class _HomeState extends State<Home> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: <Widget>[
-                                          // Image.asset(
-                                          //   'assets/pertamina.png',
-                                          Expanded(
-                                              child: Container(
-                                                  // width: 100,
-                                                  child: Image.network(
-                                            _listNews
-                                                .listHomeDetail[0].company.logo,
+                                          Image.asset(
+                                            'assets/pertamina.png',
+                                          // Expanded(
+                                          //     child: Container(
+                                          //         // width: 100,
+                                          //         child: Image.network(
+                                          //   _listNews
+                                          //       .listHomeDetail[0].company.logo,
                                             fit: BoxFit.fill,
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width /
                                                 4,
                                             // height: MediaQuery.of(context).size.height / 200,
-                                          ))),
+                                          ),
                                         ],
                                       ),
                                       Padding(

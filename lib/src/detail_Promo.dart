@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warnakaltim/src/all_promo.dart';
+import 'package:warnakaltim/src/detail_voucher.dart';
 import 'package:warnakaltim/src/model/detailPromoModel.dart';
 import 'package:http/http.dart' as http;
 
@@ -282,13 +283,7 @@ class _DetailPromoState extends State<DetailPromo>
                                                             final responseJson =
                                                                 json.decode(
                                                                     value.body);
-                                                            // _showDialog(
-                                                            //     responseJson[0]
-                                                            //                 [
-                                                            //                 'data']
-                                                            //             [
-                                                            //             "title"]
-                                                            //         .toString());
+                                                            
                                                             await showDialog(
                                                                 context:
                                                                     context,
@@ -307,9 +302,9 @@ class _DetailPromoState extends State<DetailPromo>
                                                                         onPressed:
                                                                             () {
                                                                           Navigator
-                                                                              .pushReplacement(
+                                                                              .pop(
                                                                             context,
-                                                                            MaterialPageRoute(builder: (context) => AllPromo()),
+                                                                            MaterialPageRoute(builder: (context) => DetailVoucher()),
                                                                           );
                                                                         },
                                                                       ),
@@ -317,15 +312,41 @@ class _DetailPromoState extends State<DetailPromo>
                                                                   );
                                                                 });
                                                           } else {
-                                                            Navigator.pushReplacement(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder: (context) => DetailPromo(
-                                                                        id: _listPromoDetail
-                                                                            .listDetailPromo[0]
-                                                                            .id
-                                                                            .toString())));
-                                                          }
+                                                            showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (BuildContext
+                                                                        context) {
+                                                                  return AlertDialog(
+                                                                    title: new Text(
+                                                                        "Penukaran Promo "
+                                                                        "Gagal !!!"),
+                                                                    actions: <
+                                                                        Widget>[
+                                                                      new FlatButton(
+                                                                        child: new Text(
+                                                                            "Ok"),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator
+                                                                              .pop(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => DetailVoucher()),
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                            // Navigator.pushReplacement(
+                                                            //     context,
+                                                            //     MaterialPageRoute(
+                                                            //         builder: (context) => DetailPromo(
+                                                            //             id: _listPromoDetail
+                                                            //                 .listDetailPromo[0]
+                                                            //                 .id
+                                                            //                 .toString())));
+                                                          });}
                                                         });
                                                       },
                                                       child: Card(

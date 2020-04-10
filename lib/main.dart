@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:warnakaltim/src/all_arrival.dart';
 import 'package:warnakaltim/src/all_event.dart';
 import 'package:warnakaltim/src/all_hotPromo.dart';
 import 'package:warnakaltim/src/all_news.dart';
@@ -10,19 +11,24 @@ import 'package:warnakaltim/src/company.dart';
 import 'package:warnakaltim/src/detail_Promo.dart';
 import 'package:warnakaltim/src/detail_news.dart';
 import 'package:warnakaltim/src/event.dart';
+import 'package:warnakaltim/src/homeDriver.dart';
 // import 'package:marquee_flutter/marquee_flutter.dart';
 import 'package:warnakaltim/src/login.dart';
 import 'package:warnakaltim/src/home.dart';
+import 'package:warnakaltim/src/model/HomeDriverModel.dart';
 
 import 'package:warnakaltim/src/model/HomeModel.dart';
 import 'package:warnakaltim/src/model/HomeUserModel.dart';
+import 'package:warnakaltim/src/model/allArrivalModel.dart';
 import 'package:warnakaltim/src/model/allEventModel.dart';
 import 'package:warnakaltim/src/model/allHotPromoModel.dart';
 import 'package:warnakaltim/src/model/allPromoModel.dart';
 import 'package:warnakaltim/src/model/chartModel.dart';
 import 'package:warnakaltim/src/model/couponModel.dart';
+import 'package:warnakaltim/src/model/deliveryHistoryModel.dart';
 import 'package:warnakaltim/src/model/detailPromoModel.dart';
 import 'package:warnakaltim/src/model/distributorModel.dart';
+import 'package:warnakaltim/src/model/driverModel.dart';
 import 'package:warnakaltim/src/model/newsModel.dart';
 import 'package:warnakaltim/src/model/profileModel.dart';
 import 'package:warnakaltim/src/model/voucherModel.dart';
@@ -36,9 +42,16 @@ import 'package:warnakaltim/src/userHome.dart';
 
 var email;
 var token;
+var role;
 var document;
 var login;
 String pdf;
+var gold = Color.fromRGBO(
+  212,
+  175,
+  55,
+  2,
+);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,6 +84,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider.value(
             value: UserHomeModel(),
           ),
+           ChangeNotifierProvider.value(
+            value: DriverHomeModel(),
+          ),
           ChangeNotifierProvider.value(
             value: AllPromoModel(),
           ),
@@ -101,11 +117,20 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider.value(
             value: DetailVoucherModel(),
           ),
+           ChangeNotifierProvider.value(
+            value: ArrivalModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: DriverPersonModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: DeliveryHistoryModel(),
+          ),
         ],
         child: MaterialApp(
           title: 'Warna Kaltim',
           theme: ThemeData(
-              primaryColor: Colors.greenAccent[200],
+              primaryColor: Colors.yellow[600],
               primarySwatch: MaterialColor(Colors.grey.shade200.value, {
                 50: Colors.grey.shade50,
                 100: Colors.grey.shade100,
@@ -151,6 +176,7 @@ class _HomepageState extends State<Homepage>
       SharedPreferences prefs = await SharedPreferences.getInstance();
       email = prefs.get('Email');
       token = prefs.get('Token');
+      role =  prefs.get('Role');
     });
   }
 
@@ -166,7 +192,7 @@ class _HomepageState extends State<Homepage>
   TabController controller;
   int _currentIndex = 0;
   final List<Widget> _children = [
-    login == false ? Home() : UserHomeDetail(),
+    login == false ? Home() : role == 'driver' ? DriverHomeDetail() : UserHomeDetail(),
     email == null ? Login() : Chart(),
     email == null ? Login() : Profile(),
     TalkService()

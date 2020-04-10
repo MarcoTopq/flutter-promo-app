@@ -133,6 +133,8 @@ class _DetailVoucherState extends State<DetailVoucher>
                                               color: Colors.white,
                                             ),
                                           ),
+                                          Padding(
+                                              padding: EdgeInsets.all(10)),
                                           Text(
                                             'PERSYARATAN',
                                             style: new TextStyle(

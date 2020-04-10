@@ -184,6 +184,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         prefs.setString('Email',
                                             responseJson['user']['email']);
 
+                                        prefs.setString('Role',
+                                            responseJson['user']['role']);
+
                                         print(responseJson['user']
                                                 ['access_token']
                                             .toString());
@@ -194,6 +197,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                           login = true;
                                           email = prefs.get('Email');
                                           token = prefs.get('Token');
+                                          role =  prefs.get('Role');
                                         });
 
                                         Navigator.pushReplacement(
