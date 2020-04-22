@@ -96,8 +96,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
             Form(
                 key: _formKey,
                 child: Container(
-                  width: a_width,
-                  height: a_height,
+                  // width: a_width,
+                  // height: a_height,
                   padding: EdgeInsets.all(10),
                   child: Card(
                     shape: RoundedRectangleBorder(

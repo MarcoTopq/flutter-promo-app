@@ -753,8 +753,8 @@ class _UserHomeState extends State<UserHomeDetail> {
                                         ? Container()
                                         : Container(
                                             padding: EdgeInsets.all(10),
-                                            width: c_width,
-                                            height: d_height,
+                                            // width: c_width,
+                                            // height: d_height,
                                             child: Card(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:

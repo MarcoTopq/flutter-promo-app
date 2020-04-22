@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_pdf_viewer/simple_pdf_viewer.dart';
 // import 'package:warnakaltim/src/model/profileDetailModel.dart';
 import 'package:warnakaltim/src/model/profileModel.dart';
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
@@ -11,7 +12,6 @@ import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-
 class CompanyDetail extends StatefulWidget {
   final url;
   final token;
@@ -26,69 +26,44 @@ class CompanyDetail extends StatefulWidget {
 }
 
 class _CompanyDetailState extends State<CompanyDetail> {
-  String path;
-  Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<ProfileDetailModel>(context, listen: false)
-        .fetchDataProfileDetail();
-  }
-
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/company.pdf');
-  }
-
-  Future<File> writeCounter(Uint8List stream) async {
-    final file = await _localFile;
-
-    // Write the file
-    return file.writeAsBytes(stream);
-  }
-
-  loadDocument() async {
-    document = await PDFDocument.fromURL(widget.url.toString());
-
-    // setState(() => _isLoading = false);
-  }
-
-  Future<Uint8List> fetchPost() async {
-    final response = await http.get(widget.url);
-    final responseJson = response.bodyBytes;
-
-    return responseJson;
-  }
-
-  loadPdf() async {
-    writeCounter(await fetchPost());
-    path = (await _localFile).path;
-
-    if (!mounted) return;
-
-    setState(() {});
-  }
+bool _isLoading = true;
+  PDFDocument document;
 
   @override
   void initState() {
-    // this.getdata();
-    this.loadDocument();
+    changePDF(2);
     super.initState();
-
-    // WidgetsBinding.instance.addObserver(this);
-    _refreshData(context);
+    loadDocument();
   }
 
+  loadDocument() async {
+    // document = await PDFDocument.fromAsset('assets/sample.pdf');
+
+    setState(() => _isLoading = false);
+  }
+
+  changePDF(value) async {
+    setState(() => _isLoading = true);
+    if (value == 1) {
+      document = await PDFDocument.fromAsset('assets/sample2.pdf');
+    } else if (value == 2) {
+      document = await PDFDocument.fromURL(
+          "http://rpm.kantordesa.com/company/profile/download");
+    } else {
+      document = await PDFDocument.fromAsset('assets/sample.pdf');
+    }
+    setState(() => _isLoading = false);
+  }
+
+          
+        
   var gold = Color.fromRGBO(
     212,
     175,
     55,
     2,
   );
-  PDFDocument document;
+
   @override
   Widget build(BuildContext context) {
     // loadDocument();
@@ -107,26 +82,17 @@ class _CompanyDetailState extends State<CompanyDetail> {
         backgroundColor: Colors.black.withOpacity(0.5),
       ),
       backgroundColor: Colors.grey[850],
-      body: Center(
+      body:
+      
+
+      Center(
         child: 
-        // Column(
-        //   children: <Widget>[
-           path != null ?
-              Container(
-                // height: 300.0,
-                child: PdfViewer(
-                  filePath: path,
-                ),
-              )
-            // else
-            // :  Text("Pdf is not Loaded"),
-            : RaisedButton(
-              child: Text("Load pdf"),
-              onPressed: loadPdf,
-            ),
-          // ],
-        // ),
+        Center(
+            child: _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : PDFViewer(document: document)),
       ),
+      
       // RefreshIndicator(
       //     onRefresh: () => _refreshData(context),
       //     child: FutureBuilder(

@@ -225,7 +225,7 @@ class _HomeState extends State<Home> {
                                         : Container(
                                             // color: Colors.black12,
                                             padding: EdgeInsets.all(10),
-                                            width: c_width,
+                                            // width: c_width,
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -310,7 +310,7 @@ class _HomeState extends State<Home> {
                                                                 padding: EdgeInsets
                                                                     .only(
                                                                         left:
-                                                                            150,
+                                                                            100,
                                                                         right:
                                                                             10)),
                                                             Column(
@@ -337,7 +337,7 @@ class _HomeState extends State<Home> {
                                                                 padding:
                                                                     EdgeInsets
                                                                         .all(
-                                                                            10)),
+                                                                            2)),
                                                             Column(
                                                                 crossAxisAlignment:
                                                                     CrossAxisAlignment
@@ -1167,25 +1167,25 @@ class _HomeState extends State<Home> {
                                                             EdgeInsets.only(
                                                                 top: 10)),
 
-                                                    Text(
-                                                        _listNews
-                                                            .listHomeDetail[0]
-                                                            .news[index]
-                                                            .createdAt
-                                                            .toString(),
-                                                        // '18 February 2020',
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 5,
-                                                        style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 15,
-                                                          fontStyle:
-                                                              FontStyle.italic,
-                                                          textBaseline:
-                                                              TextBaseline
-                                                                  .alphabetic,
-                                                        )),
+                                                    // Text(
+                                                    //     _listNews
+                                                    //         .listHomeDetail[0]
+                                                    //         .news[index]
+                                                    //         .createdAt
+                                                    //         .toString(),
+                                                    //     // '18 February 2020',
+                                                    //     overflow: TextOverflow
+                                                    //         .ellipsis,
+                                                    //     maxLines: 5,
+                                                    //     style: TextStyle(
+                                                    //       color: Colors.black54,
+                                                    //       fontSize: 15,
+                                                    //       fontStyle:
+                                                    //           FontStyle.italic,
+                                                    //       textBaseline:
+                                                    //           TextBaseline
+                                                    //               .alphabetic,
+                                                    //     )),
                                                     // Text(
                                                     //   'Jakarta - Presiden Joko Widodo (Jokowi) mengunjungi kawasan Mount Ainslie di Canberra, Australia.',
                                                     //   softWrap: true,
