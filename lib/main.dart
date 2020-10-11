@@ -1,22 +1,16 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee_flutter/marquee_flutter.dart';
-import 'package:marquee_widget/marquee_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:warnakaltim/src/all_arrival.dart';
-import 'package:warnakaltim/src/all_event.dart';
-import 'package:warnakaltim/src/all_hotPromo.dart';
-import 'package:warnakaltim/src/all_news.dart';
-import 'package:warnakaltim/src/all_promo.dart';
-import 'package:warnakaltim/src/company.dart';
-import 'package:warnakaltim/src/detail_Promo.dart';
-import 'package:warnakaltim/src/detail_news.dart';
-import 'package:warnakaltim/src/event.dart';
+import 'package:warnakaltim/src/agenHome.dart';
+import 'package:warnakaltim/src/chartAgen.dart';
+import 'package:warnakaltim/src/chartCustomer.dart';
 import 'package:warnakaltim/src/homeDriver.dart';
 // import 'package:marquee_flutter/marquee_flutter.dart';
 import 'package:warnakaltim/src/login.dart';
 import 'package:warnakaltim/src/home.dart';
+import 'package:warnakaltim/src/model/HomeAgenModel.dart';
 import 'package:warnakaltim/src/model/HomeDriverModel.dart';
-
+import 'package:splashscreen/splashscreen.dart';
 import 'package:warnakaltim/src/model/HomeModel.dart';
 import 'package:warnakaltim/src/model/HomeUserModel.dart';
 import 'package:warnakaltim/src/model/allArrivalModel.dart';
@@ -26,25 +20,33 @@ import 'package:warnakaltim/src/model/allPromoModel.dart';
 import 'package:warnakaltim/src/model/chartModel.dart';
 import 'package:warnakaltim/src/model/couponModel.dart';
 import 'package:warnakaltim/src/model/deliveryHistoryModel.dart';
+import 'package:warnakaltim/src/model/detailDeliveryModel.dart';
+import 'package:warnakaltim/src/model/detailDoModel.dart';
 import 'package:warnakaltim/src/model/detailPromoModel.dart';
 import 'package:warnakaltim/src/model/distributorModel.dart';
+import 'package:warnakaltim/src/model/doApproveDetailModel.dart';
+import 'package:warnakaltim/src/model/doApproveModel.dart';
 import 'package:warnakaltim/src/model/driverModel.dart';
 import 'package:warnakaltim/src/model/newsModel.dart';
+import 'package:warnakaltim/src/model/notifdoModel.dart';
 import 'package:warnakaltim/src/model/profileModel.dart';
+import 'package:warnakaltim/src/model/salesOrderModel.dart';
 import 'package:warnakaltim/src/model/voucherModel.dart';
 import 'package:warnakaltim/src/model/detailVoucherModel.dart';
 import 'package:warnakaltim/src/profile.dart';
 import 'package:warnakaltim/src/ringkasan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:warnakaltim/src/talk.dart';
 import 'package:warnakaltim/src/userHome.dart';
 
+var urls = 'https://rpm.bpkadkaltim.com';
 var email;
 var token;
 var role;
 var document;
 var login;
+var fcm;
+int badges = 0;
 String pdf;
 var gold = Color.fromRGBO(
   212,
@@ -57,7 +59,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   email = prefs.get('Email');
+  role = prefs.get('Role');
   print(email);
+  print(role);
   if (email == null) {
     login = false;
   } else {
@@ -66,7 +70,25 @@ Future<void> main() async {
   runApp(MaterialApp(home: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+  @override
+  void initState() {
+    // this._getToken();
+    super.initState();
+    firebaseMessaging.getToken().then((token) {
+      print('fcm : ' + token);
+      fcm = token;
+    });
+    // WidgetsBinding.instance.addObserver(this);
+    // _refreshData(context);
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -84,7 +106,10 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider.value(
             value: UserHomeModel(),
           ),
-           ChangeNotifierProvider.value(
+          ChangeNotifierProvider.value(
+            value: AgenHomeModel(),
+          ),
+          ChangeNotifierProvider.value(
             value: DriverHomeModel(),
           ),
           ChangeNotifierProvider.value(
@@ -117,18 +142,37 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider.value(
             value: DetailVoucherModel(),
           ),
-           ChangeNotifierProvider.value(
+          ChangeNotifierProvider.value(
             value: ArrivalModel(),
           ),
           ChangeNotifierProvider.value(
             value: DriverPersonModel(),
           ),
           ChangeNotifierProvider.value(
+            value: DetailDoModel(),
+          ),
+          ChangeNotifierProvider.value(
             value: DeliveryHistoryModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: NotifDoModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: SalesOrderModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: DetailDoAgenModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: DoApproveModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: DoApproveDetailModel(),
           ),
         ],
         child: MaterialApp(
           title: 'Warna Kaltim',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
               primaryColor: Colors.yellow[600],
               primarySwatch: MaterialColor(Colors.grey.shade200.value, {
@@ -150,8 +194,32 @@ class MyApp extends StatelessWidget {
                 55,
                 2,
               )),
-          home: Homepage(),
+          home: Splash(),
         ));
+  }
+}
+
+class Splash extends StatefulWidget {
+  @override
+  _SplashState createState() => new _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  @override
+  Widget build(BuildContext context) {
+    return new SplashScreen(
+        seconds: 5,
+        navigateAfterSeconds: new Homepage(),
+        title: new Text(
+          'Reward Point Management',
+          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+        ),
+        image: new Image.asset('assets/patra.jpg'),
+        backgroundColor: Colors.black,
+        styleTextUnderTheLoader: new TextStyle(),
+        photoSize: 100.0,
+        onClick: () => print("Flutter Egypt"),
+        loaderColor: gold);
   }
 }
 
@@ -162,7 +230,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _homepageKey = new GlobalKey<ScaffoldState>();
 
   var gold = Color.fromRGBO(
     212,
@@ -176,8 +244,9 @@ class _HomepageState extends State<Homepage>
       SharedPreferences prefs = await SharedPreferences.getInstance();
       email = prefs.get('Email');
       token = prefs.get('Token');
-      role =  prefs.get('Role');
+      role = prefs.get('Role');
     });
+    print(role);
   }
 
   @override
@@ -185,15 +254,25 @@ class _HomepageState extends State<Homepage>
     // this._getToken();
     super.initState();
     _getToken();
+    // firebaseMessaging.getToken().then((token) {
+    //   print('fcm : ' + token);
+    // });
     // WidgetsBinding.instance.addObserver(this);
     // _refreshData(context);
   }
 
   TabController controller;
   int _currentIndex = 0;
+  int _page = 0;
+  GlobalKey _bottomNavigationKey = GlobalKey();
+
   final List<Widget> _children = [
-    login == false ? Home() : role == 'driver' ? DriverHomeDetail() : UserHomeDetail(),
-    email == null ? Login() : Chart(),
+    login == false
+        ? Home()
+        : role == 'driver'
+            ? DriverHomeDetail()
+            : role == 'agen' ? AgenHomeDetail() : UserHomeDetail(),
+    email == null ? Login() : role == 'agen' ? ChartAgen() : ChartCustomer(),
     email == null ? Login() : Profile(),
     TalkService()
   ];
@@ -207,14 +286,53 @@ class _HomepageState extends State<Homepage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+      // bottomNavigationBar: CurvedNavigationBar(
+      //   key: _bottomNavigationKey,
+      //   index: 0,
+      //   height: 60.0,
+      //   items: <Widget>[
+      //     Icon(
+      //       Icons.home,
+      //       size: 30,
+      //       color: Colors.white,
+      //     ),
+      //     // Icon(Icons.list, size: 30),
+      //     Icon(
+      //       Icons.border_color,
+      //       size: 30,
+      //       color: Colors.white,
+      //     ),
+      //     Icon(
+      //       Icons.info,
+      //       size: 30,
+      //       color: Colors.white,
+      //     ),
+      //     Icon(
+      //       Icons.phone,
+      //       size: 30,
+      //       color: Colors.white,
+      //     ),
+      //   ],
+      //   color: Colors.black,
+      //   buttonBackgroundColor: gold,
+      //   backgroundColor: gold,
+      //   animationCurve: Curves.easeInOut,
+      //   animationDuration: Duration(milliseconds: 600),
+      //   onTap: (index) {
+      //     setState(() {
+      //       _page = index;
+      //     });
+      //   },
+      // ),
+      // body: _children[_page],
+
+      key: _homepageKey,
       body: _children[_currentIndex], // new
       // ])),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 20,
         type: BottomNavigationBarType.fixed,
         elevation: 2.0,
-
         backgroundColor: Colors.grey[700],
         onTap: onTabTapped, // new
         currentIndex: _currentIndex, // new

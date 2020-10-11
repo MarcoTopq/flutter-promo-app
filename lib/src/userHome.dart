@@ -15,7 +15,7 @@ import 'package:warnakaltim/src/detail_event.dart';
 import 'package:warnakaltim/src/detail_news.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:warnakaltim/main.dart';
-import 'package:warnakaltim/src/inputCode.dart';
+import 'package:warnakaltim/src/driverHistory.dart';
 import 'package:warnakaltim/src/login.dart';
 import 'package:warnakaltim/src/distributor.dart';
 import 'package:warnakaltim/src/model/HomeUserModel.dart';
@@ -51,7 +51,7 @@ class _UserHomeState extends State<UserHomeDetail> {
     _refreshData(context);
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _userhomeKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     print('dapat' + email.toString());
@@ -88,7 +88,7 @@ class _UserHomeState extends State<UserHomeDetail> {
     }
 
     return Scaffold(
-      key: _scaffoldKey,
+      key: _userhomeKey,
       backgroundColor: Colors.grey[850],
       // appBar: AppBar(title: Text('WARNA KALTIM')),
       body: RefreshIndicator(
@@ -115,7 +115,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                 iconTheme: IconThemeData(
                                   color: Colors.white, //change your color here
                                 ),
-                                backgroundColor: Colors.black.withOpacity(0.5),
+                                backgroundColor: Colors.black,
                                 floating: false,
                                 pinned: true,
                                 expandedHeight:
@@ -129,7 +129,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                               .listHomeDetail[0].company.profile
                                               .toString();
 
-                                          _scaffoldKey.currentState
+                                          _userhomeKey.currentState
                                               .openDrawer();
                                         }),
                                 flexibleSpace: FlexibleSpaceBar(
@@ -153,7 +153,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                             MainAxisAlignment.end,
                                         children: <Widget>[
                                           Image.asset(
-                                            'assets/pertamina.png',
+                                            'assets/patra.jpg',
                                             // Expanded(
                                             //     child: Container(
                                             //         // width: 100,
@@ -212,13 +212,12 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                         _listNews
                                                             .listHomeDetail[0]
                                                             .user
-                                                            .employee
-                                                            .distributor
+                                                            .customer
                                                             .name
                                                             .toString(),
                                                         style: TextStyle(
                                                             color: Colors.white,
-                                                            fontSize: 15)),
+                                                            fontSize: 12)),
                                                     Text(
                                                         'Reward Point Management ',
                                                         style: TextStyle(
@@ -289,17 +288,6 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                               MainAxisAlignment
                                                                   .start,
                                                           children: <Widget>[
-                                                            // ClipRRect(
-                                                            //     borderRadius:
-                                                            //         BorderRadius
-                                                            //             .circular(
-                                                            //                 50.0),
-                                                            //     child: Image.asset(
-                                                            //       'assets/lux.jpg',
-                                                            //       fit: BoxFit.cover,
-                                                            //       width: 50,
-                                                            //       height: 50,
-                                                            //     )),
                                                             Padding(
                                                                 padding: EdgeInsets
                                                                     .only(
@@ -621,8 +609,8 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                       .listHomeDetail[
                                                                           0]
                                                                       .user
-                                                                      .employee
-                                                                      .avatar,
+                                                                      .customer
+                                                                      .logo,
                                                                   fit: BoxFit
                                                                       .cover,
                                                                   width: 50,
@@ -660,26 +648,25 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                         .listHomeDetail[
                                                                             0]
                                                                         .user
-                                                                        .employee
+                                                                        .customer
                                                                         .name,
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .white,
                                                                         fontSize:
                                                                             15)),
-                                                                Text(
-                                                                    _listNews
-                                                                        .listHomeDetail[
-                                                                            0]
-                                                                        .user
-                                                                        .employee
-                                                                        .distributor
-                                                                        .member,
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            10)),
+                                                                // Text(
+                                                                //     _listNews
+                                                                //         .listHomeDetail[
+                                                                //             0]
+                                                                //         .user
+                                                                //         .customer
+                                                                //         .member,
+                                                                //     style: TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             10)),
                                                               ],
                                                             ),
                                                             Padding(
@@ -786,7 +773,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                         //           .listHomeDetail[
                                                         //               0]
                                                         //           .user
-                                                        //           .employee
+                                                        //           .cu
                                                         //           .distributor
                                                         //           .loyalty
                                                         //           .toString(),
@@ -829,9 +816,8 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                   .listHomeDetail[
                                                                       0]
                                                                   .user
-                                                                  .employee
-                                                                  .distributor
-                                                                  .transaction
+                                                                  .customer
+                                                                  .sumDeliveryOrder
                                                                   .toString(),
                                                               style: TextStyle(
                                                                   color: gold,
@@ -865,27 +851,25 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                       color: gold,
                                                     ),
                                                     IntrinsicHeight(
-                                                        child:  Row(
-                                                              // crossAxisAlignment: CrossAxisAlignment.center,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              // mainAxisSize: MainAxisSize.min,
-                                                              children: <
-                                                                  Widget>[
-                                                                Expanded(
-                                                                    child:InkWell(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            AllCoupon(),
-                                                                  ));
-                                                            },
-                                                            child:
-                                                                        Column(
+                                                        child: Row(
+                                                      // crossAxisAlignment: CrossAxisAlignment.center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      // mainAxisSize: MainAxisSize.min,
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                            child: InkWell(
+                                                                onTap: () {
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                AllCoupon(),
+                                                                      ));
+                                                                },
+                                                                child: Column(
                                                                   children: <
                                                                       Widget>[
                                                                     Padding(
@@ -896,8 +880,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                           .listHomeDetail[
                                                                               0]
                                                                           .user
-                                                                          .employee
-                                                                          .distributor
+                                                                          .customer
                                                                           .coupon
                                                                           .toString(),
                                                                       style: TextStyle(
@@ -920,56 +903,52 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                     )
                                                                   ],
                                                                 ))),
-                                                                Container(
-                                                                    child:
-                                                                        VerticalDivider(
-                                                                  endIndent:
-                                                                      10.0,
-                                                                  indent: 0.0,
-                                                                  width: 0.0,
-                                                                  color: gold,
-                                                                )),
-                                                                Expanded(
-                                                                    child:
-                                                                        Column(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Padding(
-                                                                        padding:
-                                                                            EdgeInsets.only(top: 10)),
+                                                        Container(
+                                                            child:
+                                                                VerticalDivider(
+                                                          endIndent: 10.0,
+                                                          indent: 0.0,
+                                                          width: 0.0,
+                                                          color: gold,
+                                                        )),
+                                                        Expanded(
+                                                            child: Column(
+                                                          children: <Widget>[
+                                                            Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            10)),
 
-                                                                    Text(
-                                                                      _listNews
-                                                                          .listHomeDetail[
-                                                                              0]
-                                                                          .user
-                                                                          .employee
-                                                                          .distributor
-                                                                          .reward
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          color:
-                                                                              gold,
-                                                                          fontSize:
-                                                                              30),
-                                                                    ),
-                                                                    Padding(
-                                                                        padding:
-                                                                            EdgeInsets.all(MediaQuery.of(context).size.width /
-                                                                                100)),
-                                                                    Text(
-                                                                      "Reward Point",
-                                                                      style: TextStyle(
-                                                                          color:
-                                                                              gold,
-                                                                          fontSize:
-                                                                              20),
-                                                                    ),
-                                                                    // Padding(padding: EdgeInsets.only(bottom: 10)),
-                                                                  ],
-                                                                )),
-                                                              ],
-                                                            )),
+                                                            Text(
+                                                              _listNews
+                                                                  .listHomeDetail[
+                                                                      0]
+                                                                  .user
+                                                                  .customer
+                                                                  .reward
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                  color: gold,
+                                                                  fontSize: 30),
+                                                            ),
+                                                            Padding(
+                                                                padding: EdgeInsets.all(
+                                                                    MediaQuery.of(context)
+                                                                            .size
+                                                                            .width /
+                                                                        100)),
+                                                            Text(
+                                                              "Reward Point",
+                                                              style: TextStyle(
+                                                                  color: gold,
+                                                                  fontSize: 20),
+                                                            ),
+                                                            // Padding(padding: EdgeInsets.only(bottom: 10)),
+                                                          ],
+                                                        )),
+                                                      ],
+                                                    )),
                                                   ],
                                                 )),
                                           );
@@ -1493,10 +1472,10 @@ class _UserHomeState extends State<UserHomeDetail> {
                             child:
                                 // Text("data"),
                                 Image.asset(
-                              'assets/pertamina.png',
+                              'assets/patra.jpg',
                             ),
                             decoration: BoxDecoration(
-                              color: gold,
+                              color: Colors.black,
                             ),
                           ),
                           Container(
@@ -1593,30 +1572,31 @@ class _UserHomeState extends State<UserHomeDetail> {
                                           builder: (context) => AllEvent()));
                                 },
                               )),
-                          Container(
-                              padding: EdgeInsets.only(top: 2),
-                              decoration: new BoxDecoration(
-                                  color: Colors.black12,
-                                  border: new Border(
-                                      bottom: new BorderSide(
-                                          color: Colors.grey[850]))),
-                              child: ListTile(
-                                leading:
-                                    Icon(Icons.local_car_wash, color: gold),
+                          // Container(
+                          //     padding: EdgeInsets.only(top: 2),
+                          //     decoration: new BoxDecoration(
+                          //         color: Colors.black12,
+                          //         border: new Border(
+                          //             bottom: new BorderSide(
+                          //                 color: Colors.grey[850]))),
+                          //     child: ListTile(
+                          //       leading:
+                          //           Icon(Icons.local_car_wash, color: gold),
 
-                                title: Text('Driver Arrival Input',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                // isThreeLine: true,
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => InputCode()));
-                                },
-                              )),
+                          //       title: Text('Driver Arrival Input',
+                          //           style: TextStyle(
+                          //               color: Colors.white,
+                          //               fontSize: 15,
+                          //               fontWeight: FontWeight.bold)),
+                          //       // isThreeLine: true,
+                          //       onTap: () {
+                          //         Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //                 builder: (context) =>
+                          //                     DriverHistory()));
+                          //       },
+                          //     )),
                           Container(
                               padding: EdgeInsets.only(top: 2),
                               decoration: new BoxDecoration(
@@ -1627,7 +1607,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                               child: ListTile(
                                 leading: Icon(Icons.history, color: gold),
 
-                                title: Text('Driver Arrival History',
+                                title: Text('Delivery Order History',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -1637,7 +1617,8 @@ class _UserHomeState extends State<UserHomeDetail> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => DeliveryHistoryDetail()));
+                                          builder: (context) =>
+                                              DeliveryHistoryDetail()));
                                 },
                               )),
                           Container(

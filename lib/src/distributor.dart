@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:warnakaltim/src/model/distributorModel.dart';
 
 class DistributorProfile extends StatefulWidget {
-
   @override
   _DistributorProfileState createState() => _DistributorProfileState();
 }
@@ -32,7 +31,8 @@ class _DistributorProfileState extends State<DistributorProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(iconTheme: IconThemeData(
+        appBar: AppBar(
+          iconTheme: IconThemeData(
             color: Colors.white, //change your color here
           ),
           title: Text(
@@ -48,8 +48,9 @@ class _DistributorProfileState extends State<DistributorProfile> {
         body: RefreshIndicator(
             onRefresh: () => _refreshData(context),
             child: FutureBuilder(
-                future: Provider.of<DistributorDetailModel>(context, listen: false)
-                    .fetchDataDistributorDetail(),
+                future:
+                    Provider.of<DistributorDetailModel>(context, listen: false)
+                        .fetchDataDistributorDetail(),
                 builder: (ctx, snapshop) {
                   if (snapshop.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -76,7 +77,10 @@ class _DistributorProfileState extends State<DistributorProfile> {
                                               BorderRadius.circular(50.0),
                                           child: Image.network(
                                             _listDistributorDetail
-                                                .listDistributorDetail[0].employee.distributor.logo,
+                                                .listDistributorDetail[0]
+                                                .customer
+                                                .agen
+                                                .logo,
                                             fit: BoxFit.cover,
                                             width: 100,
                                             height: 100,
@@ -98,7 +102,10 @@ class _DistributorProfileState extends State<DistributorProfile> {
                                       ),
                                       subtitle: Text(
                                         _listDistributorDetail
-                                            .listDistributorDetail[0].employee.distributor.name,
+                                            .listDistributorDetail[0]
+                                            .customer
+                                            .agen
+                                            .name,
                                         style: new TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.white,
@@ -126,7 +133,8 @@ class _DistributorProfileState extends State<DistributorProfile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDistributorDetail.listDistributorDetail[0]
+                                        _listDistributorDetail
+                                                    .listDistributorDetail[0]
                                                     .email ==
                                                 "null"
                                             ? " - "
@@ -160,12 +168,18 @@ class _DistributorProfileState extends State<DistributorProfile> {
                                       ),
                                       subtitle: Text(
                                         _listDistributorDetail
-                                                    .listDistributorDetail[0].employee.distributor.phone
+                                                    .listDistributorDetail[0]
+                                                    .customer
+                                                    .agen
+                                                    .phone
                                                     .toString() ==
                                                 "null"
                                             ? " - "
                                             : _listDistributorDetail
-                                                .listDistributorDetail[0].employee.distributor.phone
+                                                .listDistributorDetail[0]
+                                                .customer
+                                                .agen
+                                                .phone
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
@@ -194,13 +208,19 @@ class _DistributorProfileState extends State<DistributorProfile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDistributorDetail.listDistributorDetail[0]
-                                                    .employee.distributor.website
+                                        _listDistributorDetail
+                                                    .listDistributorDetail[0]
+                                                    .customer
+                                                    .agen
+                                                    .website
                                                     .toString() ==
                                                 "null"
                                             ? " - "
                                             : _listDistributorDetail
-                                                .listDistributorDetail[0].employee.distributor.website
+                                                .listDistributorDetail[0]
+                                                .customer
+                                                .agen
+                                                .website
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
@@ -214,7 +234,7 @@ class _DistributorProfileState extends State<DistributorProfile> {
                                       height: 1.0,
                                       color: gold,
                                     ),
-                                     Padding(padding: EdgeInsets.all(20)),
+                                    Padding(padding: EdgeInsets.all(20)),
                                     ListTile(
                                       leading: Icon(
                                         Icons.map,
@@ -229,13 +249,19 @@ class _DistributorProfileState extends State<DistributorProfile> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDistributorDetail.listDistributorDetail[0]
-                                                    .employee.distributor.address
+                                        _listDistributorDetail
+                                                    .listDistributorDetail[0]
+                                                    .customer
+                                                    .agen
+                                                    .address
                                                     .toString() ==
                                                 "null"
                                             ? " - "
                                             : _listDistributorDetail
-                                                .listDistributorDetail[0].employee.distributor.address
+                                                .listDistributorDetail[0]
+                                                .customer
+                                                .agen
+                                                .address
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,

@@ -1,30 +1,25 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';
 import 'package:marquee_widget/marquee_widget.dart';
+import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:toast/toast.dart';
 import 'package:warnakaltim/src/all_arrival.dart';
-import 'package:warnakaltim/src/all_coupon.dart';
-import 'package:warnakaltim/src/all_event.dart';
-import 'package:warnakaltim/src/all_hotPromo.dart';
-import 'package:warnakaltim/src/all_news.dart';
-import 'package:warnakaltim/src/all_promo.dart';
-import 'package:warnakaltim/src/all_voucher.dart';
-import 'package:warnakaltim/src/company.dart';
-import 'package:warnakaltim/src/detail_Promo.dart';
-import 'package:warnakaltim/src/detail_event.dart';
-import 'package:warnakaltim/src/detail_news.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:warnakaltim/main.dart';
 import 'package:warnakaltim/src/driver.dart';
 import 'package:warnakaltim/src/login.dart';
-import 'package:warnakaltim/src/distributor.dart';
 import 'package:warnakaltim/src/model/HomeDriverModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:warnakaltim/src/model/allArrivalModel.dart';
-import 'package:warnakaltim/src/person.dart';
 import 'package:http/http.dart' as http;
+import 'package:warnakaltim/src/spring_button.dart';
+import 'package:warnakaltim/src/widget.dart';
 
 class DriverHomeDetail extends StatefulWidget {
   // final email;
@@ -46,16 +41,24 @@ class _DriverHomeState extends State<DriverHomeDetail> {
   }
 
   var releaseTime = TimeOfDay.now(); // 3:00pm
+  String id;
+  bool accept;
+  File files;
+  var file;
 
   @override
   void initState() {
     super.initState();
+    accept = false;
     // _getToken();
     // WidgetsBinding.instance.addObserver(this);
     _refreshData(context);
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _driverKey = new GlobalKey<ScaffoldState>();
+  final RoundedLoadingButtonController _btnController =
+      new RoundedLoadingButtonController();
+
   @override
   Widget build(BuildContext context) {
     print('dapat' + email.toString());
@@ -91,24 +94,74 @@ class _DriverHomeState extends State<DriverHomeDetail> {
       }
     }
 
-    Future<http.Response> kirimdata() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String token = prefs.get('Token');
+    Future<http.Response> accepted(String id) async {
       Map<String, String> headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         "Accept": "application/JSON",
-        "Authorization": 'Bearer ' + token
       };
-      http.Response hasil = await http.get(
-          Uri.decodeFull("http://rpm.kantordesa.com/api/driver/arrival"),
-          headers: headers);
-      print('Berhasillllllllllllllllllllllllllllll');
 
+      http.Response hasil =
+          await http.get(Uri.decodeFull(urls + "/api/driver/accept/" + id),
+              // body: {
+              //   "email": emailController.text,
+              //   "password": passwordController.text,
+              //   "fcm_token": "1212123"
+              // },
+              headers: headers);
       return Future.value(hasil);
     }
 
+    Future<http.Response> kirimdata(File file) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String token = prefs.get('Token');
+
+      print(files);
+      print(file);
+      Map<String, String> headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        "Accept": "application/JSON",
+        HttpHeaders.authorizationHeader: 'Bearer ' + token
+      };
+      var mimeTypeData =
+          lookupMimeType(file.path, headerBytes: [0xFF, 0xD8]).split('/');
+      var request =
+          http.MultipartRequest("POST", Uri.parse(urls + "/api/driver/finish"))
+            ..fields['delivery_order_id'] = '1'
+            ..files.add(await http.MultipartFile.fromPath('bast', file.path,
+                contentType: MediaType(mimeTypeData[0], mimeTypeData[1])));
+      request.headers.addAll(headers);
+      print(request.files);
+      print(request.fields);
+      // request.files.add(files);
+      var response = await request.send();
+      var res;
+      print('Upload FIle berhasil ' + response.statusCode.toString());
+      await response.stream
+          .transform(utf8.decoder)
+          .listen((value) => setState(() {
+                    res = value.toString();
+                  })
+              // print(value);
+              );
+      print(res);
+      if (response.statusCode.toString() == '200') {
+        Toast.show("Upload Berhasil", context,
+            duration: 10, gravity: Toast.BOTTOM);
+        // await Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => AssetUploadPage(id: widget.id)));
+      } else {
+        print('Upload gagal ' + response.statusCode.toString());
+
+        Toast.show("Upload Gagal ", context,
+            duration: 10, gravity: Toast.BOTTOM);
+      }
+      // return Future<http.Response>(response.headers);
+    }
+
     return Scaffold(
-      key: _scaffoldKey,
+      key: _driverKey,
       backgroundColor: Colors.grey[850],
       // appBar: AppBar(title: Text('WARNA KALTIM')),
       body: RefreshIndicator(
@@ -135,7 +188,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                 iconTheme: IconThemeData(
                                   color: Colors.white, //change your color here
                                 ),
-                                backgroundColor: Colors.black.withOpacity(0.5),
+                                backgroundColor: Colors.black,
                                 floating: false,
                                 pinned: true,
                                 expandedHeight:
@@ -145,8 +198,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                     : new IconButton(
                                         icon: new Icon(Icons.menu, color: gold),
                                         onPressed: () {
-                                          _scaffoldKey.currentState
-                                              .openDrawer();
+                                          _driverKey.currentState.openDrawer();
                                         }),
                                 flexibleSpace: FlexibleSpaceBar(
                                   // centerTitle: true,
@@ -169,7 +221,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                             MainAxisAlignment.end,
                                         children: <Widget>[
                                           Image.asset(
-                                            'assets/pertamina.png',
+                                            'assets/patra.jpg',
                                             // Expanded(
                                             //     child: Container(
                                             //         // width: 100,
@@ -263,7 +315,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                             // color: Colors.black12,
                                             padding: EdgeInsets.all(10),
                                             width: c_width,
-                                            height: 200,
+                                            height: 100,
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -299,140 +351,404 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                 Padding(
                                                     padding: EdgeInsets.only(
                                                         top: 10)),
-                                                new Expanded(
-                                                    child: Container(
-                                                        // height: 200,
-                                                        // width: 200,
-                                                        child: ListView.builder(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  itemCount: _listNews
-                                                      .listHomeDetail[0]
-                                                      .user
-                                                      .driver
-                                                      .delivery
-                                                      .length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return  Container(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    10),
-                                                            color: Colors.blue
-                                                                .withOpacity(
-                                                                    0.5),
-                                                            width: 400,
-                                                            // height: 500,
-                                                            // MediaQuery.of(
-                                                            //             context)
-                                                            //         .size
-                                                            //         .height *
-                                                            //     50,
-                                                            child: InkWell(
-                                                                onTap: () {
-                                                                  // Navigator.push(
-                                                                  //     context,
-                                                                  //     MaterialPageRoute(
-                                                                  //       builder: (context) => DetailEvent(
-                                                                  //           url: _listNews
-                                                                  //               .listHomeDetail[0]
-                                                                  //               .event[index]
-                                                                  //               .url
-                                                                  //               .toString()),
-                                                                  //     ));
-                                                                },
-                                                                child: Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .start,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Text(
-                                                                      "Destination",
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              15,
-                                                                          color:
-                                                                              Colors.white),
-                                                                    ),
-                                                                    Text(
-                                                                      _listNews
-                                                                          .listHomeDetail[
-                                                                              0]
-                                                                          .user
-                                                                          .driver
-                                                                          .delivery[
-                                                                              index]
-                                                                          .deliveryDate
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              15,
-                                                                          color:
-                                                                              Colors.white),
-                                                                    ),
-                                                                    Text(
-                                                                      _listNews
-                                                                          .listHomeDetail[
-                                                                              0]
-                                                                          .user
-                                                                          .driver
-                                                                          .delivery[
-                                                                              index]
-                                                                          .distributor
-                                                                          .name
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              15,
-                                                                          color:
-                                                                              Colors.white),
-                                                                    ),
-                                                                    Text(
-                                                                      _listNews
-                                                                          .listHomeDetail[
-                                                                              0]
-                                                                          .user
-                                                                          .driver
-                                                                          .delivery[
-                                                                              index]
-                                                                          .distributor
-                                                                          .address
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              15,
-                                                                          color:
-                                                                              Colors.white),
-                                                                    ),
-                                                                    Text(
-                                                                      _listNews
-                                                                          .listHomeDetail[
-                                                                              0]
-                                                                          .user
-                                                                          .driver
-                                                                          .delivery[
-                                                                              index]
-                                                                          .distributor
-                                                                          .phone
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              15,
-                                                                          color:
-                                                                              Colors.white),
-                                                                    ),
-                                                                  ],
-                                                                )));
-                                                  },
-                                                ))),
+                                                // new Expanded(
+                                                //     child: Container(
+                                                //         // height: 200,
+                                                //         // width: 200,
+                                                //         child: ListView.builder(
+                                                //   scrollDirection:
+                                                //       Axis.horizontal,
+                                                //   itemCount: _listNews
+                                                //       .listHomeDetail[0]
+                                                //       .user
+                                                //       .driver
+                                                //       .deliveryOrder
+                                                //       .length,
+                                                //   itemBuilder:
+                                                //       (context, index) {
+                                                //     return Container(
+                                                //         padding:
+                                                //             EdgeInsets.all(10),
+                                                //         color: Colors.blue
+                                                //             .withOpacity(0.5),
+                                                //         width: 400,
+                                                //         // height: 500,
+                                                //         // MediaQuery.of(
+                                                //         //             context)
+                                                //         //         .size
+                                                //         //         .height *
+                                                //         //     50,
+                                                //         child: InkWell(
+                                                //             onTap: () {
+                                                //               // Navigator.push(
+                                                //               //     context,
+                                                //               //     MaterialPageRoute(
+                                                //               //       builder: (context) => DetailEvent(
+                                                //               //           url: _listNews
+                                                //               //               .listHomeDetail[0]
+                                                //               //               .event[index]
+                                                //               //               .url
+                                                //               //               .toString()),
+                                                //               //     ));
+                                                //             },
+                                                //             child: Column(
+                                                //               crossAxisAlignment:
+                                                //                   CrossAxisAlignment
+                                                //                       .start,
+                                                //               mainAxisAlignment:
+                                                //                   MainAxisAlignment
+                                                //                       .start,
+                                                //               children: <
+                                                //                   Widget>[
+                                                //                 Text(
+                                                //                   "Destination",
+                                                //                   style: TextStyle(
+                                                //                       fontSize:
+                                                //                           15,
+                                                //                       color: Colors
+                                                //                           .white),
+                                                //                 ),
+                                                //                 Text(
+                                                //                   _listNews
+                                                //                       .listHomeDetail[
+                                                //                           0]
+                                                //                       .user
+                                                //                       .driver
+                                                //                       .deliveryOrder[
+                                                //                           index]
+                                                //                       .departureTime
+                                                //                       .toString(),
+                                                //                   style: TextStyle(
+                                                //                       fontSize:
+                                                //                           15,
+                                                //                       color: Colors
+                                                //                           .white),
+                                                //                 ),
+                                                //                 // Text(
+                                                //                 //   _listNews
+                                                //                 //       .listHomeDetail[
+                                                //                 //           0]
+                                                //                 //       .driver
+                                                //                 //       .driver
+                                                //                 //       .delivery[
+                                                //                 //           index]
+                                                //                 //       .distributor
+                                                //                 //       .name
+                                                //                 //       .toString(),
+                                                //                 //   style: TextStyle(
+                                                //                 //       fontSize:
+                                                //                 //           15,
+                                                //                 //       color: Colors
+                                                //                 //           .white),
+                                                //                 // ),
+                                                //                 // Text(
+                                                //                 //   _listNews
+                                                //                 //       .listHomeDetail[
+                                                //                 //           0]
+                                                //                 //       .driver
+                                                //                 //       .driver
+                                                //                 //       .delivery[
+                                                //                 //           index]
+                                                //                 //       .distributor
+                                                //                 //       .address
+                                                //                 //       .toString(),
+                                                //                 //   style: TextStyle(
+                                                //                 //       fontSize:
+                                                //                 //           15,
+                                                //                 //       color: Colors
+                                                //                 //           .white),
+                                                //                 // ),
+                                                //                 // Text(
+                                                //                 //   _listNews
+                                                //                 //       .listHomeDetail[
+                                                //                 //           0]
+                                                //                 //       .driver
+                                                //                 //       .driver
+                                                //                 //       .delivery[
+                                                //                 //           index]
+                                                //                 //       .distributor
+                                                //                 //       .phone
+                                                //                 //       .toString(),
+                                                //                 //   style: TextStyle(
+                                                //                 //       fontSize:
+                                                //                 //           15,
+                                                //                 //       color: Colors
+                                                //                 //           .white),
+                                                //                 // ),
+                                                //               ],
+                                                //             )));
+                                                //   },
+                                                // ))),
                                               ],
                                             ));
                                   },
                                   childCount: 1,
+                                ),
+                              ),
+                              SliverToBoxAdapter(
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  width: a_width,
+                                  height: 350,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: _listNews.listHomeDetail[0]
+                                        .readyDeliveryOrder.length,
+                                    // _listNews.listHomeDetail[0].hot.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                          padding: EdgeInsets.all(10),
+                                          // width: a_width,
+                                          // height: a_height,
+                                          child: InkWell(
+                                              onTap: () {
+                                                // email == null
+                                                // ? null
+                                                // : Navigator.push(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //       builder: (context) =>
+                                                //           DetailPromo(
+                                                //               id: _listNews
+                                                //                   .listHomeDetail[
+                                                //                       0]
+                                                //                   .hot[
+                                                //                       index]
+                                                //                   .id
+                                                //                   .toString()),
+                                                //     ));
+                                              },
+                                              child: Card(
+                                                  color: Colors.grey[700],
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    side: BorderSide(
+                                                      color: gold,
+                                                      width: 2.0,
+                                                    ),
+                                                  ),
+                                                  child: Container(
+                                                      padding:
+                                                          EdgeInsets.all(15),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                              'No DO : ' +
+                                                                  _listNews
+                                                                      .listHomeDetail[
+                                                                          0]
+                                                                      .readyDeliveryOrder[
+                                                                          index]
+                                                                      .deliveryOrderNumber,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          Text(
+                                                              'No SO : ' +
+                                                                  _listNews
+                                                                      .listHomeDetail[
+                                                                          0]
+                                                                      .readyDeliveryOrder[
+                                                                          index]
+                                                                      .salesOrder
+                                                                      .salesOrderNumber,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          Text(
+                                                              'Customer : ' +
+                                                                  _listNews
+                                                                      .listHomeDetail[
+                                                                          0]
+                                                                      .readyDeliveryOrder[
+                                                                          index]
+                                                                      .customer
+                                                                      .name,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          Text(
+                                                              'Address : ' +
+                                                                  _listNews
+                                                                      .listHomeDetail[
+                                                                          0]
+                                                                      .readyDeliveryOrder[
+                                                                          index]
+                                                                      .customer
+                                                                      .address,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          Text(
+                                                              'Start : ' +
+                                                                  _listNews
+                                                                      .listHomeDetail[
+                                                                          0]
+                                                                      .readyDeliveryOrder[
+                                                                          index]
+                                                                      .effectiveDateStart,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          Text(
+                                                              'End : ' +
+                                                                  _listNews
+                                                                      .listHomeDetail[
+                                                                          0]
+                                                                      .readyDeliveryOrder[
+                                                                          index]
+                                                                      .effectiveDateEnd,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          Text(
+                                                              'Product : ' +
+                                                                  _listNews
+                                                                      .listHomeDetail[
+                                                                          0]
+                                                                      .readyDeliveryOrder[
+                                                                          index]
+                                                                      .product,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          Text(
+                                                              'Quantity : ' +
+                                                                  _listNews
+                                                                      .listHomeDetail[
+                                                                          0]
+                                                                      .readyDeliveryOrder[
+                                                                          index]
+                                                                      .quantity
+                                                                      .toString(),
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(10)),
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              accept == false
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      width:
+                                                                          120,
+                                                                      height:
+                                                                          60,
+                                                                      child:
+                                                                          SpringButton(
+                                                                        SpringButtonType
+                                                                            .OnlyScale,
+                                                                        roundedRectButton(
+                                                                            "Upload",
+                                                                            signUpGradients,
+                                                                            false),
+                                                                        onTapDown:
+                                                                            (_) async {
+                                                                          files =
+                                                                              await FilePicker.getFile();
+                                                                          setState(
+                                                                              () {
+                                                                            file =
+                                                                                1;
+                                                                          });
+                                                                          // _btnController
+                                                                          //     .reset();
+
+                                                                          // Navigator.push(context,
+                                                                          //     MaterialPageRoute(builder: (context) => Register()));
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                              Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              5)),
+                                                              accept == true
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      width:
+                                                                          120,
+                                                                      height:
+                                                                          60,
+                                                                      child:
+                                                                          SpringButton(
+                                                                        SpringButtonType
+                                                                            .OnlyScale,
+                                                                        roundedRectButton(
+                                                                            "Accept",
+                                                                            signInGradients,
+                                                                            false),
+                                                                        onTapDown:
+                                                                            (_) async {
+                                                                          setState(
+                                                                              () {
+                                                                            accept =
+                                                                                true;
+                                                                          });
+                                                                          _btnController
+                                                                              .reset();
+
+                                                                          // Navigator.push(context,
+                                                                          //     MaterialPageRoute(builder: (context) => Register()));
+                                                                        },
+                                                                      ),
+                                                                    )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      )))));
+                                    },
+                                  ),
                                 ),
                               ),
                               SliverList(
@@ -459,13 +775,18 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                 ),
                                                 color: Colors.black12,
                                                 child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: <Widget>[
                                                     Padding(
                                                         padding:
                                                             EdgeInsets.fromLTRB(
                                                                 20.0,
                                                                 10.0,
-                                                                0.0,
+                                                                20.0,
                                                                 20.0),
                                                         child: Row(
                                                           crossAxisAlignment:
@@ -473,38 +794,38 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   .center,
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .start,
+                                                                  .spaceBetween,
                                                           children: <Widget>[
-                                                            ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            50.0),
-                                                                child: Image
-                                                                    .network(
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .user
-                                                                      .driver
-                                                                      .avatar,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  width: 50,
-                                                                  height: 50,
-                                                                )),
-                                                            Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        left:
-                                                                            5)),
+                                                            // ClipRRect(
+                                                            //     borderRadius:
+                                                            //         BorderRadius
+                                                            //             .circular(
+                                                            //                 50.0),
+                                                            //     child: Image
+                                                            //         .network(
+                                                            //       _listNews
+                                                            //           .listHomeDetail[
+                                                            //               0]
+                                                            //           .driver
+                                                            //           .driver
+                                                            //           .avatar,
+                                                            //       fit: BoxFit
+                                                            //           .cover,
+                                                            //       width: 50,
+                                                            //       height: 50,
+                                                            //     )),
+                                                            // Padding(
+                                                            //     padding: EdgeInsets
+                                                            //         .only(
+                                                            //             left:
+                                                            //                 5)),
                                                             Column(
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
-                                                                      .start,
+                                                                      .center,
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .start,
+                                                                      .center,
                                                               children: <
                                                                   Widget>[
                                                                 Text(
@@ -520,48 +841,54 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                             .white,
                                                                         fontSize:
                                                                             10)),
-                                                                Text(
-                                                                    _listNews
-                                                                        .listHomeDetail[
-                                                                            0]
-                                                                        .user
-                                                                        .driver
-                                                                        .name,
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            15)),
+                                                                // Text(
+                                                                //     _listNews
+                                                                //         .listHomeDetail[
+                                                                //             0]
+                                                                //         .driver
+                                                                //         .driver
+                                                                //         .name,
+                                                                //     style: TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             15)),
                                                               ],
                                                             ),
-                                                            Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        left:
-                                                                            60,
-                                                                        right:
-                                                                            10)),
-                                                            InkWell(
-                                                                onTap: () {
-                                                                  Navigator.push(
-                                                                      context,
-                                                                      MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
+                                                            // Padding(
+                                                            //     padding: EdgeInsets
+                                                            //         .only(
+                                                            //             left:
+                                                            //                 60,
+                                                            //             right:
+                                                            //                 20)),
+                                                            Row(
+                                                              children: [
+                                                                InkWell(
+                                                                    onTap: () {
+                                                                      Navigator.push(
+                                                                          context,
+                                                                          MaterialPageRoute(
+                                                                            builder: (context) =>
                                                                                 AllArrivalDetail(),
-                                                                      ));
-                                                                },
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .notifications_active,
-                                                                  size: 30,
-                                                                  color: gold,
-                                                                )),
-                                                            Text(
-                                                              "History",
-                                                              style: TextStyle(
-                                                                  fontSize: 20,
-                                                                  color: gold),
+                                                                          ));
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .notifications_active,
+                                                                      size: 30,
+                                                                      color:
+                                                                          gold,
+                                                                    )),
+                                                                Text(
+                                                                  "History",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          20,
+                                                                      color:
+                                                                          gold),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ],
                                                         )),
@@ -587,8 +914,9 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                       height: 200,
                                                       child: RawMaterialButton(
                                                         onPressed: () {
-                                                          kirimdata().then(
+                                                          kirimdata(files).then(
                                                               (value) async {
+                                                            print(value);
                                                             if (value
                                                                     .statusCode ==
                                                                 200) {
@@ -616,7 +944,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                               new Text("Ok"),
                                                                           onPressed:
                                                                               () {
-                                                                            Navigator.pop(
+                                                                            Navigator.pushReplacement(
                                                                               context,
                                                                               MaterialPageRoute(builder: (context) => DriverHomeDetail()),
                                                                             );
@@ -724,10 +1052,10 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                             child:
                                 // Text("data"),
                                 Image.asset(
-                              'assets/pertamina.png',
+                              'assets/patra.jpg',
                             ),
                             decoration: BoxDecoration(
-                              color: gold,
+                              color: Colors.black,
                             ),
                           ),
                           Container(

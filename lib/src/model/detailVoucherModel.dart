@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:warnakaltim/main.dart';
 
 DetailVoucherClass detailVoucherClassFromJson(String str) =>
     DetailVoucherClass.fromJson(json.decode(str));
@@ -125,8 +126,7 @@ class DetailVoucherModel with ChangeNotifier {
   Future<void> fetchDataDetailVoucher(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.get('Token');
-    final response = await http.get(
-        Uri.encodeFull('http://rpm.kantordesa.com/api/voucher/' + id),
+    final response = await http.get(Uri.encodeFull(urls + '/api/voucher/' + id),
         headers: {
           "Accept": "application/JSON",
           "Authorization": 'Bearer ' + token

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "152962177603",
+    "firebase_url": "https://rpm-app-e51b3.firebaseio.com",
+    "project_id": "rpm-app-e51b3",
+    "storage_bucket": "rpm-app-e51b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152962177603:android:90d5e200f6a235124452f6",
+        "android_client_info": {
+          "package_name": "com.example.warnakaltim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152962177603-rmmjnijq1khumjr14vb17pv9kbk7eaqi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcRIiNJimXt8JfgwmlnfZJ4ouedMFyBtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152962177603-rmmjnijq1khumjr14vb17pv9kbk7eaqi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

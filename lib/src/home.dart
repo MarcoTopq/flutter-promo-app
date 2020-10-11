@@ -10,7 +10,6 @@ import 'package:warnakaltim/src/company.dart';
 import 'package:warnakaltim/src/detail_Promo.dart';
 import 'package:warnakaltim/src/detail_event.dart';
 import 'package:warnakaltim/src/detail_news.dart';
-import 'package:warnakaltim/src/event.dart';
 import 'package:warnakaltim/main.dart';
 import 'package:warnakaltim/src/login.dart';
 import 'package:warnakaltim/src/model/HomeModel.dart';
@@ -45,7 +44,7 @@ class _HomeState extends State<Home> {
     _refreshData(context);
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _homeKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     print('dapat' + email.toString());
@@ -74,7 +73,7 @@ class _HomeState extends State<Home> {
     );
 
     return Scaffold(
-      key: _scaffoldKey,
+      key: _homeKey,
       backgroundColor: Colors.grey[850],
       // appBar: AppBar(title: Text('WARNA KALTIM')),
       body: RefreshIndicator(
@@ -98,7 +97,7 @@ class _HomeState extends State<Home> {
                               child: CustomScrollView(
                             slivers: <Widget>[
                               SliverAppBar(
-                                backgroundColor: Colors.black.withOpacity(0.5),
+                                backgroundColor: Colors.black,
                                 floating: false,
                                 pinned: true,
                                 expandedHeight:
@@ -108,7 +107,7 @@ class _HomeState extends State<Home> {
                                 //     : new IconButton(
                                 //         icon: new Icon(Icons.menu, color: gold),
                                 //         onPressed: () {
-                                //           _scaffoldKey.currentState
+                                //           _homeKey.currentState
                                 //               .openDrawer();
                                 //         }),
                                 flexibleSpace: FlexibleSpaceBar(
@@ -132,13 +131,13 @@ class _HomeState extends State<Home> {
                                             MainAxisAlignment.end,
                                         children: <Widget>[
                                           Image.asset(
-                                            'assets/pertamina.png',
-                                          // Expanded(
-                                          //     child: Container(
-                                          //         // width: 100,
-                                          //         child: Image.network(
-                                          //   _listNews
-                                          //       .listHomeDetail[0].company.logo,
+                                            'assets/patra.jpg',
+                                            // Expanded(
+                                            //     child: Container(
+                                            //         // width: 100,
+                                            //         child: Image.network(
+                                            //   _listNews
+                                            //       .listHomeDetail[0].company.logo,
                                             fit: BoxFit.fill,
                                             width: MediaQuery.of(context)
                                                     .size
@@ -241,21 +240,26 @@ class _HomeState extends State<Home> {
                                                 // ),
                                                 color: Colors.black12,
                                                 child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: <Widget>[
                                                     Padding(
                                                         padding:
                                                             EdgeInsets.fromLTRB(
                                                                 20.0,
                                                                 10.0,
-                                                                0.0,
+                                                                20.0,
                                                                 20.0),
                                                         child: Row(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
-                                                                  .start,
+                                                                  .center,
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .start,
+                                                                  .spaceBetween,
                                                           children: <Widget>[
                                                             // ClipRRect(
                                                             //     borderRadius:
@@ -268,11 +272,11 @@ class _HomeState extends State<Home> {
                                                             //       width: 50,
                                                             //       height: 50,
                                                             //     )),
-                                                            Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        left:
-                                                                            5)),
+                                                            // Padding(
+                                                            //     padding: EdgeInsets
+                                                            //         .only(
+                                                            //             left:
+                                                            //                 5)),
                                                             Column(
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
@@ -306,66 +310,60 @@ class _HomeState extends State<Home> {
                                                                             15)),
                                                               ],
                                                             ),
-                                                            Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        left:
-                                                                            100,
-                                                                        right:
-                                                                            10)),
-                                                            Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: <
-                                                                    Widget>[
-                                                                  Text(''),
-                                                                  Text("Login",
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize:
-                                                                              15)),
-                                                                ]),
-                                                            Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            2)),
-                                                            Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: <
-                                                                    Widget>[
-                                                                  Text(''),
-                                                                  InkWell(
-                                                                      onTap:
-                                                                          () async {
-                                                                        Navigator.push(
-                                                                            context,
-                                                                            MaterialPageRoute(builder: (context) => Login()));
-                                                                      },
-                                                                      child: Icon(
-                                                                          Icons
-                                                                              .input,
-                                                                          color:
-                                                                              gold,
-                                                                          size:
-                                                                              30))
-                                                                ])
+
+                                                            Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(''),
+                                                                      Text(
+                                                                          "Login",
+                                                                          style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontSize: 15)),
+                                                                    ]),
+                                                                Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(''),
+                                                                      InkWell(
+                                                                          onTap:
+                                                                              () async {
+                                                                            Navigator.push(context,
+                                                                                MaterialPageRoute(builder: (context) => Login()));
+                                                                          },
+                                                                          child: Icon(
+                                                                              Icons.input,
+                                                                              color: gold,
+                                                                              size: 30))
+                                                                    ])
+                                                              ],
+                                                            ),
                                                           ],
                                                         )),
                                                     Divider(
@@ -1341,10 +1339,10 @@ class _HomeState extends State<Home> {
                             child:
                                 // Text("data"),
                                 Image.asset(
-                              'assets/pertamina.png',
+                              'assets/patra.jpg',
                             ),
                             decoration: BoxDecoration(
-                              color: gold,
+                              color: Colors.black,
                             ),
                           ),
                           Container(

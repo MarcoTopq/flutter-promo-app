@@ -12,6 +12,7 @@ import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+
 class CompanyDetail extends StatefulWidget {
   final url;
   final token;
@@ -26,7 +27,7 @@ class CompanyDetail extends StatefulWidget {
 }
 
 class _CompanyDetailState extends State<CompanyDetail> {
-bool _isLoading = true;
+  bool _isLoading = true;
   PDFDocument document;
 
   @override
@@ -48,15 +49,13 @@ bool _isLoading = true;
       document = await PDFDocument.fromAsset('assets/sample2.pdf');
     } else if (value == 2) {
       document = await PDFDocument.fromURL(
-          "http://rpm.kantordesa.com/company/profile/download");
+          "https://rpm.bpkadkaltim.com/company/profile/download");
     } else {
       document = await PDFDocument.fromAsset('assets/sample.pdf');
     }
     setState(() => _isLoading = false);
   }
 
-          
-        
   var gold = Color.fromRGBO(
     212,
     175,
@@ -69,9 +68,9 @@ bool _isLoading = true;
     // loadDocument();
     return Scaffold(
       appBar: AppBar(
-         iconTheme: IconThemeData(
-            color: Colors.white, //change your color here
-          ),
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
         title: Text(
           'Profile Company',
           style: new TextStyle(
@@ -82,17 +81,13 @@ bool _isLoading = true;
         backgroundColor: Colors.black.withOpacity(0.5),
       ),
       backgroundColor: Colors.grey[850],
-      body:
-      
-
-      Center(
-        child: 
-        Center(
+      body: Center(
+        child: Center(
             child: _isLoading
                 ? Center(child: CircularProgressIndicator())
                 : PDFViewer(document: document)),
       ),
-      
+
       // RefreshIndicator(
       //     onRefresh: () => _refreshData(context),
       //     child: FutureBuilder(

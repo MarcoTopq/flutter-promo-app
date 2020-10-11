@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:toast/toast.dart';
 import 'package:warnakaltim/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -10,10 +14,12 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
-  final _formKey = GlobalKey<FormState>();
+  final _loginKey = GlobalKey<FormState>();
 
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  final RoundedLoadingButtonController _btnController =
+      new RoundedLoadingButtonController();
 
   @override
   void dispose() {
@@ -35,10 +41,11 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     };
 
     http.Response hasil =
-        await http.post(Uri.decodeFull("http://rpm.kantordesa.com/api/login"),
+        await http.post(Uri.decodeFull("https://rpm.bpkadkaltim.com/api/login"),
             body: {
               "email": emailController.text,
               "password": passwordController.text,
+              "fcm_token": fcm
             },
             headers: headers);
     return Future.value(hasil);
@@ -94,7 +101,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       // fontFamily: Utils.ubuntuRegularFont),
                     ))),
             Form(
-                key: _formKey,
+                key: _loginKey,
                 child: Container(
                   // width: a_width,
                   // height: a_height,
@@ -115,8 +122,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         Padding(
                             padding: EdgeInsets.all(10),
                             child: Container(
-                                color: Colors.white,
-                                child: TextField(
+                              color: Colors.white,
+                              child: TextFormField(
                                   obscureText: false,
                                   controller: emailController,
                                   style: TextStyle(
@@ -132,40 +139,55 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(2.0))),
-                                ))),
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Harap di isi';
+                                    }
+                                  }),
+                            )),
                         Padding(
                             padding: EdgeInsets.all(10),
                             child: Container(
                                 color: Colors.white,
-                                child: TextField(
-                                  obscureText: true,
-                                  controller: passwordController,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  decoration: InputDecoration(
-                                      fillColor: gold,
-                                      hoverColor: gold,
-                                      focusColor: gold,
-                                      contentPadding: EdgeInsets.fromLTRB(
-                                          20.0, 15.0, 20.0, 15.0),
-                                      hintText: "Password",
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(2.0))),
-                                ))),
+                                child: TextFormField(
+                                    obscureText: true,
+                                    controller: passwordController,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                        fillColor: gold,
+                                        hoverColor: gold,
+                                        focusColor: gold,
+                                        contentPadding: EdgeInsets.fromLTRB(
+                                            20.0, 15.0, 20.0, 15.0),
+                                        hintText: "Password",
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(2.0))),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Harap di isi';
+                                      }
+                                    }))),
                         Padding(
                             padding: EdgeInsets.all(20),
-                            child: Material(
-                              elevation: 5.0,
-                              borderRadius: BorderRadius.circular(30.0),
+                            child: RoundedLoadingButton(
+                              width: 230,
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
                               color: gold,
-                              child: MaterialButton(
-                                minWidth: MediaQuery.of(context).size.width,
-                                padding:
-                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                onPressed: () async {
-                                  if (_formKey.currentState.validate()) {
+                              controller: _btnController,
+                              onPressed: () => Timer(
+                                Duration(seconds: 3),
+                                () async {
+                                  print("lagi coba");
+                                  if (_loginKey.currentState.validate()) {
                                     kirimdata().then((value) async {
                                       if (value.statusCode == 200) {
                                         final responseJson =
@@ -197,28 +219,40 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                           login = true;
                                           email = prefs.get('Email');
                                           token = prefs.get('Token');
-                                          role =  prefs.get('Role');
+                                          role = prefs.get('Role');
                                         });
-
+                                        Toast.show("Login Berhasil", context);
+                                        _btnController.reset();
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     Homepage()));
                                       } else {
-                                        Navigator.pushReplacement(
+                                        Toast.show(
+                                            "Login Gagal Username atau Password salah",
                                             context,
-                                            MaterialPageRoute(
-                                                builder: (context) => Login()));
+                                            duration: 7);
+                                        _btnController.reset();
+                                        // Navigator.pushReplacement(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) => Login()));
                                       }
                                     });
+                                  } else {
+                                    Toast.show(
+                                        "Harap isi semua kolom", context);
+                                    _btnController.reset();
+                                    // Navigator.pushReplacement(context,
+                                    //     MaterialPageRoute(builder: (context) => Spalsh()));
                                   }
                                 },
-                                child: Text("Login",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold)),
+                                // child: Text("Login",
+                                //     textAlign: TextAlign.center,
+                                //     style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold)),
                               ),
                             ))
                       ],

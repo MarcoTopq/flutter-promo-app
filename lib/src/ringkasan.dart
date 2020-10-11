@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:warnakaltim/src/model/chartModel.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 

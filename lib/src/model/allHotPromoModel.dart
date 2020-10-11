@@ -2,36 +2,42 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-List<AllPromoHotClass> allPromoHotClassFromJson(String str) => List<AllPromoHotClass>.from(json.decode(str).map((x) => AllPromoHotClass.fromJson(x)));
+import 'package:warnakaltim/main.dart';
 
-String allPromoHotClassToJson(List<AllPromoHotClass> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+List<AllPromoHotClass> allPromoHotClassFromJson(String str) =>
+    List<AllPromoHotClass>.from(
+        json.decode(str).map((x) => AllPromoHotClass.fromJson(x)));
+
+String allPromoHotClassToJson(List<AllPromoHotClass> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class AllPromoHotClass {
-    int id;
-    String title;
-    String image;
-    String description;
-    int point;
-    int total;
-    int view;
-    String status;
-    String createdAt;
-    String createdBy;
+  int id;
+  String title;
+  String image;
+  String description;
+  int point;
+  int total;
+  int view;
+  String status;
+  String createdAt;
+  String createdBy;
 
-    AllPromoHotClass({
-        this.id,
-        this.title,
-        this.image,
-        this.description,
-        this.point,
-        this.total,
-        this.view,
-        this.status,
-        this.createdAt,
-        this.createdBy,
-    });
+  AllPromoHotClass({
+    this.id,
+    this.title,
+    this.image,
+    this.description,
+    this.point,
+    this.total,
+    this.view,
+    this.status,
+    this.createdAt,
+    this.createdBy,
+  });
 
-    factory AllPromoHotClass.fromJson(Map<String, dynamic> json) => AllPromoHotClass(
+  factory AllPromoHotClass.fromJson(Map<String, dynamic> json) =>
+      AllPromoHotClass(
         id: json["id"],
         title: json["title"],
         image: json["image"],
@@ -42,9 +48,9 @@ class AllPromoHotClass {
         status: json["status"],
         createdAt: json["created_at"],
         createdBy: json["created_by"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
         "image": image,
@@ -55,7 +61,7 @@ class AllPromoHotClass {
         "status": status,
         "created_at": createdAt,
         "created_by": createdBy,
-    };
+      };
 }
 
 class AllHotPromoModel with ChangeNotifier {
@@ -66,8 +72,7 @@ class AllHotPromoModel with ChangeNotifier {
   }
 
   Future<void> fetchDataAllHotPromo() async {
-    final response = await http.get(
-        Uri.encodeFull('http://rpm.kantordesa.com/api/promo/hot'),
+    final response = await http.get(Uri.encodeFull(urls + '/api/promo/hot'),
         headers: {"Accept": "application/JSON"});
     if (response.statusCode == 200) {
       var convertData = json.decode(response.body);

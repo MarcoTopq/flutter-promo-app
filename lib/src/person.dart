@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:warnakaltim/src/model/distributorModel.dart';
 
 class PersonDetail extends StatefulWidget {
-
   @override
   _PersonDetailState createState() => _PersonDetailState();
 }
@@ -33,7 +32,7 @@ class _PersonDetailState extends State<PersonDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           iconTheme: IconThemeData(
+          iconTheme: IconThemeData(
             color: Colors.white, //change your color here
           ),
           title: Text(
@@ -49,8 +48,9 @@ class _PersonDetailState extends State<PersonDetail> {
         body: RefreshIndicator(
             onRefresh: () => _refreshData(context),
             child: FutureBuilder(
-                future: Provider.of<DistributorDetailModel>(context, listen: false)
-                    .fetchDataDistributorDetail(),
+                future:
+                    Provider.of<DistributorDetailModel>(context, listen: false)
+                        .fetchDataDistributorDetail(),
                 builder: (ctx, snapshop) {
                   if (snapshop.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -77,7 +77,9 @@ class _PersonDetailState extends State<PersonDetail> {
                                               BorderRadius.circular(50.0),
                                           child: Image.network(
                                             _listDistributorDetail
-                                                .listDistributorDetail[0].employee.avatar,
+                                                .listDistributorDetail[0]
+                                                .customer
+                                                .avatar,
                                             fit: BoxFit.cover,
                                             width: 100,
                                             height: 100,
@@ -99,7 +101,9 @@ class _PersonDetailState extends State<PersonDetail> {
                                       ),
                                       subtitle: Text(
                                         _listDistributorDetail
-                                            .listDistributorDetail[0].employee.name,
+                                            .listDistributorDetail[0]
+                                            .customer
+                                            .name,
                                         style: new TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.white,
@@ -127,7 +131,8 @@ class _PersonDetailState extends State<PersonDetail> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDistributorDetail.listDistributorDetail[0]
+                                        _listDistributorDetail
+                                                    .listDistributorDetail[0]
                                                     .email ==
                                                 "null"
                                             ? " - "
@@ -161,12 +166,16 @@ class _PersonDetailState extends State<PersonDetail> {
                                       ),
                                       subtitle: Text(
                                         _listDistributorDetail
-                                                    .listDistributorDetail[0].employee.phone
+                                                    .listDistributorDetail[0]
+                                                    .customer
+                                                    .phone
                                                     .toString() ==
                                                 "null"
                                             ? " - "
                                             : _listDistributorDetail
-                                                .listDistributorDetail[0].employee.phone
+                                                .listDistributorDetail[0]
+                                                .customer
+                                                .phone
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
@@ -188,20 +197,24 @@ class _PersonDetailState extends State<PersonDetail> {
                                         size: 50,
                                       ),
                                       title: Text(
-                                        'Type',
+                                        'member',
                                         style: new TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.white,
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDistributorDetail.listDistributorDetail[0]
-                                                    .employee.type
+                                        _listDistributorDetail
+                                                    .listDistributorDetail[0]
+                                                    .customer
+                                                    .member
                                                     .toString() ==
                                                 "null"
                                             ? " - "
                                             : _listDistributorDetail
-                                                .listDistributorDetail[0].employee.type
+                                                .listDistributorDetail[0]
+                                                .customer
+                                                .member
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
@@ -215,7 +228,7 @@ class _PersonDetailState extends State<PersonDetail> {
                                       height: 1.0,
                                       color: gold,
                                     ),
-                                     Padding(padding: EdgeInsets.all(20)),
+                                    Padding(padding: EdgeInsets.all(20)),
                                     ListTile(
                                       leading: Icon(
                                         Icons.map,
@@ -230,13 +243,17 @@ class _PersonDetailState extends State<PersonDetail> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDistributorDetail.listDistributorDetail[0]
-                                                    .employee.address
+                                        _listDistributorDetail
+                                                    .listDistributorDetail[0]
+                                                    .customer
+                                                    .address
                                                     .toString() ==
                                                 "null"
                                             ? " - "
                                             : _listDistributorDetail
-                                                .listDistributorDetail[0].employee.address
+                                                .listDistributorDetail[0]
+                                                .customer
+                                                .address
                                                 .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,

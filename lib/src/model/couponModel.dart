@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:warnakaltim/main.dart';
 
 List<AllCouponDetail> allCouponDetailFromJson(String str) =>
     List<AllCouponDetail>.from(
@@ -55,11 +56,11 @@ class CouponModel with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.get('Token');
 
-    final response = await http
-        .get(Uri.encodeFull('http://rpm.kantordesa.com/api/coupon'), headers: {
-      "Accept": "application/JSON",
-      "Authorization": 'Bearer ' + token
-    });
+    final response = await http.get(Uri.encodeFull(urls + '/api/coupon'),
+        headers: {
+          "Accept": "application/JSON",
+          "Authorization": 'Bearer ' + token
+        });
     if (response.statusCode == 200) {
       var convertData = jsonDecode(response.body);
       final List<AllCouponDetail> newData = [];

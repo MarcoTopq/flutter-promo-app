@@ -2,36 +2,41 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-List<AllPromoClass> allPromoClassFromJson(String str) => List<AllPromoClass>.from(json.decode(str).map((x) => AllPromoClass.fromJson(x)));
+import 'package:warnakaltim/main.dart';
 
-String allPromoClassToJson(List<AllPromoClass> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+List<AllPromoClass> allPromoClassFromJson(String str) =>
+    List<AllPromoClass>.from(
+        json.decode(str).map((x) => AllPromoClass.fromJson(x)));
+
+String allPromoClassToJson(List<AllPromoClass> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class AllPromoClass {
-    int id;
-    String title;
-    String image;
-    String description;
-    int point;
-    int total;
-    int view;
-    String status;
-    String createdAt;
-    String createdBy;
+  int id;
+  String title;
+  String image;
+  String description;
+  int point;
+  int total;
+  int view;
+  String status;
+  String createdAt;
+  String createdBy;
 
-    AllPromoClass({
-        this.id,
-        this.title,
-        this.image,
-        this.description,
-        this.point,
-        this.total,
-        this.view,
-        this.status,
-        this.createdAt,
-        this.createdBy,
-    });
+  AllPromoClass({
+    this.id,
+    this.title,
+    this.image,
+    this.description,
+    this.point,
+    this.total,
+    this.view,
+    this.status,
+    this.createdAt,
+    this.createdBy,
+  });
 
-    factory AllPromoClass.fromJson(Map<String, dynamic> json) => AllPromoClass(
+  factory AllPromoClass.fromJson(Map<String, dynamic> json) => AllPromoClass(
         id: json["id"],
         title: json["title"],
         image: json["image"],
@@ -42,9 +47,9 @@ class AllPromoClass {
         status: json["status"],
         createdAt: json["created_at"],
         createdBy: json["created_by"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
         "image": image,
@@ -55,7 +60,7 @@ class AllPromoClass {
         "status": status,
         "created_at": createdAt,
         "created_by": createdBy,
-    };
+      };
 }
 
 class AllPromoModel with ChangeNotifier {
@@ -66,8 +71,7 @@ class AllPromoModel with ChangeNotifier {
   }
 
   Future<void> fetchDataAllPromo() async {
-    final response = await http.get(
-        Uri.encodeFull('http://rpm.kantordesa.com/api/promo/normal'),
+    final response = await http.get(Uri.encodeFull(urls + '/api/promo/normal'),
         headers: {"Accept": "application/JSON"});
     if (response.statusCode == 200) {
       var convertData = json.decode(response.body);

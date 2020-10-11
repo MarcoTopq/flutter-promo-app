@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:warnakaltim/src/deliveryDetail.dart';
+import 'package:warnakaltim/src/driverHistory.dart';
 import 'package:warnakaltim/src/model/deliveryHistoryModel.dart';
+import 'package:warnakaltim/src/spring_button.dart';
+import 'package:warnakaltim/src/widget.dart';
 
 class DeliveryHistoryDetail extends StatefulWidget {
   final String url;
@@ -22,7 +26,8 @@ class _DeliveryHistoryDetailState extends State<DeliveryHistoryDetail> {
     2,
   );
   Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<DeliveryHistoryModel>(context, listen: false).fetchDataDeliveryHistory();
+    await Provider.of<DeliveryHistoryModel>(context, listen: false)
+        .fetchDataDeliveryHistory();
   }
 
   @override
@@ -68,8 +73,9 @@ class _DeliveryHistoryDetailState extends State<DeliveryHistoryDetail> {
         body: RefreshIndicator(
             onRefresh: () => _refreshData(context),
             child: FutureBuilder(
-                future: Provider.of<DeliveryHistoryModel>(context, listen: false)
-                    .fetchDataDeliveryHistory(),
+                future:
+                    Provider.of<DeliveryHistoryModel>(context, listen: false)
+                        .fetchDataDeliveryHistory(),
                 builder: (ctx, snapshop) {
                   if (snapshop.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -89,76 +95,186 @@ class _DeliveryHistoryDetailState extends State<DeliveryHistoryDetail> {
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
                                     return Container(
-                                        padding: EdgeInsets.all(10),
-                                        width: b_width,
-                                        height: b_height,
-                                        child: Card(
-                                            color: Colors.blue.withOpacity(0.5),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(2),
-                                              side: BorderSide(
-                                                color: gold,
-                                                width: 2.0,
-                                              ),
-                                            ),
-                                            child: Container(
-                                                padding: EdgeInsets.all(10),
-                                                child: Column(
+                                      padding: EdgeInsets.all(20),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          // Row(
+                                          //   crossAxisAlignment:
+                                          //       CrossAxisAlignment.start,
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.start,
+                                          //   children: [
+                                          //     // Padding(padding: EdgeInsets.all(5)),
+                                          // Icon(
+                                          //   Icons.check_circle,
+                                          //   color: Colors.green,
+                                          //   size: 20,
+                                          // ),
+                                          //     Padding(padding: EdgeInsets.all(5)),
+                                          //     Text(
+                                          //       _listDelivery
+                                          //           .listDeliveryHistory[index]
+                                          //           .deliveryOrderNumber,
+                                          //       style: new TextStyle(
+                                          //         fontSize: 16.0,
+                                          //         color: Colors.white,
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
+                                          Row(
+                                            children: [
+                                              // IntrinsicHeight(
+                                              //     child: VerticalDivider(
+                                              //   endIndent: 20.0,
+                                              //   indent: 0.0,
+                                              //   thickness: 10,
+                                              //   width: 30.0,
+                                              //   color: Colors.white,
+                                              // )),
+                                              Expanded(
+                                                  child: ListTile(
+                                                leading: Icon(
+                                                  Icons.add_circle,
+                                                  color: gold,
+                                                  size: 40,
+                                                ),
+                                                title: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
-                                                  children: <Widget>[
+                                                  children: [
                                                     Text(
-                                                      "Destination",
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
+                                                      'No DO : ' +
+                                                          _listDelivery
+                                                              .listDeliveryHistory[
+                                                                  index]
+                                                              .deliveryOrderNumber
+                                                              .toString(),
+                                                      style: new TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'No SO : ' +
+                                                          _listDelivery
+                                                              .listDeliveryHistory[
+                                                                  index]
+                                                              .salesOrder
+                                                              .salesOrderNumber
+                                                              .toString(),
+                                                      style: new TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                     Text(
                                                       _listDelivery
-                                                          .listDeliveryHistory[index]
-                                                          .deliveryDate
+                                                          .listDeliveryHistory[
+                                                              index]
+                                                          .product
                                                           .toString(),
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
+                                                      style: new TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                     Text(
                                                       _listDelivery
-                                                          .listDeliveryHistory[index]
-                                                          .driver
-                                                          .name
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
+                                                          .listDeliveryHistory[
+                                                              index]
+                                                          .quantity
+                                                          .toString()
+                                                          .replaceAllMapped(
+                                                              new RegExp(
+                                                                  r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                              (Match m) =>
+                                                                  '${m[1]},'),
+                                                      style: new TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                     Text(
                                                       _listDelivery
-                                                          .listDeliveryHistory[index]
-                                                          .driver
-                                                          .address
+                                                          .listDeliveryHistory[
+                                                              index]
+                                                          .status
                                                           .toString(),
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
-                                                    ),
-                                                    Text(
-                                                      _listDelivery
-                                                          .listDeliveryHistory[index]
-                                                          .driver
-                                                          .phone
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.white),
+                                                      style: new TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                   ],
-                                                ))));
+                                                ),
+                                              )),
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    width: 120,
+                                                    height: 60,
+                                                    child: SpringButton(
+                                                        SpringButtonType
+                                                            .OnlyScale,
+                                                        roundedRectButton(
+                                                            "Detail",
+                                                            signInGradients,
+                                                            false),
+                                                        onTapDown: (_) async {
+                                                      setState(() {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) => DetailDelivery(
+                                                                    id: _listDelivery
+                                                                        .listDeliveryHistory[
+                                                                            index]
+                                                                        .id
+                                                                        .toString())));
+                                                      });
+                                                    }),
+                                                  ),
+                                                  Container(
+                                                    width: 120,
+                                                    height: 60,
+                                                    child: SpringButton(
+                                                        SpringButtonType
+                                                            .OnlyScale,
+                                                        roundedRectButton(
+                                                            "History",
+                                                            signInGradients,
+                                                            false),
+                                                        onTapDown: (_) async {
+                                                      setState(() {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) => DriverHistory(
+                                                                    id: _listDelivery
+                                                                        .listDeliveryHistory[
+                                                                            index]
+                                                                        .id
+                                                                        .toString())));
+                                                      });
+                                                    }),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    );
                                   },
-                                  childCount: _listDelivery.listDeliveryHistory.length,
+                                  childCount:
+                                      _listDelivery.listDeliveryHistory.length,
                                 ),
                               ),
                             ])));

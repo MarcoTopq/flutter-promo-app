@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,17 +27,28 @@ dependencies:
   marquee_flutter: ^0.1.4
   marquee_widget: ^0.8.0
   charts_flutter: ^0.8.1
-  provider: ^3.1.0
+  provider: ^4.3.2
   intl: ^0.16.0
   http: ^0.12.0+2
-  shared_preferences: ^0.5.6+1
   flutter_webview_plugin: ^0.3.10+1
   flutter_swiper: ^1.1.6
   flutter_plugin_pdf_viewer: ^1.0.7
-  syncfusion_flutter_charts: ^17.4.51
   pdf_viewer_plugin: ^1.0.0+2
   url_launcher: ^5.4.2
-
+  path_provider: ^1.6.5
+  splashscreen: ^1.2.0
+  characters: ^1.0.0
+  shared_preferences: ^0.5.8
+  rounded_loading_button: ^1.0.0
+  toast: ^0.1.5
+  curved_navigation_bar: ^0.3.3
+  firebase_messaging: ^7.0.0
+  mime: ^0.9.6+3
+  http_parser: ^3.1.4
+  file_picker: ^1.6.3+2
+  json_table: ^1.4.0
+  photo_view: ^0.10.2
+  badges: ^1.1.3
 
 
 
@@ -74,6 +85,8 @@ flutter:
    - assets/pertamina.png
    - assets/pertamina-loyalty-card.png
    - assets/pt.jpg
+   - assets/patra.jpg
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

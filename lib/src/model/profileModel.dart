@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:warnakaltim/main.dart';
 
 ProfileDetail profileDetailFromJson(String str) =>
     ProfileDetail.fromJson(json.decode(str));
@@ -70,12 +71,11 @@ class ProfileDetailModel with ChangeNotifier {
   Future<void> fetchDataProfileDetail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.get('Token');
-    final response = await http.get(
-        Uri.encodeFull('http://rpm.kantordesa.com/api/company/profile'),
-        headers: {
-          "Accept": "application/JSON",
-          "Authorization": 'Bearer' + token
-        });
+    final response = await http
+        .get(Uri.encodeFull(urls + '/api/company/profile'), headers: {
+      "Accept": "application/JSON",
+      "Authorization": 'Bearer' + token
+    });
     if (response.statusCode == 200) {
       var convertData = json.decode(response.body);
       List<ProfileDetail> newData = [];
