@@ -4,6 +4,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:warnakaltim/src/deliveryDetail.dart';
 import 'package:warnakaltim/src/driverHistory.dart';
 import 'package:warnakaltim/src/model/deliveryHistoryModel.dart';
+import 'package:warnakaltim/src/rating.dart';
 import 'package:warnakaltim/src/spring_button.dart';
 import 'package:warnakaltim/src/widget.dart';
 
@@ -265,6 +266,36 @@ class _DeliveryHistoryDetailState extends State<DeliveryHistoryDetail> {
                                                       });
                                                     }),
                                                   ),
+                                                  _listDelivery
+                                                              .listDeliveryHistory[
+                                                                  index]
+                                                              .arrivalTime ==
+                                                          null
+                                                      ? Container()
+                                                      : Container(
+                                                          width: 120,
+                                                          height: 60,
+                                                          child: SpringButton(
+                                                              SpringButtonType
+                                                                  .OnlyScale,
+                                                              roundedRectButton(
+                                                                  "Rate",
+                                                                  signInGradients,
+                                                                  false),
+                                                              onTapDown:
+                                                                  (_) async {
+                                                            setState(() {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) => Rating(
+                                                                          id: _listDelivery
+                                                                              .listDeliveryHistory[index]
+                                                                              .id
+                                                                              .toString())));
+                                                            });
+                                                          }),
+                                                        ),
                                                 ],
                                               ),
                                             ],

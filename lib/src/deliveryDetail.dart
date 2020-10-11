@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:warnakaltim/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:warnakaltim/src/model/detailDeliveryModel.dart';
 
 class DetailDelivery extends StatefulWidget {
@@ -663,17 +658,29 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: gold,
                                                     ),
                                                   ),
-                                                  Text(
-                                                    _listDetaildo
-                                                        .listDetailDo[index]
-                                                        .driver
-                                                        .name
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
+                                                  _listDetaildo
+                                                              .listDetailDo[
+                                                                  index]
+                                                              .driver ==
+                                                          null
+                                                      ? Text(
+                                                          ' - ',
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
+                                                      : Text(
+                                                          _listDetaildo
+                                                              .listDetailDo[
+                                                                  index]
+                                                              .driver['name']
+                                                              .toString(),
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -684,17 +691,29 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: gold,
                                                     ),
                                                   ),
-                                                  Text(
-                                                    _listDetaildo
-                                                        .listDetailDo[index]
-                                                        .driver
-                                                        .phone
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
+                                                  _listDetaildo
+                                                              .listDetailDo[
+                                                                  index]
+                                                              .driver ==
+                                                          null
+                                                      ? Text(
+                                                          ' - ',
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
+                                                      : Text(
+                                                          _listDetaildo
+                                                              .listDetailDo[
+                                                                  index]
+                                                              .driver['phone']
+                                                              .toString(),
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
                                                 ],
                                               ),
                                             )),

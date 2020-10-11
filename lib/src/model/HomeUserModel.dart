@@ -4,12 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:warnakaltim/main.dart';
 
-// To parse this JSON data, do
-//
-//     final userHome = userHomeFromJson(jsonString);
-
-import 'dart:convert';
-
 UserHome userHomeFromJson(String str) => UserHome.fromJson(json.decode(str));
 
 String userHomeToJson(UserHome data) => json.encode(data.toJson());

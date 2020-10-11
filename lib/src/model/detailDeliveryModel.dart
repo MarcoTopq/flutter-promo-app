@@ -5,6 +5,12 @@ import 'dart:convert';
 
 import 'package:warnakaltim/main.dart';
 
+// To parse this JSON data, do
+//
+//     final detailDo = detailDoFromJson(jsonString);
+
+import 'dart:convert';
+
 DetailDo detailDoFromJson(String str) => DetailDo.fromJson(json.decode(str));
 
 String detailDoToJson(DetailDo data) => json.encode(data.toJson());
@@ -53,15 +59,15 @@ class DetailDo {
   String topSeal;
   String bottomSeal;
   String temperature;
-  String departureTime;
-  String arrivalTime;
+  dynamic departureTime;
+  dynamic arrivalTime;
   dynamic unloadingStartTime;
   dynamic unloadingEndTime;
   dynamic departureTimeDepot;
   String status;
   SalesOrder salesOrder;
   Customer customer;
-  Driver driver;
+  dynamic driver;
   String bast;
 
   factory DetailDo.fromJson(Map<String, dynamic> json) => DetailDo(
@@ -88,7 +94,7 @@ class DetailDo {
         status: json["status"],
         salesOrder: SalesOrder.fromJson(json["sales_order"]),
         customer: Customer.fromJson(json["customer"]),
-        driver: Driver.fromJson(json["driver"]),
+        driver: json["driver"],
         bast: json["bast"],
       );
 
@@ -116,7 +122,7 @@ class DetailDo {
         "status": status,
         "sales_order": salesOrder.toJson(),
         "customer": customer.toJson(),
-        "driver": driver.toJson(),
+        "driver": driver,
         "bast": bast,
       };
 }
@@ -180,58 +186,6 @@ class Customer {
         "user_id": userId,
         "agen_id": agenId,
         "reward": reward,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-      };
-}
-
-class Driver {
-  Driver({
-    this.id,
-    this.name,
-    this.address,
-    this.phone,
-    this.avatar,
-    this.route,
-    this.userId,
-    this.agenId,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int id;
-  String name;
-  String address;
-  String phone;
-  String avatar;
-  int route;
-  int userId;
-  int agenId;
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  factory Driver.fromJson(Map<String, dynamic> json) => Driver(
-        id: json["id"],
-        name: json["name"],
-        address: json["address"],
-        phone: json["phone"],
-        avatar: json["avatar"],
-        route: json["route"],
-        userId: json["user_id"],
-        agenId: json["agen_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "address": address,
-        "phone": phone,
-        "avatar": avatar,
-        "route": route,
-        "user_id": userId,
-        "agen_id": agenId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

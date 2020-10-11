@@ -492,7 +492,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                   height: 350,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: _listNews.listHomeDetail[0]
+                                    itemCount: _listNews.listHomeDetail[0].user
                                         .readyDeliveryOrder.length,
                                     // _listNews.listHomeDetail[0].hot.length,
                                     itemBuilder: (context, index) {
@@ -545,6 +545,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
+                                                                      .user
                                                                       .readyDeliveryOrder[
                                                                           index]
                                                                       .deliveryOrderNumber,
@@ -560,6 +561,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
+                                                                      .user
                                                                       .readyDeliveryOrder[
                                                                           index]
                                                                       .salesOrder
@@ -576,6 +578,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
+                                                                      .user
                                                                       .readyDeliveryOrder[
                                                                           index]
                                                                       .customer
@@ -592,6 +595,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
+                                                                      .user
                                                                       .readyDeliveryOrder[
                                                                           index]
                                                                       .customer
@@ -608,6 +612,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
+                                                                      .user
                                                                       .readyDeliveryOrder[
                                                                           index]
                                                                       .effectiveDateStart,
@@ -623,6 +628,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
+                                                                      .user
                                                                       .readyDeliveryOrder[
                                                                           index]
                                                                       .effectiveDateEnd,
@@ -638,6 +644,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
+                                                                      .user
                                                                       .readyDeliveryOrder[
                                                                           index]
                                                                       .product,
@@ -653,6 +660,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
+                                                                      .user
                                                                       .readyDeliveryOrder[
                                                                           index]
                                                                       .quantity

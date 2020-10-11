@@ -212,8 +212,8 @@ class Driver {
   int route;
   int userId;
   int agenId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
 
   factory Driver.fromJson(Map<String, dynamic> json) => Driver(
         id: json["id"],
@@ -224,8 +224,8 @@ class Driver {
         route: json["route"],
         userId: json["user_id"],
         agenId: json["agen_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -237,8 +237,8 @@ class Driver {
         "route": route,
         "user_id": userId,
         "agen_id": agenId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }
 
