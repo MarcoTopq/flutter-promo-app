@@ -5,12 +5,6 @@ import 'dart:convert';
 
 import 'package:warnakaltim/main.dart';
 
-// To parse this JSON data, do
-//
-//     final detailDo = detailDoFromJson(jsonString);
-
-import 'dart:convert';
-
 DetailDo detailDoFromJson(String str) => DetailDo.fromJson(json.decode(str));
 
 String detailDoToJson(DetailDo data) => json.encode(data.toJson());
@@ -38,8 +32,7 @@ class DetailDo {
     this.unloadingEndTime,
     this.departureTimeDepot,
     this.status,
-    this.salesOrder,
-    this.customer,
+    this.salesOrderId,
     this.driver,
     this.bast,
   });
@@ -65,8 +58,7 @@ class DetailDo {
   dynamic unloadingEndTime;
   dynamic departureTimeDepot;
   String status;
-  SalesOrder salesOrder;
-  Customer customer;
+  int salesOrderId;
   dynamic driver;
   String bast;
 
@@ -92,8 +84,7 @@ class DetailDo {
         unloadingEndTime: json["unloading_end_time"],
         departureTimeDepot: json["departure_time_depot"],
         status: json["status"],
-        salesOrder: SalesOrder.fromJson(json["sales_order"]),
-        customer: Customer.fromJson(json["customer"]),
+        salesOrderId: json["sales_order_id"],
         driver: json["driver"],
         bast: json["bast"],
       );
@@ -120,106 +111,9 @@ class DetailDo {
         "unloading_end_time": unloadingEndTime,
         "departure_time_depot": departureTimeDepot,
         "status": status,
-        "sales_order": salesOrder.toJson(),
-        "customer": customer.toJson(),
+        "sales_order_id": salesOrderId,
         "driver": driver,
         "bast": bast,
-      };
-}
-
-class Customer {
-  Customer({
-    this.id,
-    this.name,
-    this.member,
-    this.address,
-    this.npwp,
-    this.phone,
-    this.website,
-    this.logo,
-    this.userId,
-    this.agenId,
-    this.reward,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int id;
-  String name;
-  String member;
-  String address;
-  String npwp;
-  String phone;
-  String website;
-  String logo;
-  int userId;
-  int agenId;
-  int reward;
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
-        id: json["id"],
-        name: json["name"],
-        member: json["member"],
-        address: json["address"],
-        npwp: json["npwp"],
-        phone: json["phone"],
-        website: json["website"],
-        logo: json["logo"],
-        userId: json["user_id"],
-        agenId: json["agen_id"],
-        reward: json["reward"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "member": member,
-        "address": address,
-        "npwp": npwp,
-        "phone": phone,
-        "website": website,
-        "logo": logo,
-        "user_id": userId,
-        "agen_id": agenId,
-        "reward": reward,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-      };
-}
-
-class SalesOrder {
-  SalesOrder({
-    this.id,
-    this.salesOrderNumber,
-    this.agenId,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int id;
-  String salesOrderNumber;
-  int agenId;
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  factory SalesOrder.fromJson(Map<String, dynamic> json) => SalesOrder(
-        id: json["id"],
-        salesOrderNumber: json["sales_order_number"],
-        agenId: json["agen_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "sales_order_number": salesOrderNumber,
-        "agen_id": agenId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
       };
 }
 

@@ -162,38 +162,34 @@ class _SalesOrderDetailState extends State<SalesOrderDetail> {
                                                   ],
                                                 ),
                                               )),
-                                              _listSalesOrder.listSalesOrder
-                                                          .length >
-                                                      1
-                                                  ? Column(
-                                                      children: [
-                                                        Container(
-                                                          width: 120,
-                                                          height: 60,
-                                                          child: SpringButton(
-                                                              SpringButtonType
-                                                                  .OnlyScale,
-                                                              roundedRectButton(
-                                                                  "Detail DO",
-                                                                  signInGradients,
-                                                                  false),
-                                                              onTapDown:
-                                                                  (_) async {
-                                                            setState(() {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) => DetailDeliveryAgen(
-                                                                          id: _listSalesOrder
-                                                                              .listSalesOrder[index]
-                                                                              .id
-                                                                              .toString())));
-                                                            });
-                                                          }),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  : Container(),
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    width: 120,
+                                                    height: 60,
+                                                    child: SpringButton(
+                                                        SpringButtonType
+                                                            .OnlyScale,
+                                                        roundedRectButton(
+                                                            "Detail DO",
+                                                            signInGradients,
+                                                            false),
+                                                        onTapDown: (_) async {
+                                                      setState(() {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) => DetailDeliveryAgen(
+                                                                    id: _listSalesOrder
+                                                                        .listSalesOrder[
+                                                                            index]
+                                                                        .id
+                                                                        .toString())));
+                                                      });
+                                                    }),
+                                                  ),
+                                                ],
+                                              )
                                             ],
                                           ),
                                         ],

@@ -158,6 +158,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -171,13 +178,19 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                   Text(
                                                     _listDetaildo
                                                         .listDetailDo[index]
-                                                        .salesOrder
-                                                        .salesOrderNumber
+                                                        .salesOrderId
                                                         .toString(),
                                                     style: new TextStyle(
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -199,6 +212,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -219,6 +239,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -238,6 +265,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -264,6 +298,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -283,6 +324,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -304,6 +352,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -323,6 +378,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -344,6 +406,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -363,6 +432,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -384,6 +460,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -403,6 +486,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -424,6 +514,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -443,6 +540,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -464,6 +568,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -484,6 +595,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -503,6 +621,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -544,6 +669,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -564,90 +696,97 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                       color: Colors.white,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                      padding:
-                                                          EdgeInsets.all(2)),
-                                                  Text(
-                                                    'Customer Name',
-                                                    style: new TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: gold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    _listDetaildo
-                                                        .listDetailDo[index]
-                                                        .customer
-                                                        .name
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
-                                                  Text(
-                                                    'Member',
-                                                    style: new TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: gold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    _listDetaildo
-                                                        .listDetailDo[index]
-                                                        .customer
-                                                        .member
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                      padding:
-                                                          EdgeInsets.all(2)),
-                                                  Text(
-                                                    'Customer Address',
-                                                    style: new TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: gold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    _listDetaildo
-                                                        .listDetailDo[index]
-                                                        .customer
-                                                        .address
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                      padding:
-                                                          EdgeInsets.all(2)),
-                                                  Text(
-                                                    'Customer Phone',
-                                                    style: new TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: gold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    _listDetaildo
-                                                        .listDetailDo[index]
-                                                        .customer
-                                                        .phone
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
+                                                  // Text(
+                                                  //   'Customer Name',
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 12.0,
+                                                  //     color: gold,
+                                                  //   ),
+                                                  // ),
+                                                  // Text(
+                                                  //   _listDetaildo
+                                                  //       .listDetailDo[index]
+                                                  //       .customer
+                                                  //       .name
+                                                  //       .toString(),
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 16.0,
+                                                  //     color: Colors.white,
+                                                  //   ),
+                                                  // ),
+                                                  // Padding(
+                                                  //     padding:
+                                                  //         EdgeInsets.all(2)),
+                                                  // Text(
+                                                  //   'Member',
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 12.0,
+                                                  //     color: gold,
+                                                  //   ),
+                                                  // ),
+                                                  // Text(
+                                                  //   _listDetaildo
+                                                  //       .listDetailDo[index]
+                                                  //       .customer
+                                                  //       .member
+                                                  //       .toString(),
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 16.0,
+                                                  //     color: Colors.white,
+                                                  //   ),
+                                                  // ),
+                                                  // Padding(
+                                                  //     padding:
+                                                  //         EdgeInsets.all(2)),
+                                                  // Text(
+                                                  //   'Customer Address',
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 12.0,
+                                                  //     color: gold,
+                                                  //   ),
+                                                  // ),
+                                                  // Text(
+                                                  //   _listDetaildo
+                                                  //       .listDetailDo[index]
+                                                  //       .customer
+                                                  //       .address
+                                                  //       .toString(),
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 16.0,
+                                                  //     color: Colors.white,
+                                                  //   ),
+                                                  // ),
+                                                  // Padding(
+                                                  //     padding:
+                                                  //         EdgeInsets.all(2)),
+                                                  // Text(
+                                                  //   'Customer Phone',
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 12.0,
+                                                  //     color: gold,
+                                                  //   ),
+                                                  // ),
+                                                  // Text(
+                                                  //   _listDetaildo
+                                                  //       .listDetailDo[index]
+                                                  //       .customer
+                                                  //       .phone
+                                                  //       .toString(),
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 16.0,
+                                                  //     color: Colors.white,
+                                                  //   ),
+                                                  // ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -681,6 +820,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                             color: Colors.white,
                                                           ),
                                                         ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -714,6 +860,13 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                             color: Colors.white,
                                                           ),
                                                         ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                 ],
                                               ),
                                             )),

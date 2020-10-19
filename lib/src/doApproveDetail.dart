@@ -165,6 +165,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -179,13 +186,19 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                     _listDoApproveDetail
                                                         .listDoApproveDetail[
                                                             index]
-                                                        .salesOrder
-                                                        .salesOrderNumber
+                                                        .salesOrderId
                                                         .toString(),
                                                     style: new TextStyle(
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -208,6 +221,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -229,6 +249,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -249,6 +276,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -276,6 +310,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -296,6 +337,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -318,6 +366,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -338,6 +393,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -360,6 +422,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -380,6 +449,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -402,6 +478,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -422,6 +505,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -444,6 +534,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -464,6 +561,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -486,6 +590,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -506,6 +617,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -528,6 +646,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -548,6 +673,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       fontSize: 16.0,
                                                       color: Colors.white,
                                                     ),
+                                                  ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -570,6 +702,13 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -591,94 +730,101 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: Colors.white,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                      padding:
-                                                          EdgeInsets.all(2)),
-                                                  Text(
-                                                    'Customer Name',
-                                                    style: new TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: gold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    _listDoApproveDetail
-                                                        .listDoApproveDetail[
-                                                            index]
-                                                        .customer
-                                                        .name
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
-                                                  Text(
-                                                    'Member',
-                                                    style: new TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: gold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    _listDoApproveDetail
-                                                        .listDoApproveDetail[
-                                                            index]
-                                                        .customer
-                                                        .member
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                      padding:
-                                                          EdgeInsets.all(2)),
-                                                  Text(
-                                                    'Customer Address',
-                                                    style: new TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: gold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    _listDoApproveDetail
-                                                        .listDoApproveDetail[
-                                                            index]
-                                                        .customer
-                                                        .address
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                      padding:
-                                                          EdgeInsets.all(2)),
-                                                  Text(
-                                                    'Customer Phone',
-                                                    style: new TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: gold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    _listDoApproveDetail
-                                                        .listDoApproveDetail[
-                                                            index]
-                                                        .customer
-                                                        .phone
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
+                                                  // Text(
+                                                  //   'Customer Name',
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 12.0,
+                                                  //     color: gold,
+                                                  //   ),
+                                                  // ),
+                                                  // Text(
+                                                  //   _listDoApproveDetail
+                                                  //       .listDoApproveDetail[
+                                                  //           index]
+                                                  //       .customer
+                                                  //       .name
+                                                  //       .toString(),
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 16.0,
+                                                  //     color: Colors.white,
+                                                  //   ),
+                                                  // ),
+                                                  // Padding(
+                                                  //     padding:
+                                                  //         EdgeInsets.all(2)),
+                                                  // Text(
+                                                  //   'Member',
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 12.0,
+                                                  //     color: gold,
+                                                  //   ),
+                                                  // ),
+                                                  // Text(
+                                                  //   _listDoApproveDetail
+                                                  //       .listDoApproveDetail[
+                                                  //           index]
+                                                  //       .customer
+                                                  //       .member
+                                                  //       .toString(),
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 16.0,
+                                                  //     color: Colors.white,
+                                                  //   ),
+                                                  // ),
+                                                  // Padding(
+                                                  //     padding:
+                                                  //         EdgeInsets.all(2)),
+                                                  // Text(
+                                                  //   'Customer Address',
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 12.0,
+                                                  //     color: gold,
+                                                  //   ),
+                                                  // ),
+                                                  // Text(
+                                                  //   _listDoApproveDetail
+                                                  //       .listDoApproveDetail[
+                                                  //           index]
+                                                  //       .customer
+                                                  //       .address
+                                                  //       .toString(),
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 16.0,
+                                                  //     color: Colors.white,
+                                                  //   ),
+                                                  // ),
+                                                  // Padding(
+                                                  //     padding:
+                                                  //         EdgeInsets.all(2)),
+                                                  // Text(
+                                                  //   'Customer Phone',
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 12.0,
+                                                  //     color: gold,
+                                                  //   ),
+                                                  // ),
+                                                  // Text(
+                                                  //   _listDoApproveDetail
+                                                  //       .listDoApproveDetail[
+                                                  //           index]
+                                                  //       .customer
+                                                  //       .phone
+                                                  //       .toString(),
+                                                  //   style: new TextStyle(
+                                                  //     fontSize: 16.0,
+                                                  //     color: Colors.white,
+                                                  //   ),
+                                                  // ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -689,17 +835,35 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: gold,
                                                     ),
                                                   ),
-                                                  Text(
-                                                    _listDoApproveDetail
-                                                        .listDoApproveDetail[
-                                                            index]
-                                                        .driver
-                                                        .name
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
+                                                  _listDoApproveDetail
+                                                              .listDoApproveDetail[
+                                                                  index]
+                                                              .driver ==
+                                                          null
+                                                      ? Text(
+                                                          ' - ',
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
+                                                      : Text(
+                                                          _listDoApproveDetail
+                                                              .listDoApproveDetail[
+                                                                  index]
+                                                              .driver['name']
+                                                              .toString(),
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                   Padding(
                                                       padding:
@@ -711,17 +875,35 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       color: gold,
                                                     ),
                                                   ),
-                                                  Text(
-                                                    _listDoApproveDetail
-                                                        .listDoApproveDetail[
-                                                            index]
-                                                        .driver
-                                                        .phone
-                                                        .toString(),
-                                                    style: new TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.white,
-                                                    ),
+                                                  _listDoApproveDetail
+                                                              .listDoApproveDetail[
+                                                                  index]
+                                                              .driver ==
+                                                          null
+                                                      ? Text(
+                                                          ' - ',
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
+                                                      : Text(
+                                                          _listDoApproveDetail
+                                                              .listDoApproveDetail[
+                                                                  index]
+                                                              .driver['phone']
+                                                              .toString(),
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
                                                   ),
                                                 ],
                                               ),

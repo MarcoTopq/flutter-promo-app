@@ -167,8 +167,7 @@ class _DeliveryHistoryDetailState extends State<DeliveryHistoryDetail> {
                                                           _listDelivery
                                                               .listDeliveryHistory[
                                                                   index]
-                                                              .salesOrder
-                                                              .salesOrderNumber
+                                                              .salesOrderId
                                                               .toString(),
                                                       style: new TextStyle(
                                                         fontSize: 16.0,
@@ -227,19 +226,16 @@ class _DeliveryHistoryDetailState extends State<DeliveryHistoryDetail> {
                                                         roundedRectButton(
                                                             "Detail",
                                                             signInGradients,
-                                                            false),
-                                                        onTapDown: (_) async {
-                                                      setState(() {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (context) => DetailDelivery(
-                                                                    id: _listDelivery
-                                                                        .listDeliveryHistory[
-                                                                            index]
-                                                                        .id
-                                                                        .toString())));
-                                                      });
+                                                            false), onTap: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) => DetailDelivery(
+                                                                  id: _listDelivery
+                                                                      .listDeliveryHistory[
+                                                                          index]
+                                                                      .id
+                                                                      .toString())));
                                                     }),
                                                   ),
                                                   Container(

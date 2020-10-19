@@ -62,6 +62,12 @@ class _DoApproveAgenState extends State<DoApproveAgen> {
     return Future.value(hasil);
   }
 
+  void _incrementCounter() {
+    setState(() {
+      badges--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double b_width = MediaQuery.of(context).size.width * 0.5;
@@ -189,8 +195,7 @@ class _DoApproveAgenState extends State<DoApproveAgen> {
                                                           _listDelivery
                                                               .listDoApprove[
                                                                   index]
-                                                              .salesOrder
-                                                              .salesOrderNumber
+                                                              .salesOrderId
                                                               .toString(),
                                                       style: new TextStyle(
                                                         fontSize: 16.0,
@@ -279,8 +284,7 @@ class _DoApproveAgenState extends State<DoApproveAgen> {
                                                               .id
                                                               .toString());
                                                       setState(() {
-                                                        badges = badges - 1;
-
+                                                        _incrementCounter();
                                                         Toast.show(
                                                             "Approve Berhasil",
                                                             context);

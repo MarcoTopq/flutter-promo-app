@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:warnakaltim/main.dart';
 import 'package:warnakaltim/src/all_promo.dart';
 import 'package:warnakaltim/src/detail_voucher.dart';
 import 'package:warnakaltim/src/model/detailPromoModel.dart';
@@ -45,12 +46,12 @@ class _DetailPromoState extends State<DetailPromo>
       "Accept": "application/JSON",
       "Authorization": 'Bearer ' + token
     };
-    http.Response hasil = await http.post(
-        Uri.decodeFull("http://rpm.kantordesa.com/api/promo/take"),
-        body: {
-          "promo_id": promoId,
-        },
-        headers: headers);
+    http.Response hasil =
+        await http.post(Uri.decodeFull(urls + "/api/promo/take"),
+            body: {
+              "promo_id": promoId,
+            },
+            headers: headers);
     print('Berhasillllllllllllllllllllllllllllll');
 
     return Future.value(hasil);
@@ -283,7 +284,7 @@ class _DetailPromoState extends State<DetailPromo>
                                                             final responseJson =
                                                                 json.decode(
                                                                     value.body);
-                                                            
+
                                                             await showDialog(
                                                                 context:
                                                                     context,
@@ -338,15 +339,16 @@ class _DetailPromoState extends State<DetailPromo>
                                                                       ),
                                                                     ],
                                                                   );
-                                                            // Navigator.pushReplacement(
-                                                            //     context,
-                                                            //     MaterialPageRoute(
-                                                            //         builder: (context) => DetailPromo(
-                                                            //             id: _listPromoDetail
-                                                            //                 .listDetailPromo[0]
-                                                            //                 .id
-                                                            //                 .toString())));
-                                                          });}
+                                                                  // Navigator.pushReplacement(
+                                                                  //     context,
+                                                                  //     MaterialPageRoute(
+                                                                  //         builder: (context) => DetailPromo(
+                                                                  //             id: _listPromoDetail
+                                                                  //                 .listDetailPromo[0]
+                                                                  //                 .id
+                                                                  //                 .toString())));
+                                                                });
+                                                          }
                                                         });
                                                       },
                                                       child: Card(

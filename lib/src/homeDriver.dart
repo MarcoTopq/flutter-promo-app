@@ -564,8 +564,8 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                       .user
                                                                       .readyDeliveryOrder[
                                                                           index]
-                                                                      .salesOrder
-                                                                      .salesOrderNumber,
+                                                                      .salesOrderId
+                                                                      .toString(),
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .white,
@@ -574,15 +574,14 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                       FontWeight
                                                                           .bold)),
                                                           Text(
-                                                              'Customer : ' +
+                                                              'No Vehicles : ' +
                                                                   _listNews
                                                                       .listHomeDetail[
                                                                           0]
                                                                       .user
                                                                       .readyDeliveryOrder[
                                                                           index]
-                                                                      .customer
-                                                                      .name,
+                                                                      .noVehicles,
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .white,
@@ -590,23 +589,23 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold)),
-                                                          Text(
-                                                              'Address : ' +
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .user
-                                                                      .readyDeliveryOrder[
-                                                                          index]
-                                                                      .customer
-                                                                      .address,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
+                                                          // Text(
+                                                          //     'Address : ' +
+                                                          //         _listNews
+                                                          //             .listHomeDetail[
+                                                          //                 0]
+                                                          //             .user
+                                                          //             .readyDeliveryOrder[
+                                                          //                 index]
+                                                          //             .customer
+                                                          //             .address,
+                                                          //     style: TextStyle(
+                                                          //         color: Colors
+                                                          //             .white,
+                                                          //         fontSize: 15,
+                                                          //         fontWeight:
+                                                          //             FontWeight
+                                                          //                 .bold)),
                                                           Text(
                                                               'Start : ' +
                                                                   _listNews

@@ -46,17 +46,15 @@ class _RatingState extends State<Rating> with SingleTickerProviderStateMixin {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.get('Token');
 
-    http.Response hasil = await http.post(
-        Uri.decodeFull("https://rpm.bpkadkaltim.com/api/critics/" + widget.id),
-        body: {
-          "critics_suggestion": emailController.text,
-          "service": passwordController.text,
-          "rating": rating.toString()
-        },
-        headers: {
-          "Accept": "application/JSON",
-          "Authorization": 'Bearer ' + token
-        });
+    http.Response hasil = await http
+        .post(Uri.decodeFull(urls + "/api/critics/" + widget.id), body: {
+      "critics_suggestion": emailController.text,
+      "service": passwordController.text,
+      "rating": rating.toString()
+    }, headers: {
+      "Accept": "application/JSON",
+      "Authorization": 'Bearer ' + token
+    });
     return Future.value(hasil);
   }
 

@@ -17,6 +17,7 @@ class NotifDo {
     this.date,
     this.description,
     this.driver,
+    this.estimate,
   });
 
   int id;
@@ -24,6 +25,7 @@ class NotifDo {
   String date;
   String description;
   String driver;
+  int estimate;
 
   factory NotifDo.fromJson(Map<String, dynamic> json) => NotifDo(
         id: json["id"],
@@ -31,6 +33,7 @@ class NotifDo {
         date: json["date"],
         description: json["description"],
         driver: json["driver"] == null ? null : json["driver"],
+        estimate: json["estimate"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,6 +42,7 @@ class NotifDo {
         "date": date,
         "description": description,
         "driver": driver == null ? null : driver,
+        "estimate": estimate,
       };
 }
 

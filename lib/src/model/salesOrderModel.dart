@@ -14,31 +14,43 @@ class SalesOrder {
   SalesOrder({
     this.id,
     this.salesOrderNumber,
+    this.customer,
+    this.customerId,
     this.agenId,
+    this.agen,
     this.createdAt,
     this.updatedAt,
   });
 
   int id;
   String salesOrderNumber;
+  String customer;
+  int customerId;
   int agenId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String agen;
+  String createdAt;
+  String updatedAt;
 
   factory SalesOrder.fromJson(Map<String, dynamic> json) => SalesOrder(
         id: json["id"],
         salesOrderNumber: json["sales_order_number"],
+        customer: json["customer"],
+        customerId: json["customer_id"],
         agenId: json["agen_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        agen: json["agen"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "sales_order_number": salesOrderNumber,
+        "customer": customer,
+        "customer_id": customerId,
         "agen_id": agenId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "agen": agen,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }
 
@@ -53,8 +65,7 @@ class SalesOrderModel with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.get('Token');
 
-    final response = await http.get(
-        Uri.encodeFull('https://rpm.bpkadkaltim.com/api/agen/salesorder'),
+    final response = await http.get(Uri.encodeFull(urls + '/api/salesorder'),
         headers: {
           "Accept": "application/JSON",
           "Authorization": 'Bearer ' + token

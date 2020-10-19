@@ -5,16 +5,60 @@ import 'dart:convert';
 
 import 'package:warnakaltim/main.dart';
 
-// To parse this JSON data, do
-//
-//     final detailDoAgen = detailDoAgenFromJson(jsonString);
-
-import 'dart:convert';
-
 DetailDoAgen detailDoAgenFromJson(String str) =>
     DetailDoAgen.fromJson(json.decode(str));
 
 String detailDoAgenToJson(DetailDoAgen data) => json.encode(data.toJson());
+
+class DetailDoAgen {
+  DetailDoAgen({
+    this.id,
+    this.salesOrderNumber,
+    this.customer,
+    this.customerId,
+    this.agenId,
+    this.agen,
+    this.createdAt,
+    this.updatedAt,
+    this.deliveryOrders,
+  });
+
+  int id;
+  String salesOrderNumber;
+  String customer;
+  int customerId;
+  int agenId;
+  String agen;
+  String createdAt;
+  String updatedAt;
+  List<DeliveryOrder> deliveryOrders;
+
+  factory DetailDoAgen.fromJson(Map<String, dynamic> json) => DetailDoAgen(
+        id: json["id"],
+        salesOrderNumber: json["sales_order_number"],
+        customer: json["customer"],
+        customerId: json["customer_id"],
+        agenId: json["agen_id"],
+        agen: json["agen"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+        deliveryOrders: List<DeliveryOrder>.from(
+            json["delivery_orders"].map((x) => DeliveryOrder.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "sales_order_number": salesOrderNumber,
+        "customer": customer,
+        "customer_id": customerId,
+        "agen_id": agenId,
+        "agen": agen,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+        "delivery_orders":
+            List<dynamic>.from(deliveryOrders.map((x) => x.toJson())),
+      };
+}
 
 class DeliveryOrder {
   DeliveryOrder({
@@ -39,8 +83,7 @@ class DeliveryOrder {
     this.unloadingEndTime,
     this.departureTimeDepot,
     this.status,
-    this.salesOrder,
-    this.customer,
+    this.salesOrderId,
     this.driver,
     this.bast,
   });
@@ -63,11 +106,10 @@ class DeliveryOrder {
   String departureTime;
   String arrivalTime;
   dynamic unloadingStartTime;
-  dynamic unloadingEndTime;
+  DateTime unloadingEndTime;
   dynamic departureTimeDepot;
   String status;
-  DetailDoAgen salesOrder;
-  Customer customer;
+  int salesOrderId;
   Driver driver;
   String bast;
 
@@ -91,11 +133,12 @@ class DeliveryOrder {
             json["departure_time"] == null ? null : json["departure_time"],
         arrivalTime: json["arrival_time"] == null ? null : json["arrival_time"],
         unloadingStartTime: json["unloading_start_time"],
-        unloadingEndTime: json["unloading_end_time"],
+        unloadingEndTime: json["unloading_end_time"] == null
+            ? null
+            : DateTime.parse(json["unloading_end_time"]),
         departureTimeDepot: json["departure_time_depot"],
         status: json["status"],
-        salesOrder: DetailDoAgen.fromJson(json["sales_order"]),
-        customer: Customer.fromJson(json["customer"]),
+        salesOrderId: json["sales_order_id"],
         driver: json["driver"] == null ? null : Driver.fromJson(json["driver"]),
         bast: json["bast"],
       );
@@ -119,118 +162,14 @@ class DeliveryOrder {
         "departure_time": departureTime == null ? null : departureTime,
         "arrival_time": arrivalTime == null ? null : arrivalTime,
         "unloading_start_time": unloadingStartTime,
-        "unloading_end_time": unloadingEndTime,
+        "unloading_end_time": unloadingEndTime == null
+            ? null
+            : unloadingEndTime.toIso8601String(),
         "departure_time_depot": departureTimeDepot,
         "status": status,
-        "sales_order": salesOrder.toJson(),
-        "customer": customer.toJson(),
+        "sales_order_id": salesOrderId,
         "driver": driver == null ? null : driver.toJson(),
         "bast": bast,
-      };
-}
-
-class DetailDoAgen {
-  DetailDoAgen({
-    this.id,
-    this.salesOrderNumber,
-    this.agenId,
-    this.createdAt,
-    this.updatedAt,
-    this.deliveryOrders,
-  });
-
-  int id;
-  String salesOrderNumber;
-  int agenId;
-  String createdAt;
-  String updatedAt;
-  List<DeliveryOrder> deliveryOrders;
-
-  factory DetailDoAgen.fromJson(Map<String, dynamic> json) => DetailDoAgen(
-        id: json["id"],
-        salesOrderNumber: json["sales_order_number"],
-        agenId: json["agen_id"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        deliveryOrders: json["delivery_orders"] == null
-            ? null
-            : List<DeliveryOrder>.from(
-                json["delivery_orders"].map((x) => DeliveryOrder.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "sales_order_number": salesOrderNumber,
-        "agen_id": agenId,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-        "delivery_orders": deliveryOrders == null
-            ? null
-            : List<dynamic>.from(deliveryOrders.map((x) => x.toJson())),
-      };
-}
-
-class Customer {
-  Customer({
-    this.id,
-    this.name,
-    this.member,
-    this.address,
-    this.npwp,
-    this.phone,
-    this.website,
-    this.logo,
-    this.userId,
-    this.agenId,
-    this.reward,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int id;
-  String name;
-  String member;
-  String address;
-  String npwp;
-  String phone;
-  String website;
-  String logo;
-  int userId;
-  int agenId;
-  int reward;
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
-        id: json["id"],
-        name: json["name"],
-        member: json["member"],
-        address: json["address"],
-        npwp: json["npwp"],
-        phone: json["phone"],
-        website: json["website"],
-        logo: json["logo"],
-        userId: json["user_id"],
-        agenId: json["agen_id"],
-        reward: json["reward"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "member": member,
-        "address": address,
-        "npwp": npwp,
-        "phone": phone,
-        "website": website,
-        "logo": logo,
-        "user_id": userId,
-        "agen_id": agenId,
-        "reward": reward,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
       };
 }
 
@@ -297,7 +236,7 @@ class DetailDoAgenModel with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.get('Token');
     final response = await http
-        .get(Uri.encodeFull(urls + '/api/agen/salesorder/' + id), headers: {
+        .get(Uri.encodeFull(urls + '/api/salesorder/' + id), headers: {
       "Accept": "application/JSON",
       "Authorization": 'Bearer ' + token
     });

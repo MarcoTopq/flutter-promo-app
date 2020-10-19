@@ -7,6 +7,7 @@ import 'package:warnakaltim/src/all_event.dart';
 import 'package:warnakaltim/src/all_hotPromo.dart';
 import 'package:warnakaltim/src/all_news.dart';
 import 'package:warnakaltim/src/all_promo.dart';
+import 'package:warnakaltim/src/all_videos.dart';
 import 'package:warnakaltim/src/all_voucher.dart';
 import 'package:warnakaltim/src/company.dart';
 import 'package:warnakaltim/src/deliveryHistory.dart';
@@ -673,7 +674,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                 padding: EdgeInsets
                                                                     .only(
                                                                         left:
-                                                                            50,
+                                                                            30,
                                                                         right:
                                                                             10)),
                                                             InkWell(
@@ -683,7 +684,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                       MaterialPageRoute(
                                                                         builder:
                                                                             (context) =>
-                                                                                VoucherUser(),
+                                                                                DeliveryHistoryDetail(),
                                                                       ));
                                                                 },
                                                                 child: Icon(
@@ -861,13 +862,13 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                         Expanded(
                                                             child: InkWell(
                                                                 onTap: () {
-                                                                  Navigator.push(
-                                                                      context,
-                                                                      MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                AllCoupon(),
-                                                                      ));
+                                                                  // Navigator.push(
+                                                                  //     context,
+                                                                  //     MaterialPageRoute(
+                                                                  //       builder:
+                                                                  //           (context) =>
+                                                                  //               AllCoupon(),
+                                                                  //     ));
                                                                 },
                                                                 child: Column(
                                                                   children: <
@@ -1072,7 +1073,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            AllHotPromo(),
+                                                            AllVideos(),
                                                       ));
                                                 },
                                                 child: Text(
@@ -1098,48 +1099,63 @@ class _UserHomeState extends State<UserHomeDetail> {
                                     // _listNews.listHomeDetail[0].hot.length,
                                     itemBuilder: (context, index) {
                                       return Container(
-                                          padding: EdgeInsets.all(10),
-                                          width: a_width,
-                                          height: a_height,
-                                          child: InkWell(
-                                              onTap: () {
-                                                // Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //       builder: (context) =>
-                                                //           DetailPromo(
-                                                //               id: _listNews
-                                                //                   .listHomeDetail[
-                                                //                       0]
-                                                //                   .videos[index]
-                                                //                   .id
-                                                //                   .toString()),
-                                                //     ));
-                                                _launchURL(_listNews
-                                                    .listHomeDetail[0]
-                                                    .videos[index]
-                                                    .url
-                                                    .toString());
-                                              },
-                                              child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
-                                                    side: BorderSide(
-                                                      color: gold,
-                                                      width: 2.0,
-                                                    ),
-                                                  ),
-                                                  child: Image.network(
-                                                    _listNews.listHomeDetail[0]
-                                                        .videos[index].image,
-                                                    //   fit: BoxFit.cover,
-                                                    // )
-                                                    //   Image.asset(
-                                                    // 'assets/promo2.jpg',
-                                                    fit: BoxFit.cover,
-                                                  ))));
+                                        padding: EdgeInsets.all(10),
+                                        width: a_width,
+                                        height: a_height,
+                                        child: Stack(
+                                            alignment: Alignment.topLeft,
+                                            children: <Widget>[
+                                              InkWell(
+                                                  onTap: () {
+                                                    _launchURL(_listNews
+                                                        .listHomeDetail[0]
+                                                        .videos[index]
+                                                        .url
+                                                        .toString());
+                                                  },
+                                                  child: Card(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
+                                                        side: BorderSide(
+                                                          color: gold,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Image.network(
+                                                        _listNews
+                                                            .listHomeDetail[0]
+                                                            .videos[index]
+                                                            .image,
+                                                        //   fit: BoxFit.cover,
+                                                        // )
+                                                        //   Image.asset(
+                                                        // 'assets/promo2.jpg',
+                                                        height: 150,
+                                                        fit: BoxFit.cover,
+                                                      ))),
+                                              Center(
+                                                  // top: 60.0,
+                                                  // left: 75.0,
+                                                  child: Container(
+                                                      color: Colors.yellow
+                                                          .withOpacity(0.5),
+                                                      child: Padding(
+                                                          padding: EdgeInsets
+                                                              .all(MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  150),
+                                                          child: Icon(
+                                                            Icons
+                                                                .play_circle_outline,
+                                                            size: 50,
+                                                          )))),
+                                            ]),
+                                      );
                                     },
                                   ),
                                 ),

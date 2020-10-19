@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:warnakaltim/main.dart';
 
 class ChartAgen extends StatefulWidget {
   final String id;
@@ -37,7 +38,7 @@ class _ChartAgenState extends State<ChartAgen> {
         backgroundColor: Colors.black.withOpacity(0.5),
       ),
       backgroundColor: Colors.grey[850],
-      body: new WebviewScaffold(url: 'https://rpm.bpkadkaltim.com/chart/agen/1'
+      body: new WebviewScaffold(url: urls + '/chart/agen/1'
           //  widget.id,
           ),
     );

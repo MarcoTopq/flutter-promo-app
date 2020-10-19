@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:convert';
-
 import 'package:warnakaltim/main.dart';
 
 DriverHome driverHomeFromJson(String str) =>
@@ -97,9 +96,6 @@ class Agen {
     this.userId,
     this.createdAt,
     this.updatedAt,
-    this.member,
-    this.agenId,
-    this.reward,
   });
 
   int id;
@@ -112,9 +108,6 @@ class Agen {
   int userId;
   String createdAt;
   String updatedAt;
-  String member;
-  int agenId;
-  int reward;
 
   factory Agen.fromJson(Map<String, dynamic> json) => Agen(
         id: json["id"],
@@ -127,9 +120,6 @@ class Agen {
         userId: json["user_id"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
-        member: json["member"] == null ? null : json["member"],
-        agenId: json["agen_id"] == null ? null : json["agen_id"],
-        reward: json["reward"] == null ? null : json["reward"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -143,9 +133,6 @@ class Agen {
         "user_id": userId,
         "created_at": createdAt,
         "updated_at": updatedAt,
-        "member": member == null ? null : member,
-        "agen_id": agenId == null ? null : agenId,
-        "reward": reward == null ? null : reward,
       };
 }
 
@@ -172,8 +159,7 @@ class DeliveryOrder {
     this.unloadingEndTime,
     this.departureTimeDepot,
     this.status,
-    this.salesOrder,
-    this.customer,
+    this.salesOrderId,
     this.driver,
     this.bast,
   });
@@ -196,11 +182,10 @@ class DeliveryOrder {
   String departureTime;
   String arrivalTime;
   dynamic unloadingStartTime;
-  dynamic unloadingEndTime;
+  DateTime unloadingEndTime;
   dynamic departureTimeDepot;
   String status;
-  SalesOrder salesOrder;
-  Agen customer;
+  int salesOrderId;
   Driver driver;
   String bast;
 
@@ -224,11 +209,12 @@ class DeliveryOrder {
             json["departure_time"] == null ? null : json["departure_time"],
         arrivalTime: json["arrival_time"] == null ? null : json["arrival_time"],
         unloadingStartTime: json["unloading_start_time"],
-        unloadingEndTime: json["unloading_end_time"],
+        unloadingEndTime: json["unloading_end_time"] == null
+            ? null
+            : DateTime.parse(json["unloading_end_time"]),
         departureTimeDepot: json["departure_time_depot"],
         status: json["status"],
-        salesOrder: SalesOrder.fromJson(json["sales_order"]),
-        customer: Agen.fromJson(json["customer"]),
+        salesOrderId: json["sales_order_id"],
         driver: json["driver"] == null ? null : Driver.fromJson(json["driver"]),
         bast: json["bast"],
       );
@@ -252,11 +238,12 @@ class DeliveryOrder {
         "departure_time": departureTime == null ? null : departureTime,
         "arrival_time": arrivalTime == null ? null : arrivalTime,
         "unloading_start_time": unloadingStartTime,
-        "unloading_end_time": unloadingEndTime,
+        "unloading_end_time": unloadingEndTime == null
+            ? null
+            : unloadingEndTime.toIso8601String(),
         "departure_time_depot": departureTimeDepot,
         "status": status,
-        "sales_order": salesOrder.toJson(),
-        "customer": customer.toJson(),
+        "sales_order_id": salesOrderId,
         "driver": driver == null ? null : driver.toJson(),
         "bast": bast,
       };
@@ -311,38 +298,6 @@ class Driver {
         "agen_id": agenId,
         "created_at": createdAt,
         "updated_at": updatedAt,
-      };
-}
-
-class SalesOrder {
-  SalesOrder({
-    this.id,
-    this.salesOrderNumber,
-    this.agenId,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int id;
-  String salesOrderNumber;
-  int agenId;
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  factory SalesOrder.fromJson(Map<String, dynamic> json) => SalesOrder(
-        id: json["id"],
-        salesOrderNumber: json["sales_order_number"],
-        agenId: json["agen_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "sales_order_number": salesOrderNumber,
-        "agen_id": agenId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
       };
 }
 

@@ -31,6 +31,7 @@ import 'package:warnakaltim/src/model/newsModel.dart';
 import 'package:warnakaltim/src/model/notifdoModel.dart';
 import 'package:warnakaltim/src/model/profileModel.dart';
 import 'package:warnakaltim/src/model/salesOrderModel.dart';
+import 'package:warnakaltim/src/model/videosModel.dart';
 import 'package:warnakaltim/src/model/voucherModel.dart';
 import 'package:warnakaltim/src/model/detailVoucherModel.dart';
 import 'package:warnakaltim/src/profile.dart';
@@ -39,7 +40,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warnakaltim/src/talk.dart';
 import 'package:warnakaltim/src/userHome.dart';
 
-var urls = 'https://rpm.bpkadkaltim.com';
+var urls = 'http://rpm.lensaborneo.id';
 var email;
 var token;
 var role;
@@ -96,6 +97,9 @@ class _MyAppState extends State<MyApp> {
         providers: [
           ChangeNotifierProvider.value(
             value: NewsModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: VideosModel(),
           ),
           ChangeNotifierProvider.value(
             value: DetailPromoModel(),

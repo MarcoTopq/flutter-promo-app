@@ -39,12 +39,11 @@ class AgenHomeDetail extends StatefulWidget {
   _AgenHomeState createState() => _AgenHomeState();
 }
 
-class _AgenHomeState extends State<AgenHomeDetail> {
-  Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<AgenHomeModel>(context, listen: false)
-        .fetchDataAgenHome();
-  }
+Future<void> _refreshData(BuildContext context) async {
+  await Provider.of<AgenHomeModel>(context, listen: false).fetchDataAgenHome();
+}
 
+class _AgenHomeState extends State<AgenHomeDetail> {
   var releaseTime = TimeOfDay.now(); // 3:00pm
 
   @override
@@ -52,7 +51,6 @@ class _AgenHomeState extends State<AgenHomeDetail> {
     super.initState();
     // _getToken();
     // WidgetsBinding.instance.addObserver(this);
-    _refreshData(context);
   }
 
   final GlobalKey<ScaffoldState> _AgenhomeKey = new GlobalKey<ScaffoldState>();
@@ -89,6 +87,12 @@ class _AgenHomeState extends State<AgenHomeDetail> {
       } else {
         throw 'Could not launch $url';
       }
+    }
+
+    void _incrementCounter(int jum) {
+      // setState(() {
+      badges = badges + jum;
+      // });
     }
 
     return Scaffold(
@@ -254,8 +258,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                     pdf = _listNews
                                         .listHomeDetail[0].company.profile
                                         .toString();
-                                    badges = _listNews
-                                        .listHomeDetail[0].totalNotifDo;
+
                                     return email != null
                                         ? Container()
                                         : Container(
@@ -566,6 +569,10 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                               SliverList(
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
+                                    _incrementCounter(_listNews
+                                        .listHomeDetail[0].totalNotifDo);
+                                    // badges = _listNews
+                                    //     .listHomeDetail[0].totalNotifDo;
                                     return email == null
                                         ? Container()
                                         : Container(
@@ -691,16 +698,27 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                                               DoApproveAgen(),
                                                                     ));
                                                               },
-                                                              child: Badge(
-                                                                  badgeContent:
-                                                                      Text(badges
-                                                                          .toString()),
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .notifications_active,
-                                                                    size: 30,
-                                                                    color: gold,
-                                                                  )),
+                                                              child: badges == 0
+                                                                  ? Icon(
+                                                                      Icons
+                                                                          .notifications_active,
+                                                                      size: 30,
+                                                                      color:
+                                                                          gold,
+                                                                    )
+                                                                  : Badge(
+                                                                      badgeContent:
+                                                                          Text(
+                                                                              '$badges'),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .notifications_active,
+                                                                        size:
+                                                                            30,
+                                                                        color:
+                                                                            gold,
+                                                                      )),
                                                             )
                                                           ],
                                                         )),

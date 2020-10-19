@@ -41,7 +41,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     };
 
     http.Response hasil =
-        await http.post(Uri.decodeFull("https://rpm.bpkadkaltim.com/api/login"),
+        await http.post(Uri.decodeFull("http://rpm.lensaborneo.id/api/login"),
             body: {
               "email": emailController.text,
               "password": passwordController.text,
