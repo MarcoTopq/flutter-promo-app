@@ -4,12 +4,6 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warnakaltim/main.dart';
 
-// To parse this JSON data, do
-//
-//     final allArrival = allArrivalFromJson(jsonString);
-
-import 'dart:convert';
-
 List<AllArrival> allArrivalFromJson(String str) =>
     List<AllArrival>.from(json.decode(str).map((x) => AllArrival.fromJson(x)));
 
@@ -39,22 +33,19 @@ class AllArrival {
     this.unloadingEndTime,
     this.departureTimeDepot,
     this.status,
-    this.bast,
     this.salesOrderId,
-    this.customerId,
-    this.driverId,
-    this.createdAt,
-    this.updatedAt,
+    this.driver,
+    this.bast,
   });
 
   int id;
   String deliveryOrderNumber;
-  DateTime effectiveDateStart;
-  DateTime effectiveDateEnd;
+  String effectiveDateStart;
+  String effectiveDateEnd;
   String product;
   int quantity;
   String shippedWith;
-  int shippedVia;
+  String shippedVia;
   String noVehicles;
   int kmStart;
   String kmEnd;
@@ -62,24 +53,21 @@ class AllArrival {
   String topSeal;
   String bottomSeal;
   String temperature;
-  DateTime departureTime;
-  DateTime arrivalTime;
+  String departureTime;
+  String arrivalTime;
   dynamic unloadingStartTime;
-  dynamic unloadingEndTime;
+  DateTime unloadingEndTime;
   dynamic departureTimeDepot;
-  int status;
-  String bast;
+  String status;
   int salesOrderId;
-  int customerId;
-  int driverId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  Driver driver;
+  String bast;
 
   factory AllArrival.fromJson(Map<String, dynamic> json) => AllArrival(
         id: json["id"],
         deliveryOrderNumber: json["delivery_order_number"],
-        effectiveDateStart: DateTime.parse(json["effective_date_start"]),
-        effectiveDateEnd: DateTime.parse(json["effective_date_end"]),
+        effectiveDateStart: json["effective_date_start"],
+        effectiveDateEnd: json["effective_date_end"],
         product: json["product"],
         quantity: json["quantity"],
         shippedWith: json["shipped_with"],
@@ -91,25 +79,22 @@ class AllArrival {
         topSeal: json["top_seal"],
         bottomSeal: json["bottom_seal"],
         temperature: json["temperature"],
-        departureTime: DateTime.parse(json["departure_time"]),
-        arrivalTime: DateTime.parse(json["arrival_time"]),
+        departureTime: json["departure_time"],
+        arrivalTime: json["arrival_time"],
         unloadingStartTime: json["unloading_start_time"],
-        unloadingEndTime: json["unloading_end_time"],
+        unloadingEndTime: DateTime.parse(json["unloading_end_time"]),
         departureTimeDepot: json["departure_time_depot"],
         status: json["status"],
-        bast: json["bast"],
         salesOrderId: json["sales_order_id"],
-        customerId: json["customer_id"],
-        driverId: json["driver_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        driver: Driver.fromJson(json["driver"]),
+        bast: json["bast"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "delivery_order_number": deliveryOrderNumber,
-        "effective_date_start": effectiveDateStart.toIso8601String(),
-        "effective_date_end": effectiveDateEnd.toIso8601String(),
+        "effective_date_start": effectiveDateStart,
+        "effective_date_end": effectiveDateEnd,
         "product": product,
         "quantity": quantity,
         "shipped_with": shippedWith,
@@ -121,18 +106,67 @@ class AllArrival {
         "top_seal": topSeal,
         "bottom_seal": bottomSeal,
         "temperature": temperature,
-        "departure_time": departureTime.toIso8601String(),
-        "arrival_time": arrivalTime.toIso8601String(),
+        "departure_time": departureTime,
+        "arrival_time": arrivalTime,
         "unloading_start_time": unloadingStartTime,
-        "unloading_end_time": unloadingEndTime,
+        "unloading_end_time": unloadingEndTime.toIso8601String(),
         "departure_time_depot": departureTimeDepot,
         "status": status,
-        "bast": bast,
         "sales_order_id": salesOrderId,
-        "customer_id": customerId,
-        "driver_id": driverId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "driver": driver.toJson(),
+        "bast": bast,
+      };
+}
+
+class Driver {
+  Driver({
+    this.id,
+    this.name,
+    this.address,
+    this.phone,
+    this.avatar,
+    this.route,
+    this.userId,
+    this.agenId,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  int id;
+  String name;
+  String address;
+  String phone;
+  String avatar;
+  int route;
+  int userId;
+  int agenId;
+  String createdAt;
+  String updatedAt;
+
+  factory Driver.fromJson(Map<String, dynamic> json) => Driver(
+        id: json["id"],
+        name: json["name"],
+        address: json["address"],
+        phone: json["phone"],
+        avatar: json["avatar"],
+        route: json["route"],
+        userId: json["user_id"],
+        agenId: json["agen_id"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "address": address,
+        "phone": phone,
+        "avatar": avatar,
+        "route": route,
+        "user_id": userId,
+        "agen_id": agenId,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }
 

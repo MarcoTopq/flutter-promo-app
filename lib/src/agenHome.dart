@@ -95,6 +95,12 @@ class _AgenHomeState extends State<AgenHomeDetail> {
       // });
     }
 
+    void _increment() {
+      setState(() {
+        badges--;
+      });
+    }
+
     return Scaffold(
       key: _AgenhomeKey,
       backgroundColor: Colors.grey[850],
@@ -569,8 +575,10 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                               SliverList(
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
-                                    _incrementCounter(_listNews
-                                        .listHomeDetail[0].totalNotifDo);
+                                    if (badges == 0) {
+                                      _incrementCounter(_listNews
+                                          .listHomeDetail[0].totalNotifDo);
+                                    }
                                     // badges = _listNews
                                     //     .listHomeDetail[0].totalNotifDo;
                                     return email == null
@@ -709,7 +717,15 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                                   : Badge(
                                                                       badgeContent:
                                                                           Text(
-                                                                              '$badges'),
+                                                                        '$badges',
+                                                                        // style: TextStyle(
+                                                                        //     color:
+                                                                        //         Colors.white,
+                                                                        //     fontSize: 12),
+                                                                      ),
+                                                                      badgeColor:
+                                                                          Colors.red[
+                                                                              900],
                                                                       child:
                                                                           Icon(
                                                                         Icons
@@ -743,247 +759,6 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                   childCount: 1,
                                 ),
                               ),
-                              // SliverList(
-                              //     delegate: SliverChildBuilderDelegate(
-                              //   (BuildContext context, int index) {
-                              //     return email == null
-                              //         ? Container()
-                              //         : Container(
-                              //             padding:
-                              //                 EdgeInsets.fromLTRB(20, 10, 0, 0),
-                              //             child: Text(
-                              //               "Loyalty Information",
-                              //               style: TextStyle(
-                              //                   fontSize: 20,
-                              //                   color: Colors.white),
-                              //             ),
-                              //           );
-                              //   },
-                              //   childCount: 1,
-                              // )),
-                              // SliverList(
-                              //   delegate: SliverChildBuilderDelegate(
-                              //     (BuildContext context, int index) {
-                              //       return email == null
-                              //           ? Container()
-                              //           : Container(
-                              //               padding: EdgeInsets.all(10),
-                              //               // width: c_width,
-                              //               // height: d_height,
-                              //               child: Card(
-                              //                   shape: RoundedRectangleBorder(
-                              //                     borderRadius:
-                              //                         BorderRadius.circular(10),
-                              //                     side: BorderSide(
-                              //                       color: gold,
-                              //                       width: 2.0,
-                              //                     ),
-                              //                   ),
-                              //                   color: Colors.black12,
-                              //                   child: Column(
-                              //                     crossAxisAlignment:
-                              //                         CrossAxisAlignment.center,
-                              //                     mainAxisAlignment:
-                              //                         MainAxisAlignment.center,
-                              //                     children: <Widget>[
-                              //                       IntrinsicHeight(
-                              //                           child: Row(
-                              //                         // crossAxisAlignment: CrossAxisAlignment.center,
-                              //                         mainAxisAlignment:
-                              //                             MainAxisAlignment
-                              //                                 .center,
-                              //                         children: <Widget>[
-                              //                           // Expanded(
-                              //                           //     child: Column(
-                              //                           //   children: <Widget>[
-                              //                           //     Text(
-                              //                           //       _listNews
-                              //                           //           .listHomeDetail[
-                              //                           //               0]
-                              //                           //           .user
-                              //                           //           .cu
-                              //                           //           .distributor
-                              //                           //           .loyalty
-                              //                           //           .toString(),
-                              //                           //       style: TextStyle(
-                              //                           //           color: gold,
-                              //                           //           fontSize: 30),
-                              //                           //     ),
-                              //                           //     Padding(
-                              //                           //         padding: EdgeInsets.all(
-                              //                           //             MediaQuery.of(context)
-                              //                           //                     .size
-                              //                           //                     .width /
-                              //                           //                 100)),
-                              //                           //     Text(
-                              //                           //       "Loyalty Point",
-                              //                           //       style: TextStyle(
-                              //                           //           color: gold,
-                              //                           //           fontSize: 20),
-                              //                           //     ),
-                              //                           //     Padding(
-                              //                           //         padding: EdgeInsets
-                              //                           //             .only(
-                              //                           //                 top:
-                              //                           //                     10)),
-                              //                           //   ],
-                              //                           // )),
-                              //                           // Container(
-                              //                           //     child:
-                              //                           //         VerticalDivider(
-                              //                           //   endIndent: 0.0,
-                              //                           //   indent: 10.0,
-                              //                           //   width: 0.0,
-                              //                           //   color: gold,
-                              //                           // )),
-                              //                           Expanded(
-                              //                               child: Column(
-                              //                             children: <Widget>[
-                              //                               Text(
-                              //                                 _listNews
-                              //                                     .listHomeDetail[
-                              //                                         0]
-                              //                                     .user
-                              //                                     .agen
-                              //                                     .sumDeliveryOrder
-                              //                                     .toString(),
-                              //                                 style: TextStyle(
-                              //                                     color: gold,
-                              //                                     fontSize: 30),
-                              //                               ),
-                              //                               Padding(
-                              //                                   padding: EdgeInsets.all(
-                              //                                       MediaQuery.of(context)
-                              //                                               .size
-                              //                                               .width /
-                              //                                           100)),
-                              //                               Text(
-                              //                                 "Transaction",
-                              //                                 style: TextStyle(
-                              //                                     color: gold,
-                              //                                     fontSize: 20),
-                              //                               ),
-                              //                               Padding(
-                              //                                   padding: EdgeInsets
-                              //                                       .only(
-                              //                                           bottom:
-                              //                                               10)),
-                              //                             ],
-                              //                           )),
-                              //                         ],
-                              //                       )),
-                              //                       Divider(
-                              //                         endIndent: 20.0,
-                              //                         indent: 20.0,
-                              //                         height: 1.0,
-                              //                         color: gold,
-                              //                       ),
-                              //                       IntrinsicHeight(
-                              //                           child: Row(
-                              //                         // crossAxisAlignment: CrossAxisAlignment.center,
-                              //                         mainAxisAlignment:
-                              //                             MainAxisAlignment
-                              //                                 .center,
-                              //                         // mainAxisSize: MainAxisSize.min,
-                              //                         children: <Widget>[
-                              //                           Expanded(
-                              //                               child: InkWell(
-                              //                                   onTap: () {
-                              //                                     Navigator.push(
-                              //                                         context,
-                              //                                         MaterialPageRoute(
-                              //                                           builder:
-                              //                                               (context) =>
-                              //                                                   AllCoupon(),
-                              //                                         ));
-                              //                                   },
-                              //                                   child: Column(
-                              //                                     children: <
-                              //                                         Widget>[
-                              //                                       Padding(
-                              //                                           padding:
-                              //                                               EdgeInsets.only(top: 10)),
-                              //                                       Text(
-                              //                                         _listNews
-                              //                                             .listHomeDetail[
-                              //                                                 0]
-                              //                                             .user
-                              //                                             .agen
-                              //                                             .coupon
-                              //                                             .toString(),
-                              //                                         style: TextStyle(
-                              //                                             color:
-                              //                                                 gold,
-                              //                                             fontSize:
-                              //                                                 30),
-                              //                                       ),
-                              //                                       Padding(
-                              //                                           padding:
-                              //                                               EdgeInsets.all(MediaQuery.of(context).size.width /
-                              //                                                   100)),
-                              //                                       Text(
-                              //                                         "Coupon",
-                              //                                         style: TextStyle(
-                              //                                             color:
-                              //                                                 gold,
-                              //                                             fontSize:
-                              //                                                 20),
-                              //                                       )
-                              //                                     ],
-                              //                                   ))),
-                              //                           Container(
-                              //                               child:
-                              //                                   VerticalDivider(
-                              //                             endIndent: 10.0,
-                              //                             indent: 0.0,
-                              //                             width: 0.0,
-                              //                             color: gold,
-                              //                           )),
-                              //                           Expanded(
-                              //                               child: Column(
-                              //                             children: <Widget>[
-                              //                               Padding(
-                              //                                   padding: EdgeInsets
-                              //                                       .only(
-                              //                                           top:
-                              //                                               10)),
-
-                              //                               Text(
-                              //                                 _listNews
-                              //                                     .listHomeDetail[
-                              //                                         0]
-                              //                                     .user
-                              //                                     .agen
-                              //                                     .reward
-                              //                                     .toString(),
-                              //                                 style: TextStyle(
-                              //                                     color: gold,
-                              //                                     fontSize: 30),
-                              //                               ),
-                              //                               Padding(
-                              //                                   padding: EdgeInsets.all(
-                              //                                       MediaQuery.of(context)
-                              //                                               .size
-                              //                                               .width /
-                              //                                           100)),
-                              //                               Text(
-                              //                                 "Reward Point",
-                              //                                 style: TextStyle(
-                              //                                     color: gold,
-                              //                                     fontSize: 20),
-                              //                               ),
-                              //                               // Padding(padding: EdgeInsets.only(bottom: 10)),
-                              //                             ],
-                              //                           )),
-                              //                         ],
-                              //                       )),
-                              //                     ],
-                              //                   )),
-                              //             );
-                              //     },
-                              //     childCount: 1,
-                              //   ),
-                              // ),
                               SliverList(
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
@@ -1004,6 +779,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                 padding: EdgeInsets.all(20)),
                                             FlatButton(
                                                 onPressed: () {
+                                                  // _increment();
                                                   Navigator.push(
                                                       context,
                                                       MaterialPageRoute(

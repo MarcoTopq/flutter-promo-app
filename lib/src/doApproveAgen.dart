@@ -4,11 +4,14 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'package:warnakaltim/main.dart';
+import 'package:warnakaltim/src/agenHome.dart';
 import 'package:warnakaltim/src/deliveryDetail.dart';
 import 'package:warnakaltim/src/doApproveDetail.dart';
 import 'package:warnakaltim/src/driverHistory.dart';
+import 'package:warnakaltim/src/model/HomeUserModel.dart';
 import 'package:warnakaltim/src/model/doApproveModel.dart';
 import 'package:warnakaltim/src/spring_button.dart';
+import 'package:warnakaltim/src/userHome.dart';
 import 'package:warnakaltim/src/widget.dart';
 import 'package:http/http.dart' as http;
 
@@ -62,7 +65,7 @@ class _DoApproveAgenState extends State<DoApproveAgen> {
     return Future.value(hasil);
   }
 
-  void _incrementCounter() {
+  void _increment() {
     setState(() {
       badges--;
     });
@@ -284,11 +287,19 @@ class _DoApproveAgenState extends State<DoApproveAgen> {
                                                               .id
                                                               .toString());
                                                       setState(() {
-                                                        _incrementCounter();
+                                                        // badges--;
+                                                        _increment();
                                                         Toast.show(
                                                             "Approve Berhasil",
                                                             context);
+                                                        Navigator.pop(context);
                                                         Navigator.pushReplacement(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        Homepage()));
+                                                        Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
                                                                 builder:

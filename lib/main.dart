@@ -80,6 +80,7 @@ class _MyAppState extends State<MyApp> {
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
   @override
   void initState() {
+    // badges = 100;
     // this._getToken();
     super.initState();
     firebaseMessaging.getToken().then((token) {
