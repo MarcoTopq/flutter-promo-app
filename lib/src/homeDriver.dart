@@ -13,11 +13,11 @@ import 'package:toast/toast.dart';
 import 'package:warnakaltim/src/all_arrival.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:warnakaltim/main.dart';
-import 'package:warnakaltim/src/driver.dart';
 import 'package:warnakaltim/src/login.dart';
 import 'package:warnakaltim/src/model/HomeDriverModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:warnakaltim/src/profileDriver.dart';
 import 'package:warnakaltim/src/spring_button.dart';
 import 'package:warnakaltim/src/widget.dart';
 
@@ -47,11 +47,22 @@ class _DriverHomeState extends State<DriverHomeDetail> {
   var file;
   var posisi;
   var idnya;
+  var data;
+  var prf;
+
+  Future<void> _getToken() async {
+    setState(() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prf = prefs;
+      data = prefs.get('Idnya');
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     accept = false;
-    // _getToken();
+    _getToken();
     // WidgetsBinding.instance.addObserver(this);
     _refreshData(context);
   }
@@ -99,6 +110,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
       Map<String, String> headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         "Accept": "application/JSON",
+        HttpHeaders.authorizationHeader: 'Bearer ' + token
       };
 
       http.Response hasil =
@@ -109,6 +121,20 @@ class _DriverHomeState extends State<DriverHomeDetail> {
               //   "fcm_token": "1212123"
               // },
               headers: headers);
+      if (hasil.statusCode.toString() == '200') {
+        // files = null;
+        // posisi = null;
+        Toast.show("Accepted succeed", context,
+            duration: 10, gravity: Toast.BOTTOM);
+
+        // await Navigator.pushReplacement(context,
+        //     MaterialPageRoute(builder: (context) => DriverHomeDetail()));
+      } else {
+        print('Upload gagal ' + hasil.statusCode.toString());
+
+        Toast.show("Accepted Failed ", context,
+            duration: 10, gravity: Toast.BOTTOM);
+      }
       return Future.value(hasil);
     }
 
@@ -148,6 +174,15 @@ class _DriverHomeState extends State<DriverHomeDetail> {
       if (response.statusCode.toString() == '200') {
         files = null;
         posisi = null;
+        prefs.remove('Idnya');
+        prefs.remove('deliveryOrderNumber');
+        prefs.remove('salesOrderId');
+        prefs.remove('noVehicles');
+        prefs.remove('effectiveDateStart');
+        prefs.remove('effectiveDateEnd');
+        prefs.remove('product');
+        prefs.remove('quantity');
+
         Toast.show("Upload Berhasil", context,
             duration: 10, gravity: Toast.BOTTOM);
 
@@ -359,190 +394,407 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                   childCount: 1,
                                 ),
                               ),
-                              SliverToBoxAdapter(
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  width: a_width,
-                                  height: 350,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: posisi == null
-                                        ? _listNews.listHomeDetail[0].user
-                                            .readyDeliveryOrder.length
-                                        : 1,
-                                    // _listNews.listHomeDetail[0].hot.length,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                          padding: EdgeInsets.all(10),
-                                          // width: a_width,
-                                          // height: a_height,
-                                          child: InkWell(
-                                              onTap: () {},
-                                              child: Card(
-                                                  color: Colors.grey[700],
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    side: BorderSide(
-                                                      color: gold,
-                                                      width: 2.0,
-                                                    ),
-                                                  ),
-                                                  child: Container(
-                                                      padding:
-                                                          EdgeInsets.all(15),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                              'No DO : ' +
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .user
-                                                                      .readyDeliveryOrder[posisi ==
-                                                                              null
-                                                                          ? index
-                                                                          : posisi]
-                                                                      .deliveryOrderNumber,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                          Text(
-                                                              'No SO : ' +
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .user
-                                                                      .readyDeliveryOrder[posisi ==
-                                                                              null
-                                                                          ? index
-                                                                          : posisi]
-                                                                      .salesOrderId
-                                                                      .toString(),
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                          Text(
-                                                              'No Vehicles : ' +
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .user
-                                                                      .readyDeliveryOrder[posisi ==
-                                                                              null
-                                                                          ? index
-                                                                          : posisi]
-                                                                      .noVehicles,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                          Text(
-                                                              'Start : ' +
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .user
-                                                                      .readyDeliveryOrder[posisi ==
-                                                                              null
-                                                                          ? index
-                                                                          : posisi]
-                                                                      .effectiveDateStart,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                          Text(
-                                                              'End : ' +
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .user
-                                                                      .readyDeliveryOrder[posisi ==
-                                                                              null
-                                                                          ? index
-                                                                          : posisi]
-                                                                      .effectiveDateEnd,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                          Text(
-                                                              'Product : ' +
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .user
-                                                                      .readyDeliveryOrder[posisi ==
-                                                                              null
-                                                                          ? index
-                                                                          : posisi]
-                                                                      .product,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                          Text(
-                                                              'Quantity : ' +
-                                                                  _listNews
-                                                                      .listHomeDetail[
-                                                                          0]
-                                                                      .user
-                                                                      .readyDeliveryOrder[posisi ==
-                                                                              null
-                                                                          ? index
-                                                                          : posisi]
-                                                                      .quantity
-                                                                      .toString(),
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(10)),
-                                                          Row(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              posisi == null
-                                                                  ? Container()
-                                                                  : Row(
+                              data == null
+                                  ? SliverToBoxAdapter(
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        width: a_width,
+                                        height: 350,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: posisi == null
+                                              ? _listNews.listHomeDetail[0].user
+                                                  .readyDeliveryOrder.length
+                                              : 1,
+                                          // _listNews.listHomeDetail[0].hot.length,
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                                padding: EdgeInsets.all(10),
+                                                // width: a_width,
+                                                // height: a_height,
+                                                child: InkWell(
+                                                    onTap: () {},
+                                                    child: Card(
+                                                        color: Colors.grey[700],
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          side: BorderSide(
+                                                            color: gold,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Container(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    15),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                    'No DO : ' +
+                                                                        _listNews
+                                                                            .listHomeDetail[
+                                                                                0]
+                                                                            .user
+                                                                            .readyDeliveryOrder[posisi == null
+                                                                                ? index
+                                                                                : posisi]
+                                                                            .deliveryOrderNumber,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'No SO : ' +
+                                                                        _listNews
+                                                                            .listHomeDetail[
+                                                                                0]
+                                                                            .user
+                                                                            .readyDeliveryOrder[posisi == null
+                                                                                ? index
+                                                                                : posisi]
+                                                                            .salesOrderId
+                                                                            .toString(),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'No Vehicles : ' +
+                                                                        _listNews
+                                                                            .listHomeDetail[
+                                                                                0]
+                                                                            .user
+                                                                            .readyDeliveryOrder[posisi == null
+                                                                                ? index
+                                                                                : posisi]
+                                                                            .noVehicles,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'Start : ' +
+                                                                        _listNews
+                                                                            .listHomeDetail[
+                                                                                0]
+                                                                            .user
+                                                                            .readyDeliveryOrder[posisi == null
+                                                                                ? index
+                                                                                : posisi]
+                                                                            .effectiveDateStart,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'End : ' +
+                                                                        _listNews
+                                                                            .listHomeDetail[
+                                                                                0]
+                                                                            .user
+                                                                            .readyDeliveryOrder[posisi == null
+                                                                                ? index
+                                                                                : posisi]
+                                                                            .effectiveDateEnd,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'Product : ' +
+                                                                        _listNews
+                                                                            .listHomeDetail[
+                                                                                0]
+                                                                            .user
+                                                                            .readyDeliveryOrder[posisi == null
+                                                                                ? index
+                                                                                : posisi]
+                                                                            .product,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'Quantity : ' +
+                                                                        _listNews
+                                                                            .listHomeDetail[
+                                                                                0]
+                                                                            .user
+                                                                            .readyDeliveryOrder[posisi == null
+                                                                                ? index
+                                                                                : posisi]
+                                                                            .quantity
+                                                                            .toString(),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            10)),
+                                                                Row(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  children: [
+                                                                    posisi ==
+                                                                            null
+                                                                        ? Container()
+                                                                        : Row(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceEvenly,
+                                                                            children: [
+                                                                              Container(
+                                                                                width: 120,
+                                                                                height: 60,
+                                                                                child: SpringButton(
+                                                                                  SpringButtonType.OnlyScale,
+                                                                                  roundedRectButton("Upload", signUpGradients, false),
+                                                                                  onTapDown: (_) async {
+                                                                                    files = await FilePicker.getFile();
+                                                                                    setState(() {
+                                                                                      file = 1;
+                                                                                    });
+                                                                                    // _btnController
+                                                                                    //     .reset();
+
+                                                                                    // Navigator.push(context,
+                                                                                    //     MaterialPageRoute(builder: (context) => Register()));
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                              file == null
+                                                                                  ? Container()
+                                                                                  : Container(
+                                                                                      padding: EdgeInsets.fromLTRB(30, 5, 5, 5),
+                                                                                      child: Image.file(
+                                                                                        files,
+                                                                                        width: 80,
+                                                                                        height: 80,
+                                                                                        fit: BoxFit.cover,
+                                                                                      ),
+                                                                                    ),
+                                                                            ],
+                                                                          ),
+                                                                    Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(5)),
+                                                                    posisi !=
+                                                                            null
+                                                                        ? Container()
+                                                                        : Container(
+                                                                            width:
+                                                                                120,
+                                                                            height:
+                                                                                60,
+                                                                            child:
+                                                                                SpringButton(
+                                                                              SpringButtonType.OnlyScale,
+                                                                              roundedRectButton("Accept", signInGradients, false),
+                                                                              onTap: () async {
+                                                                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                                setState(() {
+                                                                                  prefs.setString('Idnya', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+                                                                                  prefs.setString('deliveryOrderNumber', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].deliveryOrderNumber.toString());
+                                                                                  prefs.setString('salesOrderId', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].salesOrderId.toString());
+                                                                                  prefs.setString('noVehicles', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].noVehicles.toString());
+                                                                                  prefs.setString('effectiveDateStart', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateStart.toString());
+                                                                                  prefs.setString('effectiveDateEnd', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateEnd.toString());
+                                                                                  prefs.setString('product', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].product.toString());
+                                                                                  prefs.setString('quantity', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].quantity.toString());
+                                                                                  idnya = _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
+                                                                                  posisi = index;
+                                                                                  accept = true;
+                                                                                });
+                                                                                await accepted(_listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+
+                                                                                _btnController.reset();
+
+                                                                                // Navigator.push(context,
+                                                                                //     MaterialPageRoute(builder: (context) => Register()));
+                                                                              },
+                                                                            ),
+                                                                          )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            )))));
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                  : SliverToBoxAdapter(
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        width: a_width,
+                                        height: 350,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: 1,
+                                          // _listNews.listHomeDetail[0].hot.length,
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                                padding: EdgeInsets.all(10),
+                                                // width: a_width,
+                                                // height: a_height,
+                                                child: InkWell(
+                                                    onTap: () {},
+                                                    child: Card(
+                                                        color: Colors.grey[700],
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          side: BorderSide(
+                                                            color: gold,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Container(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    15),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                    'No DO : ' +
+                                                                        prf.get(
+                                                                            'deliveryOrderNumber'),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'No SO : ' +
+                                                                        prf.get(
+                                                                            'salesOrderId'),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'No Vehicles : ' +
+                                                                        prf.get(
+                                                                            'noVehicles'),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'Start : ' +
+                                                                        prf.get(
+                                                                            'effectiveDateStart'),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'End : ' +
+                                                                        prf.get(
+                                                                            'effectiveDateEnd'),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'Product : ' +
+                                                                        prf.get(
+                                                                            'product'),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    'Quantity : ' +
+                                                                        prf.get(
+                                                                            'quantity'),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            10)),
+                                                                Row(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  children: [
+                                                                    Row(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceEvenly,
                                                                       children: [
                                                                         Container(
                                                                           width:
@@ -572,59 +824,64 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         ),
                                                                         file == null
                                                                             ? Container()
-                                                                            : Image.file(
-                                                                                files,
-                                                                                width: 150,
+                                                                            : Container(
+                                                                                padding: EdgeInsets.fromLTRB(30, 5, 5, 5),
+                                                                                child: Image.file(
+                                                                                  files,
+                                                                                  width: 80,
+                                                                                  height: 80,
+                                                                                  fit: BoxFit.cover,
+                                                                                ),
                                                                               ),
                                                                       ],
                                                                     ),
-                                                              Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              5)),
-                                                              posisi != null
-                                                                  ? Container()
-                                                                  : Container(
-                                                                      width:
-                                                                          120,
-                                                                      height:
-                                                                          60,
-                                                                      child:
-                                                                          SpringButton(
-                                                                        SpringButtonType
-                                                                            .OnlyScale,
-                                                                        roundedRectButton(
-                                                                            "Accept",
-                                                                            signInGradients,
-                                                                            false),
-                                                                        onTapDown:
-                                                                            (_) async {
-                                                                          setState(
-                                                                              () {
-                                                                            idnya =
-                                                                                _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
-                                                                            posisi =
-                                                                                index;
-                                                                            accept =
-                                                                                true;
-                                                                          });
-                                                                          _btnController
-                                                                              .reset();
+                                                                    Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(5)),
+                                                                    // posisi !=
+                                                                    //         null
+                                                                    //     ? Container()
+                                                                    //     : Container(
+                                                                    //         width:
+                                                                    //             120,
+                                                                    //         height:
+                                                                    //             60,
+                                                                    //         child:
+                                                                    //             SpringButton(
+                                                                    //           SpringButtonType.OnlyScale,
+                                                                    //           roundedRectButton("Accept", signInGradients, false),
+                                                                    //           onTap: () async {
+                                                                    //             SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                    //             setState(() {
+                                                                    //               prefs.setString('Idnya', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+                                                                    //               prefs.setString('deliveryOrderNumber', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].deliveryOrderNumber.toString());
+                                                                    //               prefs.setString('salesOrderId', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].salesOrderId.toString());
+                                                                    //               prefs.setString('noVehicles', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].noVehicles.toString());
+                                                                    //               prefs.setString('effectiveDateStart', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateStart.toString());
+                                                                    //               prefs.setString('effectiveDateEnd', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateEnd.toString());
+                                                                    //               prefs.setString('product', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].product.toString());
+                                                                    //               prefs.setString('quantity', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].quantity.toString());
+                                                                    //               idnya = _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
+                                                                    //               posisi = index;
+                                                                    //               accept = true;
+                                                                    //             });
+                                                                    //             await accepted(_listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
 
-                                                                          // Navigator.push(context,
-                                                                          //     MaterialPageRoute(builder: (context) => Register()));
-                                                                        },
-                                                                      ),
-                                                                    )
-                                                            ],
-                                                          )
-                                                        ],
-                                                      )))));
-                                    },
-                                  ),
-                                ),
-                              ),
+                                                                    //             _btnController.reset();
+
+                                                                    //             // Navigator.push(context,
+                                                                    //             //     MaterialPageRoute(builder: (context) => Register()));
+                                                                    //           },
+                                                                    //         ),
+                                                                    //       )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            )))));
+                                          },
+                                        ),
+                                      ),
+                                    ),
                               SliverList(
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
@@ -787,9 +1044,19 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                       width: 200,
                                                       height: 200,
                                                       child: RawMaterialButton(
-                                                        onPressed: () {
-                                                          kirimdata(
-                                                                  files, idnya)
+                                                        onPressed: () async {
+                                                          SharedPreferences
+                                                              prefs =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          var idDO = prefs
+                                                              .get('Idnya');
+
+                                                          await kirimdata(
+                                                                  files,
+                                                                  idDO == null
+                                                                      ? idnya
+                                                                      : idDO)
                                                               .then(
                                                                   (value) async {
                                                             print(value);

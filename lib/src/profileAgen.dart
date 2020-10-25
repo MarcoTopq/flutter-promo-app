@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:warnakaltim/src/model/driverModel.dart';
-// import 'package:warnakaltim/src/model/distributorModel.dart';
+import 'package:warnakaltim/src/model/HomeAgenModel.dart';
+import 'package:warnakaltim/src/model/HomeUserModel.dart';
+import 'package:warnakaltim/src/model/distributorModel.dart';
 
-class DriverDetail extends StatefulWidget {
+class AgenDetail extends StatefulWidget {
   @override
-  _DriverDetailState createState() => _DriverDetailState();
+  _AgenDetailState createState() => _AgenDetailState();
 }
 
-class _DriverDetailState extends State<DriverDetail> {
+class _AgenDetailState extends State<AgenDetail> {
   Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<DriverPersonModel>(context, listen: false)
-        .fetchDataDriverPerson();
+    await Provider.of<AgenHomeModel>(context, listen: false)
+        .fetchDataAgenHome();
   }
 
   @override
@@ -36,7 +37,7 @@ class _DriverDetailState extends State<DriverDetail> {
             color: Colors.white, //change your color here
           ),
           title: Text(
-            'Contact Driver',
+            'Contact Agen',
             style: new TextStyle(
               fontSize: 16.0,
               color: Colors.white,
@@ -48,8 +49,8 @@ class _DriverDetailState extends State<DriverDetail> {
         body: RefreshIndicator(
             onRefresh: () => _refreshData(context),
             child: FutureBuilder(
-                future: Provider.of<DriverPersonModel>(context, listen: false)
-                    .fetchDataDriverPerson(),
+                future: Provider.of<AgenHomeModel>(context, listen: false)
+                    .fetchDataAgenHome(),
                 builder: (ctx, snapshop) {
                   if (snapshop.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -61,8 +62,8 @@ class _DriverDetailState extends State<DriverDetail> {
                         child: Text("Error Loading Data"),
                       );
                     }
-                    return Consumer<DriverPersonModel>(
-                        builder: (ctx, _listDriverPerson, child) => Center(
+                    return Consumer<AgenHomeModel>(
+                        builder: (ctx, _listDistributorDetail, child) => Center(
                                 child: ListView(
                               children: <Widget>[
                                 Padding(padding: EdgeInsets.all(20)),
@@ -75,10 +76,11 @@ class _DriverDetailState extends State<DriverDetail> {
                                           borderRadius:
                                               BorderRadius.circular(50.0),
                                           child: Image.network(
-                                            _listDriverPerson
-                                                .listDriverPerson[0]
-                                                .driver
-                                                .avatar,
+                                            _listDistributorDetail
+                                                .listHomeDetail[0]
+                                                .user
+                                                .agen
+                                                .logo,
                                             fit: BoxFit.cover,
                                             width: 100,
                                             height: 100,
@@ -92,15 +94,16 @@ class _DriverDetailState extends State<DriverDetail> {
                                         size: 50,
                                       ),
                                       title: Text(
-                                        'Nama',
+                                        'Name',
                                         style: new TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.white,
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDriverPerson
-                                            .listDriverPerson[0].driver.name,
+                                        _listDistributorDetail
+                                            .listHomeDetail[0].user.agen.name
+                                            .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.white,
@@ -113,39 +116,42 @@ class _DriverDetailState extends State<DriverDetail> {
                                       height: 1.0,
                                       color: gold,
                                     ),
-                                    Padding(padding: EdgeInsets.all(20)),
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.mail,
-                                        color: gold,
-                                        size: 50,
-                                      ),
-                                      title: Text(
-                                        'Email',
-                                        style: new TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        _listDriverPerson.listDriverPerson[0]
-                                                    .email ==
-                                                "null"
-                                            ? " - "
-                                            : _listDriverPerson
-                                                .listDriverPerson[0].email,
-                                        style: new TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    Divider(
-                                      endIndent: 70.0,
-                                      indent: 70.0,
-                                      height: 1.0,
-                                      color: gold,
-                                    ),
+                                    // Padding(padding: EdgeInsets.all(20)),
+                                    // ListTile(
+                                    //   leading: Icon(
+                                    //     Icons.mail,
+                                    //     color: gold,
+                                    //     size: 50,
+                                    //   ),
+                                    //   title: Text(
+                                    //     'Email',
+                                    //     style: new TextStyle(
+                                    //       fontSize: 15.0,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: Text(
+                                    //     _listDistributorDetail.listHomeDetail[0]
+                                    //                 .user.agen.phone ==
+                                    //             "null"
+                                    //         ? " - "
+                                    //         : _listDistributorDetail
+                                    //             .listHomeDetail[0]
+                                    //             .user
+                                    //             .agen
+                                    //             .phone,
+                                    //     style: new TextStyle(
+                                    //       fontSize: 20.0,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // Divider(
+                                    //   endIndent: 70.0,
+                                    //   indent: 70.0,
+                                    //   height: 1.0,
+                                    //   color: gold,
+                                    // ),
                                     Padding(padding: EdgeInsets.all(20)),
                                     ListTile(
                                       leading: Icon(
@@ -154,21 +160,22 @@ class _DriverDetailState extends State<DriverDetail> {
                                         size: 50,
                                       ),
                                       title: Text(
-                                        'Ponsel',
+                                        'Phone',
                                         style: new TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.white,
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDriverPerson.listDriverPerson[0]
-                                                    .driver.phone
+                                        _listDistributorDetail.listHomeDetail[0]
+                                                    .user.agen.phone
                                                     .toString() ==
                                                 "null"
                                             ? " - "
-                                            : _listDriverPerson
-                                                .listDriverPerson[0]
-                                                .driver
+                                            : _listDistributorDetail
+                                                .listHomeDetail[0]
+                                                .user
+                                                .agen
                                                 .phone
                                                 .toString(),
                                         style: new TextStyle(
@@ -183,34 +190,44 @@ class _DriverDetailState extends State<DriverDetail> {
                                       height: 1.0,
                                       color: gold,
                                     ),
-                                    Padding(padding: EdgeInsets.all(20)),
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.desktop_windows,
-                                        color: gold,
-                                        size: 50,
-                                      ),
-                                      title: Text(
-                                        'Type',
-                                        style: new TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        'Driver',
-                                        style: new TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    Divider(
-                                      endIndent: 70.0,
-                                      indent: 70.0,
-                                      height: 1.0,
-                                      color: gold,
-                                    ),
+                                    // Padding(padding: EdgeInsets.all(20)),
+                                    // ListTile(
+                                    //   leading: Icon(
+                                    //     Icons.desktop_windows,
+                                    //     color: gold,
+                                    //     size: 50,
+                                    //   ),
+                                    //   title: Text(
+                                    //     'member',
+                                    //     style: new TextStyle(
+                                    //       fontSize: 15.0,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: Text(
+                                    //     _listDistributorDetail.listHomeDetail[0]
+                                    //                 .user.agen.member
+                                    //                 .toString() ==
+                                    //             "null"
+                                    //         ? " - "
+                                    //         : _listDistributorDetail
+                                    //             .listHomeDetail[0]
+                                    //             .user
+                                    //             .agen
+                                    //             .member
+                                    //             .toString(),
+                                    //     style: new TextStyle(
+                                    //       fontSize: 20.0,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // Divider(
+                                    //   endIndent: 70.0,
+                                    //   indent: 70.0,
+                                    //   height: 1.0,
+                                    //   color: gold,
+                                    // ),
                                     Padding(padding: EdgeInsets.all(20)),
                                     ListTile(
                                       leading: Icon(
@@ -226,14 +243,15 @@ class _DriverDetailState extends State<DriverDetail> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDriverPerson.listDriverPerson[0]
-                                                    .driver.address
+                                        _listDistributorDetail.listHomeDetail[0]
+                                                    .user.agen.address
                                                     .toString() ==
                                                 "null"
                                             ? " - "
-                                            : _listDriverPerson
-                                                .listDriverPerson[0]
-                                                .driver
+                                            : _listDistributorDetail
+                                                .listHomeDetail[0]
+                                                .user
+                                                .agen
                                                 .address
                                                 .toString(),
                                         style: new TextStyle(

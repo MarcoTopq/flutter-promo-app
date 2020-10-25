@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:warnakaltim/src/model/DistributorDetailModel.dart';
+import 'package:warnakaltim/src/model/HomeUserModel.dart';
 import 'package:warnakaltim/src/model/distributorModel.dart';
 
 class PersonDetail extends StatefulWidget {
@@ -10,8 +10,8 @@ class PersonDetail extends StatefulWidget {
 
 class _PersonDetailState extends State<PersonDetail> {
   Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<DistributorDetailModel>(context, listen: false)
-        .fetchDataDistributorDetail();
+    await Provider.of<UserHomeModel>(context, listen: false)
+        .fetchDataUserHome();
   }
 
   @override
@@ -48,9 +48,8 @@ class _PersonDetailState extends State<PersonDetail> {
         body: RefreshIndicator(
             onRefresh: () => _refreshData(context),
             child: FutureBuilder(
-                future:
-                    Provider.of<DistributorDetailModel>(context, listen: false)
-                        .fetchDataDistributorDetail(),
+                future: Provider.of<UserHomeModel>(context, listen: false)
+                    .fetchDataUserHome(),
                 builder: (ctx, snapshop) {
                   if (snapshop.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -62,7 +61,7 @@ class _PersonDetailState extends State<PersonDetail> {
                         child: Text("Error Loading Data"),
                       );
                     }
-                    return Consumer<DistributorDetailModel>(
+                    return Consumer<UserHomeModel>(
                         builder: (ctx, _listDistributorDetail, child) => Center(
                                 child: ListView(
                               children: <Widget>[
@@ -77,9 +76,10 @@ class _PersonDetailState extends State<PersonDetail> {
                                               BorderRadius.circular(50.0),
                                           child: Image.network(
                                             _listDistributorDetail
-                                                .listDistributorDetail[0]
+                                                .listHomeDetail[0]
+                                                .user
                                                 .customer
-                                                .avatar,
+                                                .logo,
                                             fit: BoxFit.cover,
                                             width: 100,
                                             height: 100,
@@ -93,17 +93,16 @@ class _PersonDetailState extends State<PersonDetail> {
                                         size: 50,
                                       ),
                                       title: Text(
-                                        'Nama',
+                                        'Name',
                                         style: new TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.white,
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDistributorDetail
-                                            .listDistributorDetail[0]
-                                            .customer
-                                            .name,
+                                        _listDistributorDetail.listHomeDetail[0]
+                                            .user.customer.name
+                                            .toString(),
                                         style: new TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.white,
@@ -116,40 +115,42 @@ class _PersonDetailState extends State<PersonDetail> {
                                       height: 1.0,
                                       color: gold,
                                     ),
-                                    Padding(padding: EdgeInsets.all(20)),
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.mail,
-                                        color: gold,
-                                        size: 50,
-                                      ),
-                                      title: Text(
-                                        'Email',
-                                        style: new TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        _listDistributorDetail
-                                                    .listDistributorDetail[0]
-                                                    .email ==
-                                                "null"
-                                            ? " - "
-                                            : _listDistributorDetail
-                                                .listDistributorDetail[0].email,
-                                        style: new TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    Divider(
-                                      endIndent: 70.0,
-                                      indent: 70.0,
-                                      height: 1.0,
-                                      color: gold,
-                                    ),
+                                    // Padding(padding: EdgeInsets.all(20)),
+                                    // ListTile(
+                                    //   leading: Icon(
+                                    //     Icons.mail,
+                                    //     color: gold,
+                                    //     size: 50,
+                                    //   ),
+                                    //   title: Text(
+                                    //     'Email',
+                                    //     style: new TextStyle(
+                                    //       fontSize: 15.0,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: Text(
+                                    //     _listDistributorDetail.listHomeDetail[0]
+                                    //                 .user.customer.phone ==
+                                    //             "null"
+                                    //         ? " - "
+                                    //         : _listDistributorDetail
+                                    //             .listHomeDetail[0]
+                                    //             .user
+                                    //             .customer
+                                    //             .phone,
+                                    //     style: new TextStyle(
+                                    //       fontSize: 20.0,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // Divider(
+                                    //   endIndent: 70.0,
+                                    //   indent: 70.0,
+                                    //   height: 1.0,
+                                    //   color: gold,
+                                    // ),
                                     Padding(padding: EdgeInsets.all(20)),
                                     ListTile(
                                       leading: Icon(
@@ -158,22 +159,21 @@ class _PersonDetailState extends State<PersonDetail> {
                                         size: 50,
                                       ),
                                       title: Text(
-                                        'Ponsel',
+                                        'Phone',
                                         style: new TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.white,
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDistributorDetail
-                                                    .listDistributorDetail[0]
-                                                    .customer
-                                                    .phone
+                                        _listDistributorDetail.listHomeDetail[0]
+                                                    .user.customer.phone
                                                     .toString() ==
                                                 "null"
                                             ? " - "
                                             : _listDistributorDetail
-                                                .listDistributorDetail[0]
+                                                .listHomeDetail[0]
+                                                .user
                                                 .customer
                                                 .phone
                                                 .toString(),
@@ -189,45 +189,44 @@ class _PersonDetailState extends State<PersonDetail> {
                                       height: 1.0,
                                       color: gold,
                                     ),
-                                    Padding(padding: EdgeInsets.all(20)),
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.desktop_windows,
-                                        color: gold,
-                                        size: 50,
-                                      ),
-                                      title: Text(
-                                        'member',
-                                        style: new TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        _listDistributorDetail
-                                                    .listDistributorDetail[0]
-                                                    .customer
-                                                    .member
-                                                    .toString() ==
-                                                "null"
-                                            ? " - "
-                                            : _listDistributorDetail
-                                                .listDistributorDetail[0]
-                                                .customer
-                                                .member
-                                                .toString(),
-                                        style: new TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    Divider(
-                                      endIndent: 70.0,
-                                      indent: 70.0,
-                                      height: 1.0,
-                                      color: gold,
-                                    ),
+                                    // Padding(padding: EdgeInsets.all(20)),
+                                    // ListTile(
+                                    //   leading: Icon(
+                                    //     Icons.desktop_windows,
+                                    //     color: gold,
+                                    //     size: 50,
+                                    //   ),
+                                    //   title: Text(
+                                    //     'member',
+                                    //     style: new TextStyle(
+                                    //       fontSize: 15.0,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: Text(
+                                    //     _listDistributorDetail.listHomeDetail[0]
+                                    //                 .user.customer.member
+                                    //                 .toString() ==
+                                    //             "null"
+                                    //         ? " - "
+                                    //         : _listDistributorDetail
+                                    //             .listHomeDetail[0]
+                                    //             .user
+                                    //             .customer
+                                    //             .member
+                                    //             .toString(),
+                                    //     style: new TextStyle(
+                                    //       fontSize: 20.0,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // Divider(
+                                    //   endIndent: 70.0,
+                                    //   indent: 70.0,
+                                    //   height: 1.0,
+                                    //   color: gold,
+                                    // ),
                                     Padding(padding: EdgeInsets.all(20)),
                                     ListTile(
                                       leading: Icon(
@@ -243,15 +242,14 @@ class _PersonDetailState extends State<PersonDetail> {
                                         ),
                                       ),
                                       subtitle: Text(
-                                        _listDistributorDetail
-                                                    .listDistributorDetail[0]
-                                                    .customer
-                                                    .address
+                                        _listDistributorDetail.listHomeDetail[0]
+                                                    .user.customer.address
                                                     .toString() ==
                                                 "null"
                                             ? " - "
                                             : _listDistributorDetail
-                                                .listDistributorDetail[0]
+                                                .listHomeDetail[0]
+                                                .user
                                                 .customer
                                                 .address
                                                 .toString(),

@@ -23,7 +23,8 @@ import 'package:warnakaltim/src/distributor.dart';
 import 'package:warnakaltim/src/model/HomeAgenModel.dart';
 import 'package:warnakaltim/src/model/HomeUserModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:warnakaltim/src/person.dart';
+import 'package:warnakaltim/src/profileAgen.dart';
+import 'package:warnakaltim/src/profileCustomer.dart';
 import 'package:warnakaltim/src/salesOrder.dart';
 
 class AgenHomeDetail extends StatefulWidget {
@@ -1305,30 +1306,30 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                               CompanyDetail(url: pdf)));
                                 },
                               )),
-                          Container(
-                              padding: EdgeInsets.only(top: 2),
-                              decoration: new BoxDecoration(
-                                  color: Colors.black12,
-                                  border: new Border(
-                                      bottom: new BorderSide(
-                                          color: Colors.grey[850]))),
-                              child: ListTile(
-                                leading: Icon(Icons.phone, color: gold),
+                          // Container(
+                          //     padding: EdgeInsets.only(top: 2),
+                          //     decoration: new BoxDecoration(
+                          //         color: Colors.black12,
+                          //         border: new Border(
+                          //             bottom: new BorderSide(
+                          //                 color: Colors.grey[850]))),
+                          //     child: ListTile(
+                          //       leading: Icon(Icons.phone, color: gold),
 
-                                title: Text('Contact Distributor',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                // isThreeLine: true,
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DistributorProfile()));
-                                },
-                              )),
+                          //       title: Text('Contact Distributor',
+                          //           style: TextStyle(
+                          //               color: Colors.white,
+                          //               fontSize: 15,
+                          //               fontWeight: FontWeight.bold)),
+                          //       // isThreeLine: true,
+                          //       onTap: () {
+                          //         Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //                 builder: (context) =>
+                          //                     DistributorProfile()));
+                          //       },
+                          //     )),
                           Container(
                               padding: EdgeInsets.only(top: 2),
                               decoration: new BoxDecoration(
@@ -1339,7 +1340,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                               child: ListTile(
                                 leading: Icon(Icons.phone_android, color: gold),
 
-                                title: Text('Contact Person',
+                                title: Text('Profile',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -1349,8 +1350,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              PersonDetail()));
+                                          builder: (context) => AgenDetail()));
                                 },
                               )),
                           Container(

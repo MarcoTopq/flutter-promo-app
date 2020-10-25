@@ -21,7 +21,7 @@ import 'package:warnakaltim/src/login.dart';
 import 'package:warnakaltim/src/distributor.dart';
 import 'package:warnakaltim/src/model/HomeUserModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:warnakaltim/src/person.dart';
+import 'package:warnakaltim/src/profileCustomer.dart';
 
 class UserHomeDetail extends StatefulWidget {
   // final email;
@@ -650,7 +650,8 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                             0]
                                                                         .user
                                                                         .customer
-                                                                        .name,
+                                                                        .name
+                                                                        .toString(),
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .white,
@@ -1517,30 +1518,30 @@ class _UserHomeState extends State<UserHomeDetail> {
                                               CompanyDetail(url: pdf)));
                                 },
                               )),
-                          Container(
-                              padding: EdgeInsets.only(top: 2),
-                              decoration: new BoxDecoration(
-                                  color: Colors.black12,
-                                  border: new Border(
-                                      bottom: new BorderSide(
-                                          color: Colors.grey[850]))),
-                              child: ListTile(
-                                leading: Icon(Icons.phone, color: gold),
+                          // Container(
+                          //     padding: EdgeInsets.only(top: 2),
+                          //     decoration: new BoxDecoration(
+                          //         color: Colors.black12,
+                          //         border: new Border(
+                          //             bottom: new BorderSide(
+                          //                 color: Colors.grey[850]))),
+                          //     child: ListTile(
+                          //       leading: Icon(Icons.phone, color: gold),
 
-                                title: Text('Contact Distributor',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                // isThreeLine: true,
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DistributorProfile()));
-                                },
-                              )),
+                          //       title: Text('Contact Distributor',
+                          //           style: TextStyle(
+                          //               color: Colors.white,
+                          //               fontSize: 15,
+                          //               fontWeight: FontWeight.bold)),
+                          //       // isThreeLine: true,
+                          //       onTap: () {
+                          //         Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //                 builder: (context) =>
+                          //                     DistributorProfile()));
+                          //       },
+                          //     )),
                           Container(
                               padding: EdgeInsets.only(top: 2),
                               decoration: new BoxDecoration(
@@ -1551,7 +1552,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                               child: ListTile(
                                 leading: Icon(Icons.phone_android, color: gold),
 
-                                title: Text('Contact Person',
+                                title: Text('Profile',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
