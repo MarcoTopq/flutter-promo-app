@@ -34,6 +34,23 @@ class DriverHomeDetail extends StatefulWidget {
   _DriverHomeState createState() => _DriverHomeState();
 }
 
+Future<http.Response> logout() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String token = prefs.get('Token');
+
+  http.Response hasil =
+      await http.post(Uri.decodeFull(urls + "/api/logout"), body: {
+    // "email": emailController.text,
+    // "old_password": oldpasswordController.text,
+    // "new_password": passwordController.text
+  }, headers: {
+    "Accept": "application/JSON",
+    "Authorization": 'Bearer ' + token
+  });
+  print(hasil.statusCode);
+  return Future.value(hasil);
+}
+
 class _DriverHomeState extends State<DriverHomeDetail> {
   Future<void> _refreshData(BuildContext context) async {
     await Provider.of<DriverHomeModel>(context, listen: false)
@@ -378,11 +395,13 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                       // directionMarguee:
                                                       //     DirectionMarguee.oneDirection,
                                                       child: Text(
-                                                        "Welcome To RPM (Reward Point Management)",
+                                                        "Welcome to PT Pertamina Patra Niaga Loyalty Card",
                                                         style: TextStyle(
                                                             fontSize: 15,
-                                                            color:
-                                                                Colors.white),
+                                                            color: gold,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
                                                       )),
                                                 ),
                                                 Padding(
@@ -1261,6 +1280,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                 builder: (context) => Login()));
                                       }
                                     : () async {
+                                        await logout();
                                         // setState(() async{
                                         SharedPreferences prefs =
                                             await SharedPreferences

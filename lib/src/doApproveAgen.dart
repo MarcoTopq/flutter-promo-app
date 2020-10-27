@@ -127,194 +127,215 @@ class _DoApproveAgenState extends State<DoApproveAgen> {
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
                                     return Container(
-                                      padding: EdgeInsets.all(20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          // Row(
-                                          //   crossAxisAlignment:
-                                          //       CrossAxisAlignment.start,
-                                          //   mainAxisAlignment:
-                                          //       MainAxisAlignment.start,
-                                          //   children: [
-                                          //     // Padding(padding: EdgeInsets.all(5)),
-                                          // Icon(
-                                          //   Icons.check_circle,
-                                          //   color: Colors.green,
-                                          //   size: 20,
-                                          // ),
-                                          //     Padding(padding: EdgeInsets.all(5)),
-                                          //     Text(
-                                          //       _listDelivery
-                                          //           .listDoApprove[index]
-                                          //           .deliveryOrderNumber,
-                                          //       style: new TextStyle(
-                                          //         fontSize: 16.0,
-                                          //         color: Colors.white,
-                                          //       ),
-                                          //     ),
-                                          //   ],
-                                          // ),
-                                          Row(
+                                        padding: EdgeInsets.all(20),
+                                        child: Card(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            side: BorderSide(
+                                              color: gold,
+                                              width: 2.0,
+                                            ),
+                                          ),
+                                          color: Colors.black12,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              // IntrinsicHeight(
-                                              //     child: VerticalDivider(
-                                              //   endIndent: 20.0,
-                                              //   indent: 0.0,
-                                              //   thickness: 10,
-                                              //   width: 30.0,
-                                              //   color: Colors.white,
-                                              // )),
-                                              Expanded(
-                                                  child: ListTile(
-                                                leading: Icon(
-                                                  Icons.add_circle,
-                                                  color: gold,
-                                                  size: 40,
-                                                ),
-                                                title: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'No DO : ' +
-                                                          _listDelivery
-                                                              .listDoApprove[
-                                                                  index]
-                                                              .deliveryOrderNumber
-                                                              .toString(),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'No SO : ' +
-                                                          _listDelivery
-                                                              .listDoApprove[
-                                                                  index]
-                                                              .salesOrderId
-                                                              .toString(),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      _listDelivery
-                                                          .listDoApprove[index]
-                                                          .product
-                                                          .toString(),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      _listDelivery
-                                                          .listDoApprove[index]
-                                                          .quantity
-                                                          .toString()
-                                                          .replaceAllMapped(
-                                                              new RegExp(
-                                                                  r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                              (Match m) =>
-                                                                  '${m[1]},'),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      _listDelivery
-                                                          .listDoApprove[index]
-                                                          .status
-                                                          .toString(),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )),
-                                              Column(
+                                              // Row(
+                                              //   crossAxisAlignment:
+                                              //       CrossAxisAlignment.start,
+                                              //   mainAxisAlignment:
+                                              //       MainAxisAlignment.start,
+                                              //   children: [
+                                              //     // Padding(padding: EdgeInsets.all(5)),
+                                              // Icon(
+                                              //   Icons.check_circle,
+                                              //   color: Colors.green,
+                                              //   size: 20,
+                                              // ),
+                                              //     Padding(padding: EdgeInsets.all(5)),
+                                              //     Text(
+                                              //       _listDelivery
+                                              //           .listDoApprove[index]
+                                              //           .deliveryOrderNumber,
+                                              //       style: new TextStyle(
+                                              //         fontSize: 16.0,
+                                              //         color: Colors.white,
+                                              //       ),
+                                              //     ),
+                                              //   ],
+                                              // ),
+                                              Row(
                                                 children: [
-                                                  Container(
-                                                    width: 120,
-                                                    height: 60,
-                                                    child: SpringButton(
-                                                        SpringButtonType
-                                                            .OnlyScale,
-                                                        roundedRectButton(
-                                                            "Detail",
-                                                            signInGradients,
-                                                            false),
-                                                        onTapDown: (_) async {
-                                                      setState(() {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (context) => DoApproveDetailAgen(
-                                                                    id: _listDelivery
-                                                                        .listDoApprove[
-                                                                            index]
-                                                                        .id
-                                                                        .toString())));
-                                                      });
-                                                    }),
-                                                  ),
-                                                  Container(
-                                                    width: 120,
-                                                    height: 60,
-                                                    child: SpringButton(
-                                                        SpringButtonType
-                                                            .OnlyScale,
-                                                        roundedRectButton(
-                                                            "Approve",
-                                                            signInGradients,
-                                                            false),
-                                                        onTap: () async {
-                                                      await accepted(
+                                                  // IntrinsicHeight(
+                                                  //     child: VerticalDivider(
+                                                  //   endIndent: 20.0,
+                                                  //   indent: 0.0,
+                                                  //   thickness: 10,
+                                                  //   width: 30.0,
+                                                  //   color: Colors.white,
+                                                  // )),
+                                                  Expanded(
+                                                      child: ListTile(
+                                                    leading: Icon(
+                                                      Icons.add_circle,
+                                                      color: gold,
+                                                      size: 40,
+                                                    ),
+                                                    title: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          'No DO : ' +
+                                                              _listDelivery
+                                                                  .listDoApprove[
+                                                                      index]
+                                                                  .deliveryOrderNumber
+                                                                  .toString(),
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'No SO : ' +
+                                                              _listDelivery
+                                                                  .listDoApprove[
+                                                                      index]
+                                                                  .salesOrderId
+                                                                  .toString(),
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                        Text(
                                                           _listDelivery
                                                               .listDoApprove[
                                                                   index]
-                                                              .id
-                                                              .toString());
-                                                      setState(() {
-                                                        // badges--;
-                                                        _increment();
-                                                        Toast.show(
-                                                            "Approve Berhasil",
-                                                            context);
-                                                        Navigator.pop(context);
-                                                        Navigator.pushReplacement(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        Homepage()));
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        DoApproveAgen()));
-                                                      });
-                                                    }),
+                                                              .product
+                                                              .toString(),
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          _listDelivery
+                                                              .listDoApprove[
+                                                                  index]
+                                                              .quantity
+                                                              .toString()
+                                                              .replaceAllMapped(
+                                                                  new RegExp(
+                                                                      r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                                  (Match m) =>
+                                                                      '${m[1]},'),
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          _listDelivery
+                                                              .listDoApprove[
+                                                                  index]
+                                                              .status
+                                                              .toString(),
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 8.0),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          width: 120,
+                                                          height: 60,
+                                                          child: SpringButton(
+                                                              SpringButtonType
+                                                                  .OnlyScale,
+                                                              roundedRectButton(
+                                                                  "Detail",
+                                                                  signInGradients,
+                                                                  false),
+                                                              onTapDown:
+                                                                  (_) async {
+                                                            setState(() {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) => DoApproveDetailAgen(
+                                                                          id: _listDelivery
+                                                                              .listDoApprove[index]
+                                                                              .id
+                                                                              .toString())));
+                                                            });
+                                                          }),
+                                                        ),
+                                                        Container(
+                                                          width: 120,
+                                                          height: 60,
+                                                          child: SpringButton(
+                                                              SpringButtonType
+                                                                  .OnlyScale,
+                                                              roundedRectButton(
+                                                                  "Approve",
+                                                                  signInGradients,
+                                                                  false),
+                                                              onTap: () async {
+                                                            await accepted(
+                                                                _listDelivery
+                                                                    .listDoApprove[
+                                                                        index]
+                                                                    .id
+                                                                    .toString());
+                                                            setState(() {
+                                                              // badges--;
+                                                              _increment();
+                                                              Toast.show(
+                                                                  "Approve Berhasil",
+                                                                  context);
+                                                              Navigator.pop(
+                                                                  context);
+                                                              Navigator.pushReplacement(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              Homepage()));
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              DoApproveAgen()));
+                                                            });
+                                                          }),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                    );
+                                        ));
                                   },
                                   childCount:
                                       _listDelivery.listDoApprove.length,

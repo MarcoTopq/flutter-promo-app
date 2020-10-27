@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:warnakaltim/src/bast.dart';
 import 'package:warnakaltim/src/model/detailDeliveryModel.dart';
 
 class DetailDelivery extends StatefulWidget {
@@ -95,29 +96,6 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        // Row(
-                                        //   crossAxisAlignment:
-                                        //       CrossAxisAlignment.start,
-                                        //   mainAxisAlignment:
-                                        //       MainAxisAlignment.start,
-                                        //   children: [
-                                        //     // Padding(padding: EdgeInsets.all(5)),
-                                        //     Icon(
-                                        //       Icons.check_circle,
-                                        //       color: Colors.green,
-                                        //       size: 20,
-                                        //     ),
-                                        //     Padding(padding: EdgeInsets.all(5)),
-                                        //     Text(
-                                        //       _listDetaildo
-                                        //           .listDetailDo[index].time,
-                                        //       style: new TextStyle(
-                                        //         fontSize: 16.0,
-                                        //         color: Colors.white,
-                                        //       ),
-                                        //     ),
-                                        //   ],
-                                        // ),
                                         Row(
                                           children: [
                                             // IntrinsicHeight(
@@ -706,87 +684,6 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
-                                                  // Text(
-                                                  //   'Customer Name',
-                                                  //   style: new TextStyle(
-                                                  //     fontSize: 12.0,
-                                                  //     color: gold,
-                                                  //   ),
-                                                  // ),
-                                                  // Text(
-                                                  //   _listDetaildo
-                                                  //       .listDetailDo[index]
-                                                  //       .customer
-                                                  //       .name
-                                                  //       .toString(),
-                                                  //   style: new TextStyle(
-                                                  //     fontSize: 16.0,
-                                                  //     color: Colors.white,
-                                                  //   ),
-                                                  // ),
-                                                  // Padding(
-                                                  //     padding:
-                                                  //         EdgeInsets.all(2)),
-                                                  // Text(
-                                                  //   'Member',
-                                                  //   style: new TextStyle(
-                                                  //     fontSize: 12.0,
-                                                  //     color: gold,
-                                                  //   ),
-                                                  // ),
-                                                  // Text(
-                                                  //   _listDetaildo
-                                                  //       .listDetailDo[index]
-                                                  //       .customer
-                                                  //       .member
-                                                  //       .toString(),
-                                                  //   style: new TextStyle(
-                                                  //     fontSize: 16.0,
-                                                  //     color: Colors.white,
-                                                  //   ),
-                                                  // ),
-                                                  // Padding(
-                                                  //     padding:
-                                                  //         EdgeInsets.all(2)),
-                                                  // Text(
-                                                  //   'Customer Address',
-                                                  //   style: new TextStyle(
-                                                  //     fontSize: 12.0,
-                                                  //     color: gold,
-                                                  //   ),
-                                                  // ),
-                                                  // Text(
-                                                  //   _listDetaildo
-                                                  //       .listDetailDo[index]
-                                                  //       .customer
-                                                  //       .address
-                                                  //       .toString(),
-                                                  //   style: new TextStyle(
-                                                  //     fontSize: 16.0,
-                                                  //     color: Colors.white,
-                                                  //   ),
-                                                  // ),
-                                                  // Padding(
-                                                  //     padding:
-                                                  //         EdgeInsets.all(2)),
-                                                  // Text(
-                                                  //   'Customer Phone',
-                                                  //   style: new TextStyle(
-                                                  //     fontSize: 12.0,
-                                                  //     color: gold,
-                                                  //   ),
-                                                  // ),
-                                                  // Text(
-                                                  //   _listDetaildo
-                                                  //       .listDetailDo[index]
-                                                  //       .customer
-                                                  //       .phone
-                                                  //       .toString(),
-                                                  //   style: new TextStyle(
-                                                  //     fontSize: 16.0,
-                                                  //     color: Colors.white,
-                                                  //   ),
-                                                  // ),
                                                   Padding(
                                                       padding:
                                                           EdgeInsets.all(2)),
@@ -859,6 +756,58 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                             fontSize: 16.0,
                                                             color: Colors.white,
                                                           ),
+                                                        ),
+                                                  Divider(
+                                                    endIndent: 0.0,
+                                                    indent: 0.0,
+                                                    height: 1.0,
+                                                    thickness: 1,
+                                                    color: Colors.white,
+                                                  ),
+                                                  Padding(
+                                                      padding:
+                                                          EdgeInsets.all(2)),
+                                                  Text(
+                                                    'Bast',
+                                                    style: new TextStyle(
+                                                      fontSize: 12.0,
+                                                      color: gold,
+                                                    ),
+                                                  ),
+                                                  _listDetaildo
+                                                              .listDetailDo[
+                                                                  index]
+                                                              .bast
+                                                              .toString() ==
+                                                          "http://rpm.lensaborneo.id/uploads"
+                                                      ? Text(
+                                                          ' - ',
+                                                          style: new TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
+                                                      : InkWell(
+                                                          child: Image.network(
+                                                            // "http://rpm.lensaborneo.id/uploads/avatars/default.jpg",
+
+                                                            _listDetaildo
+                                                                .listDetailDo[
+                                                                    index]
+                                                                .bast
+                                                                .toString(),
+                                                            width: 100,
+                                                          ),
+                                                          onTap: () {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            Bast(
+                                                                              url: _listDetaildo.listDetailDo[index].bast.toString(),
+                                                                            )));
+                                                          },
                                                         ),
                                                   Divider(
                                                     endIndent: 0.0,

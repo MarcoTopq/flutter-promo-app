@@ -49,7 +49,7 @@ class _CompanyDetailState extends State<CompanyDetail> {
       document = await PDFDocument.fromAsset('assets/sample2.pdf');
     } else if (value == 2) {
       document = await PDFDocument.fromURL(
-          "https://rpm.bpkadkaltim.com/company/profile/download");
+          "http://rpm.lensaborneo.id/uploads/profile/16036658023._BAB_II.pdf");
     } else {
       document = await PDFDocument.fromAsset('assets/sample.pdf');
     }

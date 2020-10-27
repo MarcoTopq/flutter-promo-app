@@ -93,108 +93,125 @@ class _SalesOrderDetailState extends State<SalesOrderDetail> {
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
                                     return Container(
-                                      padding: EdgeInsets.all(20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          // Row(
-                                          //   crossAxisAlignment:
-                                          //       CrossAxisAlignment.start,
-                                          //   mainAxisAlignment:
-                                          //       MainAxisAlignment.start,
-                                          //   children: [
-                                          //     // Padding(padding: EdgeInsets.all(5)),
-                                          // Icon(
-                                          //   Icons.check_circle,
-                                          //   color: Colors.green,
-                                          //   size: 20,
-                                          // ),
-                                          //     Padding(padding: EdgeInsets.all(5)),
-                                          //     Text(
-                                          //       _listSalesOrder
-                                          //           .listSalesOrder[index]
-                                          //           .deliveryOrderNumber,
-                                          //       style: new TextStyle(
-                                          //         fontSize: 16.0,
-                                          //         color: Colors.white,
-                                          //       ),
-                                          //     ),
-                                          //   ],
-                                          // ),
-                                          Row(
-                                            children: [
-                                              // IntrinsicHeight(
-                                              //     child: VerticalDivider(
-                                              //   endIndent: 20.0,
-                                              //   indent: 0.0,
-                                              //   thickness: 10,
-                                              //   width: 30.0,
-                                              //   color: Colors.white,
-                                              // )),
-                                              Expanded(
-                                                  child: ListTile(
-                                                leading: Icon(
-                                                  Icons.add_circle,
-                                                  color: gold,
-                                                  size: 40,
-                                                ),
-                                                title: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
+                                        padding: EdgeInsets.all(20),
+                                        child: Card(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            side: BorderSide(
+                                              color: gold,
+                                              width: 2.0,
+                                            ),
+                                          ),
+                                          color: Colors.black12,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                // Row(
+                                                //   crossAxisAlignment:
+                                                //       CrossAxisAlignment.start,
+                                                //   mainAxisAlignment:
+                                                //       MainAxisAlignment.start,
+                                                //   children: [
+                                                //     // Padding(padding: EdgeInsets.all(5)),
+                                                // Icon(
+                                                //   Icons.check_circle,
+                                                //   color: Colors.green,
+                                                //   size: 20,
+                                                // ),
+                                                //     Padding(padding: EdgeInsets.all(5)),
+                                                //     Text(
+                                                //       _listSalesOrder
+                                                //           .listSalesOrder[index]
+                                                //           .deliveryOrderNumber,
+                                                //       style: new TextStyle(
+                                                //         fontSize: 16.0,
+                                                //         color: Colors.white,
+                                                //       ),
+                                                //     ),
+                                                //   ],
+                                                // ),
+                                                Row(
                                                   children: [
-                                                    Text(
-                                                      'No SO : ' +
-                                                          _listSalesOrder
-                                                              .listSalesOrder[
-                                                                  index]
-                                                              .salesOrderNumber
-                                                              .toString(),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
+                                                    // IntrinsicHeight(
+                                                    //     child: VerticalDivider(
+                                                    //   endIndent: 20.0,
+                                                    //   indent: 0.0,
+                                                    //   thickness: 10,
+                                                    //   width: 30.0,
+                                                    //   color: Colors.white,
+                                                    // )),
+                                                    Expanded(
+                                                        child: ListTile(
+                                                      leading: Icon(
+                                                        Icons.add_circle,
+                                                        color: gold,
+                                                        size: 40,
                                                       ),
-                                                    ),
+                                                      title: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            'No SO : ' +
+                                                                _listSalesOrder
+                                                                    .listSalesOrder[
+                                                                        index]
+                                                                    .salesOrderNumber
+                                                                    .toString(),
+                                                            style:
+                                                                new TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )),
+                                                    Column(
+                                                      children: [
+                                                        Container(
+                                                          width: 120,
+                                                          height: 60,
+                                                          child: SpringButton(
+                                                              SpringButtonType
+                                                                  .OnlyScale,
+                                                              roundedRectButton(
+                                                                  "Detail DO",
+                                                                  signInGradients,
+                                                                  false),
+                                                              onTapDown:
+                                                                  (_) async {
+                                                            setState(() {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) => DetailDeliveryAgen(
+                                                                          id: _listSalesOrder
+                                                                              .listSalesOrder[index]
+                                                                              .id
+                                                                              .toString())));
+                                                            });
+                                                          }),
+                                                        ),
+                                                      ],
+                                                    )
                                                   ],
                                                 ),
-                                              )),
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    width: 120,
-                                                    height: 60,
-                                                    child: SpringButton(
-                                                        SpringButtonType
-                                                            .OnlyScale,
-                                                        roundedRectButton(
-                                                            "Detail DO",
-                                                            signInGradients,
-                                                            false),
-                                                        onTapDown: (_) async {
-                                                      setState(() {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (context) => DetailDeliveryAgen(
-                                                                    id: _listSalesOrder
-                                                                        .listSalesOrder[
-                                                                            index]
-                                                                        .id
-                                                                        .toString())));
-                                                      });
-                                                    }),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ],
-                                      ),
-                                    );
+                                        ));
                                   },
                                   childCount:
                                       _listSalesOrder.listSalesOrder.length,

@@ -8,6 +8,7 @@ import 'package:warnakaltim/src/all_event.dart';
 import 'package:warnakaltim/src/all_hotPromo.dart';
 import 'package:warnakaltim/src/all_news.dart';
 import 'package:warnakaltim/src/all_promo.dart';
+import 'package:warnakaltim/src/all_videos.dart';
 import 'package:warnakaltim/src/all_voucher.dart';
 import 'package:warnakaltim/src/company.dart';
 import 'package:warnakaltim/src/deliveryHistory.dart';
@@ -26,6 +27,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warnakaltim/src/profileAgen.dart';
 import 'package:warnakaltim/src/profileCustomer.dart';
 import 'package:warnakaltim/src/salesOrder.dart';
+import 'package:http/http.dart' as http;
 
 class AgenHomeDetail extends StatefulWidget {
   // final email;
@@ -42,6 +44,23 @@ class AgenHomeDetail extends StatefulWidget {
 
 Future<void> _refreshData(BuildContext context) async {
   await Provider.of<AgenHomeModel>(context, listen: false).fetchDataAgenHome();
+}
+
+Future<http.Response> logout() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String token = prefs.get('Token');
+
+  http.Response hasil =
+      await http.post(Uri.decodeFull(urls + "/api/logout"), body: {
+    // "email": emailController.text,
+    // "old_password": oldpasswordController.text,
+    // "new_password": passwordController.text
+  }, headers: {
+    "Accept": "application/JSON",
+    "Authorization": 'Bearer ' + token
+  });
+  print(hasil.statusCode);
+  return Future.value(hasil);
 }
 
 class _AgenHomeState extends State<AgenHomeDetail> {
@@ -475,7 +494,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                     return email == null
                                         ? Container()
                                         : Container(
-                                            // color: Colors.black12,
+                                            // color: Colors.black,
                                             padding: EdgeInsets.all(10),
                                             width: c_width,
                                             height: 200,
@@ -510,7 +529,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                                     .company
                                                                     .description ==
                                                                 null
-                                                            ? "Welcome To RPM (Reward Point Management)"
+                                                            ? "Welcome to PT Pertamina Patra Niaga Loyalty Card"
                                                             : _listNews
                                                                 .listHomeDetail[
                                                                     0]
@@ -518,8 +537,10 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                                 .description,
                                                         style: TextStyle(
                                                             fontSize: 15,
-                                                            color:
-                                                                Colors.white),
+                                                            color: gold,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
                                                       )),
                                                 ),
                                                 Padding(
@@ -877,7 +898,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            AllHotPromo(),
+                                                            AllVideos(),
                                                       ));
                                                 },
                                                 child: Text(
@@ -899,52 +920,72 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                   height: 200,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: 4,
+                                    itemCount: _listNews.listHomeDetail[0]
+                                                .videos.length <
+                                            4
+                                        ? _listNews
+                                            .listHomeDetail[0].videos.length
+                                        : 4,
                                     // _listNews.listHomeDetail[0].hot.length,
                                     itemBuilder: (context, index) {
                                       return Container(
-                                          padding: EdgeInsets.all(10),
-                                          width: a_width,
-                                          height: a_height,
-                                          child: InkWell(
-                                              onTap: () {
-                                                // Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //       builder: (context) =>
-                                                //           DetailPromo(
-                                                //               id: _listNews
-                                                //                   .listHomeDetail[
-                                                //                       0]
-                                                //                   .videos[index]
-                                                //                   .id
-                                                //                   .toString()),
-                                                //     ));
-                                                _launchURL(_listNews
-                                                    .listHomeDetail[0]
-                                                    .videos[index]
-                                                    .url
-                                                    .toString());
-                                              },
-                                              child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
-                                                    side: BorderSide(
-                                                      color: gold,
-                                                      width: 2.0,
-                                                    ),
-                                                  ),
-                                                  child: Image.network(
-                                                    _listNews.listHomeDetail[0]
-                                                        .videos[index].image,
-                                                    //   fit: BoxFit.cover,
-                                                    // )
-                                                    //   Image.asset(
-                                                    // 'assets/promo2.jpg',
-                                                    fit: BoxFit.cover,
-                                                  ))));
+                                        padding: EdgeInsets.all(10),
+                                        width: a_width,
+                                        height: a_height,
+                                        child: Stack(
+                                            alignment: Alignment.topLeft,
+                                            children: <Widget>[
+                                              InkWell(
+                                                  onTap: () {
+                                                    _launchURL(_listNews
+                                                        .listHomeDetail[0]
+                                                        .videos[index]
+                                                        .url
+                                                        .toString());
+                                                  },
+                                                  child: Card(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
+                                                        side: BorderSide(
+                                                          color: gold,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Image.network(
+                                                        _listNews
+                                                            .listHomeDetail[0]
+                                                            .videos[index]
+                                                            .image,
+                                                        //   fit: BoxFit.cover,
+                                                        // )
+                                                        //   Image.asset(
+                                                        // 'assets/promo2.jpg',
+                                                        height: 150,
+                                                        fit: BoxFit.cover,
+                                                      ))),
+                                              Center(
+                                                  // top: 60.0,
+                                                  // left: 75.0,
+                                                  child: Container(
+                                                      color: Colors.yellow
+                                                          .withOpacity(0.5),
+                                                      child: Padding(
+                                                          padding: EdgeInsets
+                                                              .all(MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  150),
+                                                          child: Icon(
+                                                            Icons
+                                                                .play_circle_outline,
+                                                            size: 50,
+                                                          )))),
+                                            ]),
+                                      );
                                     },
                                   ),
                                 ),
@@ -1457,6 +1498,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                 builder: (context) => Login()));
                                       }
                                     : () async {
+                                        await logout();
                                         // setState(() async{
                                         SharedPreferences prefs =
                                             await SharedPreferences

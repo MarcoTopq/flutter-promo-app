@@ -23,6 +23,7 @@ import 'package:warnakaltim/src/model/deliveryHistoryModel.dart';
 import 'package:warnakaltim/src/model/detailDeliveryModel.dart';
 import 'package:warnakaltim/src/model/detailDoModel.dart';
 import 'package:warnakaltim/src/model/detailPromoModel.dart';
+import 'package:warnakaltim/src/model/detailVoucherCustomerModel.dart';
 import 'package:warnakaltim/src/model/distributorModel.dart';
 import 'package:warnakaltim/src/model/doApproveDetailModel.dart';
 import 'package:warnakaltim/src/model/doApproveModel.dart';
@@ -32,6 +33,7 @@ import 'package:warnakaltim/src/model/notifdoModel.dart';
 import 'package:warnakaltim/src/model/profileModel.dart';
 import 'package:warnakaltim/src/model/salesOrderModel.dart';
 import 'package:warnakaltim/src/model/videosModel.dart';
+import 'package:warnakaltim/src/model/voucherCustomer.dart';
 import 'package:warnakaltim/src/model/voucherModel.dart';
 import 'package:warnakaltim/src/model/detailVoucherModel.dart';
 import 'package:warnakaltim/src/profile.dart';
@@ -173,6 +175,12 @@ class _MyAppState extends State<MyApp> {
           ),
           ChangeNotifierProvider.value(
             value: DoApproveDetailModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: VoucherCustomerModel(),
+          ),
+          ChangeNotifierProvider.value(
+            value: DetailVoucherCustomerModel(),
           ),
         ],
         child: MaterialApp(

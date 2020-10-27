@@ -96,186 +96,157 @@ class _DeliveryHistoryDetailState extends State<DeliveryHistoryDetail> {
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
                                     return Container(
-                                      padding: EdgeInsets.all(20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          // Row(
-                                          //   crossAxisAlignment:
-                                          //       CrossAxisAlignment.start,
-                                          //   mainAxisAlignment:
-                                          //       MainAxisAlignment.start,
-                                          //   children: [
-                                          //     // Padding(padding: EdgeInsets.all(5)),
-                                          // Icon(
-                                          //   Icons.check_circle,
-                                          //   color: Colors.green,
-                                          //   size: 20,
-                                          // ),
-                                          //     Padding(padding: EdgeInsets.all(5)),
-                                          //     Text(
-                                          //       _listDelivery
-                                          //           .listDeliveryHistory[index]
-                                          //           .deliveryOrderNumber,
-                                          //       style: new TextStyle(
-                                          //         fontSize: 16.0,
-                                          //         color: Colors.white,
-                                          //       ),
-                                          //     ),
-                                          //   ],
-                                          // ),
-                                          Row(
-                                            children: [
-                                              // IntrinsicHeight(
-                                              //     child: VerticalDivider(
-                                              //   endIndent: 20.0,
-                                              //   indent: 0.0,
-                                              //   thickness: 10,
-                                              //   width: 30.0,
-                                              //   color: Colors.white,
-                                              // )),
-                                              Expanded(
-                                                  child: ListTile(
-                                                leading: Icon(
-                                                  Icons.add_circle,
-                                                  color: gold,
-                                                  size: 40,
-                                                ),
-                                                title: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
+                                        padding: EdgeInsets.all(20),
+                                        child: Card(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            side: BorderSide(
+                                              color: gold,
+                                              width: 2.0,
+                                            ),
+                                          ),
+                                          color: Colors.black12,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8.0, top: 5, bottom: 5),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Row(
                                                   children: [
-                                                    Text(
-                                                      'No DO : ' +
-                                                          _listDelivery
-                                                              .listDeliveryHistory[
-                                                                  index]
-                                                              .deliveryOrderNumber
-                                                              .toString(),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
+                                                    // IntrinsicHeight(
+                                                    //     child: VerticalDivider(
+                                                    //   endIndent: 20.0,
+                                                    //   indent: 0.0,
+                                                    //   thickness: 10,
+                                                    //   width: 30.0,
+                                                    //   color: Colors.white,
+                                                    // )),
+                                                    Expanded(
+                                                        child: ListTile(
+                                                      leading: Icon(
+                                                        Icons.add_circle,
+                                                        color: gold,
+                                                        size: 40,
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      'No SO : ' +
-                                                          _listDelivery
-                                                              .listDeliveryHistory[
-                                                                  index]
-                                                              .salesOrderId
-                                                              .toString(),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
+                                                      title: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            'No DO : ' +
+                                                                _listDelivery
+                                                                    .listDeliveryHistory[
+                                                                        index]
+                                                                    .deliveryOrderNumber
+                                                                    .toString(),
+                                                            style:
+                                                                new TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            'No SO : ' +
+                                                                _listDelivery
+                                                                    .listDeliveryHistory[
+                                                                        index]
+                                                                    .salesOrderId
+                                                                    .toString(),
+                                                            style:
+                                                                new TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            _listDelivery
+                                                                .listDeliveryHistory[
+                                                                    index]
+                                                                .product
+                                                                .toString(),
+                                                            style:
+                                                                new TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            _listDelivery
+                                                                .listDeliveryHistory[
+                                                                    index]
+                                                                .quantity
+                                                                .toString()
+                                                                .replaceAllMapped(
+                                                                    new RegExp(
+                                                                        r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                                    (Match m) =>
+                                                                        '${m[1]},'),
+                                                            style:
+                                                                new TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            _listDelivery
+                                                                .listDeliveryHistory[
+                                                                    index]
+                                                                .status
+                                                                .toString(),
+                                                            style:
+                                                                new TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      _listDelivery
-                                                          .listDeliveryHistory[
-                                                              index]
-                                                          .product
-                                                          .toString(),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      _listDelivery
-                                                          .listDeliveryHistory[
-                                                              index]
-                                                          .quantity
-                                                          .toString()
-                                                          .replaceAllMapped(
-                                                              new RegExp(
-                                                                  r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                              (Match m) =>
-                                                                  '${m[1]},'),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      _listDelivery
-                                                          .listDeliveryHistory[
-                                                              index]
-                                                          .status
-                                                          .toString(),
-                                                      style: new TextStyle(
-                                                        fontSize: 16.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )),
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    width: 120,
-                                                    height: 60,
-                                                    child: SpringButton(
-                                                        SpringButtonType
-                                                            .OnlyScale,
-                                                        roundedRectButton(
-                                                            "Detail",
-                                                            signInGradients,
-                                                            false), onTap: () {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) => DetailDelivery(
-                                                                  id: _listDelivery
-                                                                      .listDeliveryHistory[
-                                                                          index]
-                                                                      .id
-                                                                      .toString())));
-                                                    }),
-                                                  ),
-                                                  Container(
-                                                    width: 120,
-                                                    height: 60,
-                                                    child: SpringButton(
-                                                        SpringButtonType
-                                                            .OnlyScale,
-                                                        roundedRectButton(
-                                                            "History",
-                                                            signInGradients,
-                                                            false),
-                                                        onTapDown: (_) async {
-                                                      setState(() {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (context) => DriverHistory(
-                                                                    id: _listDelivery
-                                                                        .listDeliveryHistory[
-                                                                            index]
-                                                                        .id
-                                                                        .toString())));
-                                                      });
-                                                    }),
-                                                  ),
-                                                  _listDelivery
-                                                              .listDeliveryHistory[
-                                                                  index]
-                                                              .arrivalTime ==
-                                                          null
-                                                      ? Container()
-                                                      : Container(
+                                                    )),
+                                                    Column(
+                                                      children: [
+                                                        Container(
                                                           width: 120,
                                                           height: 60,
                                                           child: SpringButton(
                                                               SpringButtonType
                                                                   .OnlyScale,
                                                               roundedRectButton(
-                                                                  "Rate",
+                                                                  "Detail",
+                                                                  signInGradients,
+                                                                  false),
+                                                              onTap: () {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (context) => DetailDelivery(
+                                                                        id: _listDelivery
+                                                                            .listDeliveryHistory[index]
+                                                                            .id
+                                                                            .toString())));
+                                                          }),
+                                                        ),
+                                                        Container(
+                                                          width: 120,
+                                                          height: 60,
+                                                          child: SpringButton(
+                                                              SpringButtonType
+                                                                  .OnlyScale,
+                                                              roundedRectButton(
+                                                                  "History",
                                                                   signInGradients,
                                                                   false),
                                                               onTapDown:
@@ -284,7 +255,7 @@ class _DeliveryHistoryDetailState extends State<DeliveryHistoryDetail> {
                                                               Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
-                                                                      builder: (context) => Rating(
+                                                                      builder: (context) => DriverHistory(
                                                                           id: _listDelivery
                                                                               .listDeliveryHistory[index]
                                                                               .id
@@ -292,13 +263,41 @@ class _DeliveryHistoryDetailState extends State<DeliveryHistoryDetail> {
                                                             });
                                                           }),
                                                         ),
-                                                ],
-                                              ),
-                                            ],
+                                                        _listDelivery
+                                                                    .listDeliveryHistory[
+                                                                        index]
+                                                                    .arrivalTime ==
+                                                                null
+                                                            ? Container()
+                                                            : Container(
+                                                                width: 120,
+                                                                height: 60,
+                                                                child: SpringButton(
+                                                                    SpringButtonType
+                                                                        .OnlyScale,
+                                                                    roundedRectButton(
+                                                                        "Rate",
+                                                                        signInGradients,
+                                                                        false),
+                                                                    onTapDown:
+                                                                        (_) async {
+                                                                  setState(() {
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                Rating(id: _listDelivery.listDeliveryHistory[index].id.toString())));
+                                                                  });
+                                                                }),
+                                                              ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ],
-                                      ),
-                                    );
+                                        ));
                                   },
                                   childCount:
                                       _listDelivery.listDeliveryHistory.length,

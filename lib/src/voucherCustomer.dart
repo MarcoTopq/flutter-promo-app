@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:warnakaltim/src/model/couponModel.dart';
+import 'package:warnakaltim/src/VoucherDetail.dart';
+import 'package:warnakaltim/src/model/voucherCustomer.dart';
+import 'package:warnakaltim/src/model/voucherModel.dart';
+import 'package:warnakaltim/src/spring_button.dart';
+import 'package:warnakaltim/src/widget.dart';
 
-class AllCoupon extends StatefulWidget {
+class VoucherCustomerDetail extends StatefulWidget {
   final String url;
-  AllCoupon({
+  VoucherCustomerDetail({
     Key key,
     this.url,
   }) : super(key: key);
 
   @override
-  _AllCouponState createState() => _AllCouponState();
+  _VoucherCustomerDetailState createState() => _VoucherCustomerDetailState();
 }
 
-class _AllCouponState extends State<AllCoupon> {
+class _VoucherCustomerDetailState extends State<VoucherCustomerDetail> {
   var gold = Color.fromRGBO(
     212,
     175,
@@ -22,7 +25,8 @@ class _AllCouponState extends State<AllCoupon> {
     2,
   );
   Future<void> _refreshData(BuildContext context) async {
-    await Provider.of<CouponModel>(context, listen: false).fetchDataCoupon();
+    await Provider.of<VoucherCustomerModel>(context, listen: false)
+        .fetchDataVoucherCustomer();
   }
 
   @override
@@ -68,8 +72,9 @@ class _AllCouponState extends State<AllCoupon> {
         body: RefreshIndicator(
             onRefresh: () => _refreshData(context),
             child: FutureBuilder(
-                future: Provider.of<CouponModel>(context, listen: false)
-                    .fetchDataCoupon(),
+                future:
+                    Provider.of<VoucherCustomerModel>(context, listen: false)
+                        .fetchDataVoucherCustomer(),
                 builder: (ctx, snapshop) {
                   if (snapshop.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -81,8 +86,8 @@ class _AllCouponState extends State<AllCoupon> {
                         child: Text("Error Loading Data"),
                       );
                     }
-                    return Consumer<CouponModel>(
-                        builder: (ctx, _listCoupon, child) => Center(
+                    return Consumer<VoucherCustomerModel>(
+                        builder: (ctx, _listVoucher, child) => Center(
                                 // child: Stack(children: <Widget>[
                                 child: CustomScrollView(slivers: <Widget>[
                               SliverList(
@@ -104,27 +109,52 @@ class _AllCouponState extends State<AllCoupon> {
                                             ),
                                             child: Center(
                                                 child: ListTile(
-                                              leading: Icon(
-                                                Icons.art_track,
-                                                size: 60,
-                                                color: gold,
-                                              ),
+                                              leading: Image.network(
+                                                  _listVoucher
+                                                      .listVoucherCustomer[
+                                                          index]
+                                                      .promo
+                                                      .image),
                                               title: Text(
-                                                'Coupon Code',
+                                                _listVoucher
+                                                    .listVoucherCustomer[index]
+                                                    .promo
+                                                    .createdAt,
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     color: Colors.white),
                                               ),
                                               subtitle: Text(
-                                                _listCoupon.listCoupon[index]
-                                                    .codeCoupon,
+                                                _listVoucher
+                                                    .listVoucherCustomer[index]
+                                                    .promo
+                                                    .title
+                                                    .toString(),
                                                 style: TextStyle(
-                                                    fontSize: 30,
+                                                    fontSize: 15,
                                                     color: Colors.white),
                                               ),
+                                              trailing: Icon(
+                                                Icons.remove_red_eye,
+                                                color: gold,
+                                                size: 50,
+                                              ),
+                                              onTap: () => {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DetailVoucherCustomer(
+                                                                id: _listVoucher
+                                                                    .listVoucherCustomer[
+                                                                        index]
+                                                                    .id
+                                                                    .toString())))
+                                              },
                                             ))));
                                   },
-                                  childCount: _listCoupon.listCoupon.length,
+                                  childCount:
+                                      _listVoucher.listVoucherCustomer.length,
                                 ),
                               ),
                             ])));

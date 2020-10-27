@@ -13,35 +13,31 @@ String allCouponDetailToJson(List<AllCouponDetail> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class AllCouponDetail {
-  int id;
-  String codeCoupon;
-  int distributorId;
-  DateTime createdAt;
-  DateTime updatedAt;
-
   AllCouponDetail({
     this.id,
     this.codeCoupon,
-    this.distributorId,
     this.createdAt,
     this.updatedAt,
   });
+
+  int id;
+  String codeCoupon;
+  String createdAt;
+  String updatedAt;
 
   factory AllCouponDetail.fromJson(Map<String, dynamic> json) =>
       AllCouponDetail(
         id: json["id"],
         codeCoupon: json["code_coupon"],
-        distributorId: json["distributor_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "code_coupon": codeCoupon,
-        "distributor_id": distributorId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
       };
 }
 

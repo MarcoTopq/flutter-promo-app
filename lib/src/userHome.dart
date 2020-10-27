@@ -22,6 +22,8 @@ import 'package:warnakaltim/src/distributor.dart';
 import 'package:warnakaltim/src/model/HomeUserModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warnakaltim/src/profileCustomer.dart';
+import 'package:warnakaltim/src/voucherCustomer.dart';
+import 'package:http/http.dart' as http;
 
 class UserHomeDetail extends StatefulWidget {
   // final email;
@@ -34,6 +36,23 @@ class UserHomeDetail extends StatefulWidget {
 
   @override
   _UserHomeState createState() => _UserHomeState();
+}
+
+Future<http.Response> logout() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String token = prefs.get('Token');
+
+  http.Response hasil =
+      await http.post(Uri.decodeFull(urls + "/api/logout"), body: {
+    // "email": emailController.text,
+    // "old_password": oldpasswordController.text,
+    // "new_password": passwordController.text
+  }, headers: {
+    "Accept": "application/JSON",
+    "Authorization": 'Bearer ' + token
+  });
+  print(hasil.statusCode);
+  return Future.value(hasil);
 }
 
 class _UserHomeState extends State<UserHomeDetail> {
@@ -496,7 +515,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                     .company
                                                                     .description ==
                                                                 null
-                                                            ? "Welcome To RPM (Reward Point Management)"
+                                                            ? "Welcome to PT Pertamina Patra Niaga Loyalty Card"
                                                             : _listNews
                                                                 .listHomeDetail[
                                                                     0]
@@ -504,8 +523,10 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                 .description,
                                                         style: TextStyle(
                                                             fontSize: 15,
-                                                            color:
-                                                                Colors.white),
+                                                            color: gold,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
                                                       )),
                                                 ),
                                                 Padding(
@@ -657,18 +678,18 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                             .white,
                                                                         fontSize:
                                                                             15)),
-                                                                // Text(
-                                                                //     _listNews
-                                                                //         .listHomeDetail[
-                                                                //             0]
-                                                                //         .user
-                                                                //         .customer
-                                                                //         .member,
-                                                                //     style: TextStyle(
-                                                                //         color: Colors
-                                                                //             .white,
-                                                                //         fontSize:
-                                                                //             10)),
+                                                                Text(
+                                                                    _listNews
+                                                                        .listHomeDetail[
+                                                                            0]
+                                                                        .user
+                                                                        .customer
+                                                                        .member,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            10)),
                                                               ],
                                                             ),
                                                             Padding(
@@ -707,10 +728,18 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                         padding:
                                                             EdgeInsets.only(
                                                                 top: 10)),
-                                                    Image.asset(
-                                                      'assets/pertamina-loyalty-card.png',
+                                                    Image.network(
+                                                      _listNews
+                                                          .listHomeDetail[0]
+                                                          .user
+                                                          .customer
+                                                          .cardImage,
                                                       fit: BoxFit.cover,
                                                     )
+                                                    // Image.asset(
+                                                    //   'assets/pertamina-loyalty-card.png',
+                                                    //   fit: BoxFit.cover,
+                                                    // )
                                                   ],
                                                 )));
                                   },
@@ -1518,30 +1547,29 @@ class _UserHomeState extends State<UserHomeDetail> {
                                               CompanyDetail(url: pdf)));
                                 },
                               )),
-                          // Container(
-                          //     padding: EdgeInsets.only(top: 2),
-                          //     decoration: new BoxDecoration(
-                          //         color: Colors.black12,
-                          //         border: new Border(
-                          //             bottom: new BorderSide(
-                          //                 color: Colors.grey[850]))),
-                          //     child: ListTile(
-                          //       leading: Icon(Icons.phone, color: gold),
+                          Container(
+                              padding: EdgeInsets.only(top: 2),
+                              decoration: new BoxDecoration(
+                                  color: Colors.black12,
+                                  border: new Border(
+                                      bottom: new BorderSide(
+                                          color: Colors.grey[850]))),
+                              child: ListTile(
+                                leading: Icon(Icons.art_track, color: gold),
 
-                          //       title: Text('Contact Distributor',
-                          //           style: TextStyle(
-                          //               color: Colors.white,
-                          //               fontSize: 15,
-                          //               fontWeight: FontWeight.bold)),
-                          //       // isThreeLine: true,
-                          //       onTap: () {
-                          //         Navigator.push(
-                          //             context,
-                          //             MaterialPageRoute(
-                          //                 builder: (context) =>
-                          //                     DistributorProfile()));
-                          //       },
-                          //     )),
+                                title: Text('Coupon',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold)),
+                                // isThreeLine: true,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AllCoupon()));
+                                },
+                              )),
                           Container(
                               padding: EdgeInsets.only(top: 2),
                               decoration: new BoxDecoration(
@@ -1589,31 +1617,31 @@ class _UserHomeState extends State<UserHomeDetail> {
                                           builder: (context) => AllEvent()));
                                 },
                               )),
-                          // Container(
-                          //     padding: EdgeInsets.only(top: 2),
-                          //     decoration: new BoxDecoration(
-                          //         color: Colors.black12,
-                          //         border: new Border(
-                          //             bottom: new BorderSide(
-                          //                 color: Colors.grey[850]))),
-                          //     child: ListTile(
-                          //       leading:
-                          //           Icon(Icons.local_car_wash, color: gold),
+                          Container(
+                              padding: EdgeInsets.only(top: 2),
+                              decoration: new BoxDecoration(
+                                  color: Colors.black12,
+                                  border: new Border(
+                                      bottom: new BorderSide(
+                                          color: Colors.grey[850]))),
+                              child: ListTile(
+                                leading:
+                                    Icon(Icons.local_car_wash, color: gold),
 
-                          //       title: Text('Driver Arrival Input',
-                          //           style: TextStyle(
-                          //               color: Colors.white,
-                          //               fontSize: 15,
-                          //               fontWeight: FontWeight.bold)),
-                          //       // isThreeLine: true,
-                          //       onTap: () {
-                          //         Navigator.push(
-                          //             context,
-                          //             MaterialPageRoute(
-                          //                 builder: (context) =>
-                          //                     DriverHistory()));
-                          //       },
-                          //     )),
+                                title: Text('Voucher History',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold)),
+                                // isThreeLine: true,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              VoucherCustomerDetail()));
+                                },
+                              )),
                           Container(
                               padding: EdgeInsets.only(top: 2),
                               decoration: new BoxDecoration(
@@ -1671,6 +1699,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                       }
                                     : () async {
                                         // setState(() async{
+                                        await logout();
                                         SharedPreferences prefs =
                                             await SharedPreferences
                                                 .getInstance();

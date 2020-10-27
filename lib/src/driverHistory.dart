@@ -137,7 +137,7 @@ class _DriverHistoryState extends State<DriverHistory>
                                                   .listNotifdo[index].time,
                                               style: new TextStyle(
                                                 fontSize: 16.0,
-                                                color: Colors.white,
+                                                color: gold,
                                               ),
                                             ),
                                           ],
@@ -193,6 +193,13 @@ class _DriverHistoryState extends State<DriverHistory>
                                               ),
                                             )),
                                           ],
+                                        ),
+                                        Divider(
+                                          endIndent: 0.0,
+                                          indent: 0.0,
+                                          height: 1.0,
+                                          thickness: 1,
+                                          color: gold,
                                         ),
                                       ],
                                     ),
