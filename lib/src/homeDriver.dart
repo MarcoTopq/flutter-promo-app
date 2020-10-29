@@ -13,10 +13,12 @@ import 'package:toast/toast.dart';
 import 'package:warnakaltim/src/all_arrival.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:warnakaltim/main.dart';
+import 'package:warnakaltim/src/company.dart';
 import 'package:warnakaltim/src/login.dart';
 import 'package:warnakaltim/src/model/HomeDriverModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:warnakaltim/src/model/driverModel.dart';
 import 'package:warnakaltim/src/profileDriver.dart';
 import 'package:warnakaltim/src/spring_button.dart';
 import 'package:warnakaltim/src/widget.dart';
@@ -1232,9 +1234,32 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                       bottom: new BorderSide(
                                           color: Colors.grey[850]))),
                               child: ListTile(
+                                leading: Icon(Icons.perm_identity, color: gold),
+                                title: Text('Company Profile',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold)),
+                                // isThreeLine: true,
+                                onTap: () async {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CompanyDetail(url: pdf)));
+                                },
+                              )),
+                          Container(
+                              padding: EdgeInsets.only(top: 2),
+                              decoration: new BoxDecoration(
+                                  color: Colors.black12,
+                                  border: new Border(
+                                      bottom: new BorderSide(
+                                          color: Colors.grey[850]))),
+                              child: ListTile(
                                 leading: Icon(Icons.phone_android, color: gold),
 
-                                title: Text('Contact Person',
+                                title: Text('Profile',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,

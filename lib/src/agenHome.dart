@@ -697,18 +697,18 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                                             .white,
                                                                         fontSize:
                                                                             12)),
-                                                                // Text(
-                                                                //     _listNews
-                                                                //         .listHomeDetail[
-                                                                //             0]
-                                                                //         .user
-                                                                //         .agen
-                                                                //         .member,
-                                                                //     style: TextStyle(
-                                                                //         color: Colors
-                                                                //             .white,
-                                                                //         fontSize:
-                                                                //             10)),
+                                                                Text(
+                                                                    _listNews
+                                                                        .listHomeDetail[
+                                                                            0]
+                                                                        .user
+                                                                        .agen
+                                                                        .member,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            10)),
                                                               ],
                                                             ),
                                                             Padding(
@@ -771,8 +771,14 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                         padding:
                                                             EdgeInsets.only(
                                                                 top: 10)),
-                                                    Image.asset(
-                                                      'assets/pertamina-loyalty-card.png',
+                                                    Image.network(
+                                                      _listNews
+                                                          .listHomeDetail[0]
+                                                          .user
+                                                          .agen
+                                                          .cardImage,
+                                                      // Image.asset(
+                                                      //   'assets/pertamina-loyalty-card.png',
                                                       fit: BoxFit.cover,
                                                     )
                                                   ],

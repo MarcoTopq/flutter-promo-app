@@ -75,8 +75,8 @@ class Company {
   dynamic description;
   String profile;
   String email;
-  String phone;
-  String website;
+  dynamic phone;
+  dynamic website;
   DateTime createdAt;
   DateTime updatedAt;
   String profiledownload;
@@ -129,7 +129,7 @@ class Event {
   int view;
   String start;
   String end;
-  AtedAt createdAt;
+  CreatedAt createdAt;
   CreatedBy createdBy;
   List<Category> category;
 
@@ -141,7 +141,7 @@ class Event {
         view: json["view"],
         start: json["start"] == null ? null : json["start"],
         end: json["end"] == null ? null : json["end"],
-        createdAt: atedAtValues.map[json["created_at"]],
+        createdAt: createdAtValues.map[json["created_at"]],
         createdBy: createdByValues.map[json["created_by"]],
         category: List<Category>.from(
             json["category"].map((x) => Category.fromJson(x))),
@@ -155,7 +155,7 @@ class Event {
         "view": view,
         "start": start == null ? null : start,
         "end": end == null ? null : end,
-        "created_at": atedAtValues.reverse[createdAt],
+        "created_at": createdAtValues.reverse[createdAt],
         "created_by": createdByValues.reverse[createdBy],
         "category": List<dynamic>.from(category.map((x) => x.toJson())),
       };
@@ -181,14 +181,14 @@ class Category {
       };
 }
 
-enum AtedAt { THE_15_OCTOBER_2020 }
+enum CreatedAt { THE_15_OCTOBER_2020 }
 
-final atedAtValues =
-    EnumValues({"15 October 2020": AtedAt.THE_15_OCTOBER_2020});
+final createdAtValues =
+    EnumValues({"15 October 2020": CreatedAt.THE_15_OCTOBER_2020});
 
 enum CreatedBy { ADMINISTRATOR }
 
-final createdByValues = EnumValues({"Administrator": CreatedBy.ADMINISTRATOR});
+final createdByValues = EnumValues({"administrator": CreatedBy.ADMINISTRATOR});
 
 class Hot {
   Hot({
@@ -214,7 +214,7 @@ class Hot {
   int total;
   int view;
   Status status;
-  AtedAt createdAt;
+  CreatedAt createdAt;
   CreatedBy createdBy;
 
   factory Hot.fromJson(Map<String, dynamic> json) => Hot(
@@ -227,7 +227,7 @@ class Hot {
         total: json["total"],
         view: json["view"],
         status: statusValues.map[json["status"]],
-        createdAt: atedAtValues.map[json["created_at"]],
+        createdAt: createdAtValues.map[json["created_at"]],
         createdBy: createdByValues.map[json["created_by"]],
       );
 
@@ -241,7 +241,7 @@ class Hot {
         "total": total,
         "view": view,
         "status": statusValues.reverse[status],
-        "created_at": atedAtValues.reverse[createdAt],
+        "created_at": createdAtValues.reverse[createdAt],
         "created_by": createdByValues.reverse[createdBy],
       };
 }
@@ -265,8 +265,8 @@ class User {
   String email;
   int roleId;
   String fcmToken;
-  AtedAt createdAt;
-  AtedAt updatedAt;
+  String createdAt;
+  String updatedAt;
   Agen agen;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -274,8 +274,8 @@ class User {
         email: json["email"],
         roleId: json["role_id"],
         fcmToken: json["fcm_token"],
-        createdAt: atedAtValues.map[json["created_at"]],
-        updatedAt: atedAtValues.map[json["updated_at"]],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         agen: Agen.fromJson(json["agen"]),
       );
 
@@ -284,8 +284,8 @@ class User {
         "email": email,
         "role_id": roleId,
         "fcm_token": fcmToken,
-        "created_at": atedAtValues.reverse[createdAt],
-        "updated_at": atedAtValues.reverse[updatedAt],
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "agen": agen.toJson(),
       };
 }
@@ -299,6 +299,8 @@ class Agen {
     this.phone,
     this.website,
     this.transaction,
+    this.member,
+    this.cardImage,
     this.logo,
     this.userId,
     this.createdAt,
@@ -313,10 +315,12 @@ class Agen {
   String phone;
   String website;
   int transaction;
+  String member;
+  String cardImage;
   String logo;
   int userId;
-  AtedAt createdAt;
-  AtedAt updatedAt;
+  String createdAt;
+  String updatedAt;
   List<SalesOrder> salesOrder;
 
   factory Agen.fromJson(Map<String, dynamic> json) => Agen(
@@ -327,10 +331,12 @@ class Agen {
         phone: json["phone"],
         website: json["website"],
         transaction: json["transaction"],
+        member: json["member"],
+        cardImage: json["card_image"],
         logo: json["logo"],
         userId: json["user_id"],
-        createdAt: atedAtValues.map[json["created_at"]],
-        updatedAt: atedAtValues.map[json["updated_at"]],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         salesOrder: List<SalesOrder>.from(
             json["sales_order"].map((x) => SalesOrder.fromJson(x))),
       );
@@ -343,10 +349,12 @@ class Agen {
         "phone": phone,
         "website": website,
         "transaction": transaction,
+        "member": member,
+        "card_image": cardImage,
         "logo": logo,
         "user_id": userId,
-        "created_at": atedAtValues.reverse[createdAt],
-        "updated_at": atedAtValues.reverse[updatedAt],
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "sales_order": List<dynamic>.from(salesOrder.map((x) => x.toJson())),
       };
 }
@@ -370,8 +378,8 @@ class SalesOrder {
   int customerId;
   int agenId;
   String agen;
-  AtedAt createdAt;
-  AtedAt updatedAt;
+  String createdAt;
+  String updatedAt;
   List<DeliveryOrder> deliveryOrders;
 
   factory SalesOrder.fromJson(Map<String, dynamic> json) => SalesOrder(
@@ -381,8 +389,8 @@ class SalesOrder {
         customerId: json["customer_id"],
         agenId: json["agen_id"],
         agen: json["agen"],
-        createdAt: atedAtValues.map[json["created_at"]],
-        updatedAt: atedAtValues.map[json["updated_at"]],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         deliveryOrders: List<DeliveryOrder>.from(
             json["delivery_orders"].map((x) => DeliveryOrder.fromJson(x))),
       );
@@ -394,8 +402,8 @@ class SalesOrder {
         "customer_id": customerId,
         "agen_id": agenId,
         "agen": agen,
-        "created_at": atedAtValues.reverse[createdAt],
-        "updated_at": atedAtValues.reverse[updatedAt],
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "delivery_orders":
             List<dynamic>.from(deliveryOrders.map((x) => x.toJson())),
       };
@@ -444,14 +452,14 @@ class DeliveryOrder {
   String topSeal;
   String bottomSeal;
   String temperature;
-  String departureTime;
-  String arrivalTime;
+  dynamic departureTime;
+  dynamic arrivalTime;
   dynamic unloadingStartTime;
-  DateTime unloadingEndTime;
+  dynamic unloadingEndTime;
   dynamic departureTimeDepot;
   String status;
   int salesOrderId;
-  Driver driver;
+  dynamic driver;
   String bast;
 
   factory DeliveryOrder.fromJson(Map<String, dynamic> json) => DeliveryOrder(
@@ -470,17 +478,14 @@ class DeliveryOrder {
         topSeal: json["top_seal"],
         bottomSeal: json["bottom_seal"],
         temperature: json["temperature"],
-        departureTime:
-            json["departure_time"] == null ? null : json["departure_time"],
-        arrivalTime: json["arrival_time"] == null ? null : json["arrival_time"],
+        departureTime: json["departure_time"],
+        arrivalTime: json["arrival_time"],
         unloadingStartTime: json["unloading_start_time"],
-        unloadingEndTime: json["unloading_end_time"] == null
-            ? null
-            : DateTime.parse(json["unloading_end_time"]),
+        unloadingEndTime: json["unloading_end_time"],
         departureTimeDepot: json["departure_time_depot"],
         status: json["status"],
         salesOrderId: json["sales_order_id"],
-        driver: json["driver"] == null ? null : Driver.fromJson(json["driver"]),
+        driver: json["driver"],
         bast: json["bast"],
       );
 
@@ -500,69 +505,15 @@ class DeliveryOrder {
         "top_seal": topSeal,
         "bottom_seal": bottomSeal,
         "temperature": temperature,
-        "departure_time": departureTime == null ? null : departureTime,
-        "arrival_time": arrivalTime == null ? null : arrivalTime,
+        "departure_time": departureTime,
+        "arrival_time": arrivalTime,
         "unloading_start_time": unloadingStartTime,
-        "unloading_end_time": unloadingEndTime == null
-            ? null
-            : unloadingEndTime.toIso8601String(),
+        "unloading_end_time": unloadingEndTime,
         "departure_time_depot": departureTimeDepot,
         "status": status,
         "sales_order_id": salesOrderId,
-        "driver": driver == null ? null : driver.toJson(),
+        "driver": driver,
         "bast": bast,
-      };
-}
-
-class Driver {
-  Driver({
-    this.id,
-    this.name,
-    this.address,
-    this.phone,
-    this.avatar,
-    this.route,
-    this.userId,
-    this.agenId,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int id;
-  String name;
-  String address;
-  String phone;
-  String avatar;
-  int route;
-  int userId;
-  int agenId;
-  AtedAt createdAt;
-  AtedAt updatedAt;
-
-  factory Driver.fromJson(Map<String, dynamic> json) => Driver(
-        id: json["id"],
-        name: json["name"],
-        address: json["address"],
-        phone: json["phone"],
-        avatar: json["avatar"],
-        route: json["route"],
-        userId: json["user_id"],
-        agenId: json["agen_id"],
-        createdAt: atedAtValues.map[json["created_at"]],
-        updatedAt: atedAtValues.map[json["updated_at"]],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "address": address,
-        "phone": phone,
-        "avatar": avatar,
-        "route": route,
-        "user_id": userId,
-        "agen_id": agenId,
-        "created_at": atedAtValues.reverse[createdAt],
-        "updated_at": atedAtValues.reverse[updatedAt],
       };
 }
 
@@ -579,14 +530,14 @@ class Video {
   String title;
   String image;
   String url;
-  AtedAt createdAt;
+  CreatedAt createdAt;
 
   factory Video.fromJson(Map<String, dynamic> json) => Video(
         id: json["id"],
         title: json["title"],
         image: json["image"],
         url: json["url"],
-        createdAt: atedAtValues.map[json["created_at"]],
+        createdAt: createdAtValues.map[json["created_at"]],
       );
 
   Map<String, dynamic> toJson() => {
@@ -594,7 +545,7 @@ class Video {
         "title": title,
         "image": image,
         "url": url,
-        "created_at": atedAtValues.reverse[createdAt],
+        "created_at": createdAtValues.reverse[createdAt],
       };
 }
 

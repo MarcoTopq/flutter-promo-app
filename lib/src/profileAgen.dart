@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:warnakaltim/src/model/HomeAgenModel.dart';
 import 'package:warnakaltim/src/model/HomeUserModel.dart';
 import 'package:warnakaltim/src/model/distributorModel.dart';
+import 'package:warnakaltim/src/spring_button.dart';
+import 'package:warnakaltim/src/updateProfile.dart';
+import 'package:warnakaltim/src/widget.dart';
 
 class AgenDetail extends StatefulWidget {
   @override
@@ -116,42 +119,39 @@ class _AgenDetailState extends State<AgenDetail> {
                                       height: 1.0,
                                       color: gold,
                                     ),
-                                    // Padding(padding: EdgeInsets.all(20)),
-                                    // ListTile(
-                                    //   leading: Icon(
-                                    //     Icons.mail,
-                                    //     color: gold,
-                                    //     size: 50,
-                                    //   ),
-                                    //   title: Text(
-                                    //     'Email',
-                                    //     style: new TextStyle(
-                                    //       fontSize: 15.0,
-                                    //       color: Colors.white,
-                                    //     ),
-                                    //   ),
-                                    //   subtitle: Text(
-                                    //     _listDistributorDetail.listHomeDetail[0]
-                                    //                 .user.agen.phone ==
-                                    //             "null"
-                                    //         ? " - "
-                                    //         : _listDistributorDetail
-                                    //             .listHomeDetail[0]
-                                    //             .user
-                                    //             .agen
-                                    //             .phone,
-                                    //     style: new TextStyle(
-                                    //       fontSize: 20.0,
-                                    //       color: Colors.white,
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    // Divider(
-                                    //   endIndent: 70.0,
-                                    //   indent: 70.0,
-                                    //   height: 1.0,
-                                    //   color: gold,
-                                    // ),
+                                    Padding(padding: EdgeInsets.all(20)),
+                                    ListTile(
+                                      leading: Icon(
+                                        Icons.mail,
+                                        color: gold,
+                                        size: 50,
+                                      ),
+                                      title: Text(
+                                        'Email',
+                                        style: new TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        _listDistributorDetail.listHomeDetail[0]
+                                                    .user.email ==
+                                                "null"
+                                            ? " - "
+                                            : _listDistributorDetail
+                                                .listHomeDetail[0].user.email,
+                                        style: new TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      endIndent: 70.0,
+                                      indent: 70.0,
+                                      height: 1.0,
+                                      color: gold,
+                                    ),
                                     Padding(padding: EdgeInsets.all(20)),
                                     ListTile(
                                       leading: Icon(
@@ -190,44 +190,44 @@ class _AgenDetailState extends State<AgenDetail> {
                                       height: 1.0,
                                       color: gold,
                                     ),
-                                    // Padding(padding: EdgeInsets.all(20)),
-                                    // ListTile(
-                                    //   leading: Icon(
-                                    //     Icons.desktop_windows,
-                                    //     color: gold,
-                                    //     size: 50,
-                                    //   ),
-                                    //   title: Text(
-                                    //     'member',
-                                    //     style: new TextStyle(
-                                    //       fontSize: 15.0,
-                                    //       color: Colors.white,
-                                    //     ),
-                                    //   ),
-                                    //   subtitle: Text(
-                                    //     _listDistributorDetail.listHomeDetail[0]
-                                    //                 .user.agen.member
-                                    //                 .toString() ==
-                                    //             "null"
-                                    //         ? " - "
-                                    //         : _listDistributorDetail
-                                    //             .listHomeDetail[0]
-                                    //             .user
-                                    //             .agen
-                                    //             .member
-                                    //             .toString(),
-                                    //     style: new TextStyle(
-                                    //       fontSize: 20.0,
-                                    //       color: Colors.white,
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    // Divider(
-                                    //   endIndent: 70.0,
-                                    //   indent: 70.0,
-                                    //   height: 1.0,
-                                    //   color: gold,
-                                    // ),
+                                    Padding(padding: EdgeInsets.all(20)),
+                                    ListTile(
+                                      leading: Icon(
+                                        Icons.card_membership,
+                                        color: gold,
+                                        size: 50,
+                                      ),
+                                      title: Text(
+                                        'member',
+                                        style: new TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        _listDistributorDetail.listHomeDetail[0]
+                                                    .user.agen.member
+                                                    .toString() ==
+                                                "null"
+                                            ? " - "
+                                            : _listDistributorDetail
+                                                .listHomeDetail[0]
+                                                .user
+                                                .agen
+                                                .member
+                                                .toString(),
+                                        style: new TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      endIndent: 70.0,
+                                      indent: 70.0,
+                                      height: 1.0,
+                                      color: gold,
+                                    ),
                                     Padding(padding: EdgeInsets.all(20)),
                                     ListTile(
                                       leading: Icon(
@@ -267,6 +267,33 @@ class _AgenDetailState extends State<AgenDetail> {
                                       color: gold,
                                     ),
                                   ],
+                                ),
+                                Padding(padding: EdgeInsets.all(20)),
+                                Center(
+                                  child: Container(
+                                    // width: 120,
+                                    // height: 60,
+                                    child: SpringButton(
+                                        SpringButtonType.OnlyScale,
+                                        roundedRectButton(
+                                            "Update Email & Password",
+                                            signInGradients,
+                                            false), onTapDown: (_) async {
+                                      setState(() {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UpdateProfile(
+                                                        email:
+                                                            _listDistributorDetail
+                                                                .listHomeDetail[
+                                                                    0]
+                                                                .user
+                                                                .email)));
+                                      });
+                                    }),
+                                  ),
                                 ),
                               ],
                             )));

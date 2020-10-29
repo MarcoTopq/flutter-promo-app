@@ -60,7 +60,7 @@ class _VoucherCustomerDetailState extends State<VoucherCustomerDetail> {
             color: Colors.white, //change your color here
           ),
           title: Text(
-            'All Coupon',
+            'Voucher History',
             style: new TextStyle(
               fontSize: 16.0,
               color: Colors.white,

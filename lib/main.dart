@@ -264,14 +264,8 @@ class _HomepageState extends State<Homepage>
 
   @override
   void initState() {
-    // this._getToken();
     super.initState();
     _getToken();
-    // firebaseMessaging.getToken().then((token) {
-    //   print('fcm : ' + token);
-    // });
-    // WidgetsBinding.instance.addObserver(this);
-    // _refreshData(context);
   }
 
   TabController controller;
@@ -299,49 +293,8 @@ class _HomepageState extends State<Homepage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: CurvedNavigationBar(
-      //   key: _bottomNavigationKey,
-      //   index: 0,
-      //   height: 60.0,
-      //   items: <Widget>[
-      //     Icon(
-      //       Icons.home,
-      //       size: 30,
-      //       color: Colors.white,
-      //     ),
-      //     // Icon(Icons.list, size: 30),
-      //     Icon(
-      //       Icons.border_color,
-      //       size: 30,
-      //       color: Colors.white,
-      //     ),
-      //     Icon(
-      //       Icons.info,
-      //       size: 30,
-      //       color: Colors.white,
-      //     ),
-      //     Icon(
-      //       Icons.phone,
-      //       size: 30,
-      //       color: Colors.white,
-      //     ),
-      //   ],
-      //   color: Colors.black,
-      //   buttonBackgroundColor: gold,
-      //   backgroundColor: gold,
-      //   animationCurve: Curves.easeInOut,
-      //   animationDuration: Duration(milliseconds: 600),
-      //   onTap: (index) {
-      //     setState(() {
-      //       _page = index;
-      //     });
-      //   },
-      // ),
-      // body: _children[_page],
-
       key: _homepageKey,
       body: _children[_currentIndex], // new
-      // ])),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 20,
         type: BottomNavigationBarType.fixed,

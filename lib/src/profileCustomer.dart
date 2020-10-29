@@ -192,7 +192,7 @@ class _PersonDetailState extends State<PersonDetail> {
                                     Padding(padding: EdgeInsets.all(20)),
                                     ListTile(
                                       leading: Icon(
-                                        Icons.desktop_windows,
+                                        Icons.card_membership,
                                         color: gold,
                                         size: 50,
                                       ),

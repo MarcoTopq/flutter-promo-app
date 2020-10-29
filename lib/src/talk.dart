@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:warnakaltim/main.dart';
 
 class TalkService extends StatefulWidget {
   final String url;
@@ -38,7 +39,7 @@ class _TalkServiceState extends State<TalkService> {
       ),
       backgroundColor: Colors.grey[850],
       body: new WebviewScaffold(
-        url: 'http://rpm.kantordesa.com/chat/us',
+        url: urls + '/chat/us',
       ),
     );
   }
