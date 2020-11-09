@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:warnakaltim/src/bast.dart';
 import 'package:warnakaltim/src/model/allArrivalModel.dart';
 
 class AllArrivalDetail extends StatefulWidget {
@@ -120,6 +121,7 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                   scrollDirection:
                                                       Axis.horizontal,
                                                   child: Container(
+                                                    // width: 3500,
                                                     padding: EdgeInsets.all(20),
                                                     color: Colors.grey[700],
                                                     child: DataTable(
@@ -139,7 +141,7 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                         ),
                                                         DataColumn(
                                                           label: Text(
-                                                            'Date Start',
+                                                            'Produk',
                                                             style: TextStyle(
                                                               color: gold,
                                                               fontSize: 16.0,
@@ -150,7 +152,7 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                         ),
                                                         DataColumn(
                                                           label: Text(
-                                                            'Date End',
+                                                            'Kwantitas',
                                                             style: TextStyle(
                                                               color: gold,
                                                               fontSize: 16.0,
@@ -161,7 +163,7 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                         ),
                                                         DataColumn(
                                                           label: Text(
-                                                            'Product',
+                                                            'Dikirim Dengan',
                                                             style: TextStyle(
                                                               color: gold,
                                                               fontSize: 16.0,
@@ -172,7 +174,7 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                         ),
                                                         DataColumn(
                                                           label: Text(
-                                                            'Quantity',
+                                                            'Dikirim Lewat',
                                                             style: TextStyle(
                                                               color: gold,
                                                               fontSize: 16.0,
@@ -183,7 +185,7 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                         ),
                                                         DataColumn(
                                                           label: Text(
-                                                            'Shipped With',
+                                                            'No Kendaraan',
                                                             style: TextStyle(
                                                               color: gold,
                                                               fontSize: 16.0,
@@ -195,7 +197,7 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                         ),
                                                         DataColumn(
                                                           label: Text(
-                                                            'Shipped Via',
+                                                            'Bast      ',
                                                             style: TextStyle(
                                                               color: gold,
                                                               fontSize: 16.0,
@@ -205,146 +207,146 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                           tooltip:
                                                               "Shipped Via",
                                                         ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'No Vehicles',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip:
-                                                              "No Vehicles",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'KM Start',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip: "KM Start",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'KM End',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip: "KM End",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'SG Meter',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip: "SG Meter",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'Top Seal',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip: "Top Seal",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'Bottom Seal',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip:
-                                                              "Bottom Seal",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'Temperature',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip:
-                                                              "Temperature",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'Departure Time',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip:
-                                                              "Departure Time",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'Arrival Time',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip:
-                                                              "Arrival Time",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'Unloading Start Time',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip:
-                                                              "Unloading Start Time",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'Unloading End Time',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip:
-                                                              "Unloading End Time",
-                                                        ),
-                                                        DataColumn(
-                                                          label: Text(
-                                                            'Departure Time Depot',
-                                                            style: TextStyle(
-                                                              color: gold,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                          numeric: true,
-                                                          tooltip:
-                                                              "Departure Time Depot",
-                                                        ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'No Vehicles',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip:
+                                                        //       "No Vehicles",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'KM Start',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip: "KM Start",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'KM End',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip: "KM End",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'SG Meter',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip: "SG Meter",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'Top Seal',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip: "Top Seal",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'Bottom Seal',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip:
+                                                        //       "Bottom Seal",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'Temperature',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip:
+                                                        //       "Temperature",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'Departure Time',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip:
+                                                        //       "Departure Time",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'Arrival Time',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip:
+                                                        //       "Arrival Time",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'Unloading Start Time',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip:
+                                                        //       "Unloading Start Time",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'Unloading End Time',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip:
+                                                        //       "Unloading End Time",
+                                                        // ),
+                                                        // DataColumn(
+                                                        //   label: Text(
+                                                        //     'Departure Time Depot',
+                                                        //     style: TextStyle(
+                                                        //       color: gold,
+                                                        //       fontSize: 16.0,
+                                                        //     ),
+                                                        //   ),
+                                                        //   numeric: true,
+                                                        //   tooltip:
+                                                        //       "Departure Time Depot",
+                                                        // ),
                                                       ],
                                                       rows:
                                                           _listArrival
@@ -356,7 +358,7 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                                     DataCell(
                                                                       Container(
                                                                         width:
-                                                                            100,
+                                                                            200,
                                                                         child:
                                                                             Text(
                                                                           country
@@ -365,230 +367,250 @@ class _AllArrivalDetailState extends State<AllArrivalDetail> {
                                                                               true,
                                                                           overflow:
                                                                               TextOverflow.ellipsis,
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.w600),
+                                                                          style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.w600),
                                                                         ),
                                                                       ),
                                                                     ),
                                                                     DataCell(
                                                                       Container(
-                                                                        // width:
-                                                                        //     60.0,
+                                                                        width:
+                                                                            100.0,
                                                                         child:
                                                                             Center(
                                                                           child:
                                                                               Text(
-                                                                            country.effectiveDateStart.toString(),
+                                                                            country.product.toString(),
                                                                             style:
-                                                                                TextStyle(fontWeight: FontWeight.bold),
+                                                                                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                                                                           ),
                                                                         ),
                                                                       ),
                                                                     ),
                                                                     DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .effectiveDateEnd
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .product
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
+                                                                      Container(
+                                                                        width:
+                                                                            100.0,
+                                                                        child: Center(
+                                                                            child: Text(
                                                                           country
                                                                               .quantity
                                                                               .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
+                                                                          style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold),
+                                                                        )),
                                                                       ),
                                                                     ),
                                                                     DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
+                                                                      Container(
+                                                                        width:
+                                                                            100.0,
+                                                                        child: Center(
+                                                                            child: Text(
                                                                           country
                                                                               .shippedWith
                                                                               .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
+                                                                          style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold),
+                                                                        )),
                                                                       ),
                                                                     ),
                                                                     DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
+                                                                      Container(
+                                                                        width:
+                                                                            100.0,
+                                                                        child: Center(
+                                                                            child: Text(
                                                                           country
                                                                               .shippedVia
                                                                               .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
+                                                                          style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold),
+                                                                        )),
                                                                       ),
                                                                     ),
                                                                     DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
+                                                                      Container(
+                                                                        width:
+                                                                            100.0,
+                                                                        child: Center(
+                                                                            child: Text(
                                                                           country
                                                                               .noVehicles
                                                                               .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
+                                                                          style: TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold),
+                                                                        )),
                                                                       ),
                                                                     ),
                                                                     DataCell(
                                                                       Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .kmStart
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
+                                                                          child: Container(
+                                                                              padding: EdgeInsets.only(left: 25),
+                                                                              width: 100.0,
+                                                                              child: Image.network(
+                                                                                country.bast.toString(),
+                                                                                // width: 100,
+                                                                              ))),
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.push(
+                                                                            context,
+                                                                            MaterialPageRoute(
+                                                                                builder: (context) => Bast(
+                                                                                      url: country.bast.toString(),
+                                                                                    )));
+                                                                      },
                                                                     ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .kmEnd
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .sgMeter
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .topSeal
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .bottomSeal
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .temperature
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .departureTime
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .arrivalTime
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .unloadingStartTime
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .unloadingEndTime
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    DataCell(
-                                                                      Center(
-                                                                        child:
-                                                                            Text(
-                                                                          country
-                                                                              .departureTimeDepot
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                    ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .noVehicles
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .kmStart
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .kmEnd
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .sgMeter
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .topSeal
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .bottomSeal
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .temperature
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .departureTime
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .arrivalTime
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .unloadingStartTime
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .unloadingEndTime
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
+                                                                    // DataCell(
+                                                                    //   Center(
+                                                                    //     child:
+                                                                    //         Text(
+                                                                    //       country
+                                                                    //           .departureTimeDepot
+                                                                    //           .toString(),
+                                                                    //       style:
+                                                                    //           TextStyle(fontWeight: FontWeight.bold),
+                                                                    //     ),
+                                                                    //   ),
+                                                                    // ),
                                                                   ],
                                                                 ),
                                                               )

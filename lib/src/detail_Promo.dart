@@ -268,88 +268,205 @@ class _DetailPromoState extends State<DetailPromo>
                                                       15,
                                                   child: InkWell(
                                                       onTap: () async {
-                                                        promoId =
-                                                            _listPromoDetail
-                                                                .listDetailPromo[
-                                                                    0]
-                                                                .id
-                                                                .toString();
-                                                        kirimdata().then(
-                                                            (value) async {
-                                                          if (value
-                                                                  .statusCode ==
-                                                              200) {
-                                                            print(
-                                                                'hahahahahaahah');
-                                                            final responseJson =
-                                                                json.decode(
-                                                                    value.body);
+                                                        await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return AlertDialog(
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  side:
+                                                                      BorderSide(
+                                                                    color: Colors
+                                                                            .green[
+                                                                        900],
+                                                                    width: 5.0,
+                                                                  ),
+                                                                ),
+                                                                title: Image.network(
+                                                                    _listPromoDetail
+                                                                        .listDetailPromo[
+                                                                            0]
+                                                                        .image),
+                                                                content:
+                                                                    SingleChildScrollView(
+                                                                  child:
+                                                                      ListBody(
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(
+                                                                          "Penukaran Promo",
+                                                                          style: TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 25,
+                                                                              fontWeight: FontWeight.bold)),
 
-                                                            await showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                                  return AlertDialog(
-                                                                    title: new Text(
-                                                                        "Penukaran Promo "
-                                                                        " telah Berhasil !!!"),
-                                                                    actions: <
-                                                                        Widget>[
-                                                                      new FlatButton(
-                                                                        child: new Text(
-                                                                            "Ok"),
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator
-                                                                              .pop(
-                                                                            context,
-                                                                            MaterialPageRoute(builder: (context) => DetailVoucher()),
-                                                                          );
-                                                                        },
+                                                                      Text(
+                                                                        "Apakah anda yakin menukar promo ?",
                                                                       ),
+                                                                      // Text('Would you like to approve of this message?'),
                                                                     ],
-                                                                  );
-                                                                });
-                                                          } else {
-                                                            showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                                  return AlertDialog(
-                                                                    title: new Text(
-                                                                        "Penukaran Promo "
-                                                                        "Gagal !!!"),
-                                                                    actions: <
-                                                                        Widget>[
-                                                                      new FlatButton(
-                                                                        child: new Text(
-                                                                            "Ok"),
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator
-                                                                              .pop(
-                                                                            context,
-                                                                            MaterialPageRoute(builder: (context) => DetailVoucher()),
-                                                                          );
-                                                                        },
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                  // Navigator.pushReplacement(
-                                                                  //     context,
-                                                                  //     MaterialPageRoute(
-                                                                  //         builder: (context) => DetailPromo(
-                                                                  //             id: _listPromoDetail
-                                                                  //                 .listDetailPromo[0]
-                                                                  //                 .id
-                                                                  //                 .toString())));
-                                                                });
-                                                          }
-                                                        });
+                                                                  ),
+                                                                ),
+                                                                actions: <
+                                                                    Widget>[
+                                                                  new FlatButton(
+                                                                    color: Colors
+                                                                            .lightBlue[
+                                                                        400],
+                                                                    child: new Text(
+                                                                        "Ok",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.white,
+                                                                        )),
+                                                                    onPressed:
+                                                                        () async {
+                                                                      promoId = _listPromoDetail
+                                                                          .listDetailPromo[
+                                                                              0]
+                                                                          .id
+                                                                          .toString();
+                                                                      await kirimdata()
+                                                                          .then(
+                                                                              (value) async {
+                                                                        if (value.statusCode ==
+                                                                            200) {
+                                                                          print(
+                                                                              'hahahahahaahah');
+                                                                          final responseJson =
+                                                                              json.decode(value.body);
+                                                                          await showDialog(
+                                                                              context: context,
+                                                                              builder: (BuildContext context) {
+                                                                                return AlertDialog(
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(10),
+                                                                                    side: BorderSide(
+                                                                                      color: Colors.green[900],
+                                                                                      width: 5.0,
+                                                                                    ),
+                                                                                  ),
+                                                                                  title: Icon(
+                                                                                    Icons.check,
+                                                                                    size: 120,
+                                                                                    color: Colors.green[900],
+                                                                                  ),
+                                                                                  content: SingleChildScrollView(
+                                                                                    child: ListBody(
+                                                                                      children: <Widget>[
+                                                                                        Text("Penukaran Promo ", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+
+                                                                                        Text("Berhasil !!!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+                                                                                        // Text('Would you like to approve of this message?'),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  actions: <Widget>[
+                                                                                    new FlatButton(
+                                                                                      color: Colors.lightBlueAccent[400],
+                                                                                      child: new Text("Ok",
+                                                                                          style: TextStyle(
+                                                                                            color: Colors.white,
+                                                                                          )),
+                                                                                      onPressed: () {
+                                                                                        Navigator.pop(
+                                                                                          context,
+                                                                                          MaterialPageRoute(builder: (context) => DetailVoucher()),
+                                                                                        );
+                                                                                      },
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              });
+                                                                        } else {
+                                                                          await showDialog(
+                                                                              context: context,
+                                                                              builder: (BuildContext context) {
+                                                                                return AlertDialog(
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(10),
+                                                                                    side: BorderSide(
+                                                                                      color: Colors.red[900],
+                                                                                      width: 5.0,
+                                                                                    ),
+                                                                                  ),
+                                                                                  title: Icon(
+                                                                                    Icons.clear,
+                                                                                    size: 120,
+                                                                                    color: Colors.red[900],
+                                                                                  ),
+                                                                                  content: SingleChildScrollView(
+                                                                                    child: ListBody(
+                                                                                      children: <Widget>[
+                                                                                        Text("Penukaran Promo ", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+
+                                                                                        Text("Gagal !!!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+                                                                                        // Text('Would you like to approve of this message?'),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  actions: <Widget>[
+                                                                                    new FlatButton(
+                                                                                      color: Colors.red[900],
+                                                                                      child: new Text("Ok"),
+                                                                                      onPressed: () {
+                                                                                        Navigator.pop(
+                                                                                          context,
+                                                                                          MaterialPageRoute(builder: (context) => DetailVoucher()),
+                                                                                        );
+                                                                                      },
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                                // Navigator.pushReplacement(
+                                                                                //     context,
+                                                                                //     MaterialPageRoute(
+                                                                                //         builder: (context) => DetailPromo(
+                                                                                //             id: _listPromoDetail
+                                                                                //                 .listDetailPromo[0]
+                                                                                //                 .id
+                                                                                //                 .toString())));
+                                                                              });
+                                                                        }
+                                                                      });
+                                                                      Navigator
+                                                                          .pop(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                DetailVoucher()),
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                  new FlatButton(
+                                                                    color: Colors
+                                                                            .red[
+                                                                        900],
+                                                                    child: new Text(
+                                                                        "Batal"),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator
+                                                                          .pop(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                DetailVoucher()),
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              );
+                                                              // });
+                                                              //
+                                                            });
                                                       },
                                                       child: Card(
                                                         shape:

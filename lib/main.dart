@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +21,7 @@ import 'package:warnakaltim/src/model/allHotPromoModel.dart';
 import 'package:warnakaltim/src/model/allPromoModel.dart';
 import 'package:warnakaltim/src/model/chartModel.dart';
 import 'package:warnakaltim/src/model/couponModel.dart';
+import 'package:warnakaltim/src/model/criticModel.dart';
 import 'package:warnakaltim/src/model/deliveryHistoryModel.dart';
 import 'package:warnakaltim/src/model/detailDeliveryModel.dart';
 import 'package:warnakaltim/src/model/detailDoModel.dart';
@@ -43,6 +46,9 @@ import 'package:warnakaltim/src/talk.dart';
 import 'package:warnakaltim/src/userHome.dart';
 
 var urls = 'http://rpm.lensaborneo.id';
+File files;
+var posisi;
+var idnya;
 var email;
 var token;
 var role;
@@ -181,6 +187,9 @@ class _MyAppState extends State<MyApp> {
           ),
           ChangeNotifierProvider.value(
             value: DetailVoucherCustomerModel(),
+          ),
+           ChangeNotifierProvider.value(
+            value: CriticDetailModel(),
           ),
         ],
         child: MaterialApp(

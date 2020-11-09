@@ -204,7 +204,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Effective Date Start ',
+                                                    'Jam Berangkat Efektif ',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -232,7 +232,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Effective Date End',
+                                                    'Jam Tiba Efektif',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -260,7 +260,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Product',
+                                                    'Produk',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -288,7 +288,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Quantity',
+                                                    'Kwantitas',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -321,7 +321,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Shipped With',
+                                                    'Dikirim Dengan',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -349,7 +349,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Shipped Via',
+                                                    'Dikirim Lewat',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -377,7 +377,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'No Vehicles',
+                                                    'No Kendaraan',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -405,7 +405,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'KM Start',
+                                                    'KM Awak',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -433,7 +433,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'KM End',
+                                                    'KM Akhir',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -489,7 +489,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Top Seal',
+                                                    'Segel Atas',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -517,7 +517,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Bottom Seal',
+                                                    'Segel Bawah',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -545,7 +545,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Temperature',
+                                                    'Temperatur',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -573,7 +573,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Departure Time',
+                                                    'Jam Berangkat',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -601,7 +601,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Arrival Time',
+                                                    'Jam Tiba',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -629,7 +629,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Unloading StartTime',
+                                                    'Jam Mulai Pembongkaran',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -657,7 +657,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Unloading EndTime',
+                                                    'Jam Selesai Pembongkaran',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,
@@ -685,7 +685,7 @@ class _DoApproveDetailAgenState extends State<DoApproveDetailAgen>
                                                       padding:
                                                           EdgeInsets.all(2)),
                                                   Text(
-                                                    'Departure Time Depot',
+                                                    'Jam Tiba di Depot',
                                                     style: new TextStyle(
                                                       fontSize: 12.0,
                                                       color: gold,

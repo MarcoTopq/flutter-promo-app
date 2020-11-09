@@ -7,9 +7,6 @@ import 'package:toast/toast.dart';
 import 'package:warnakaltim/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-import 'package:warnakaltim/src/deliveryHistory.dart';
 
 class Rating extends StatefulWidget {
   final String id;
@@ -39,7 +36,7 @@ class _RatingState extends State<Rating> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    this.kirimdata();
+    // this.kirimdata();
   }
 
   Future<http.Response> kirimdata() async {

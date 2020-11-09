@@ -99,7 +99,7 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                   delegate: SliverChildBuilderDelegate(
                                       (BuildContext context, int index) {
                                 return SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
+                                    scrollDirection: Axis.vertical,
                                     child: Column(
                                       children: [
                                         Padding(padding: EdgeInsets.all(20)),
@@ -119,6 +119,7 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                 child: SingleChildScrollView(
                                               scrollDirection: Axis.horizontal,
                                               child: Container(
+                                                  // width: 1600,
                                                   color: Colors.grey[700],
                                                   padding: EdgeInsets.all(20),
                                                   child: DataTable(
@@ -132,29 +133,30 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                                     FontWeight
                                                                         .bold)),
                                                       ),
-                                                      DataColumn(
-                                                        label: Text(
-                                                            'Effective Date Start',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text(
-                                                            'Effective Date End',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
+                                                      // DataColumn(
+                                                      //   label: Text(
+                                                      //       'Effective Date Start',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text(
+                                                      //       'Effective Date End',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
                                                       // Lets add one more column to show a delete button
+
                                                       DataColumn(
-                                                        label: Text('Product',
+                                                        label: Text('Produk',
                                                             style: TextStyle(
                                                                 color: gold,
                                                                 fontSize: 15,
@@ -163,17 +165,7 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                                         .bold)),
                                                       ),
                                                       DataColumn(
-                                                        label: Text('Quantity',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text(
-                                                            'Shipped With',
+                                                        label: Text('Kwantitas',
                                                             style: TextStyle(
                                                                 color: gold,
                                                                 fontSize: 15,
@@ -183,7 +175,7 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                       ),
                                                       DataColumn(
                                                         label: Text(
-                                                            'Shipped Via',
+                                                            'Dikirim Dengan',
                                                             style: TextStyle(
                                                                 color: gold,
                                                                 fontSize: 15,
@@ -193,43 +185,7 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                       ),
                                                       DataColumn(
                                                         label: Text(
-                                                            'No Vehicles',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text('KM Start',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text('KM End',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text('SG Meter',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text('Top Seal',
+                                                            'Dikirim Lewat',
                                                             style: TextStyle(
                                                                 color: gold,
                                                                 fontSize: 15,
@@ -239,7 +195,7 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                       ),
                                                       DataColumn(
                                                         label: Text(
-                                                            'Bottom Seal',
+                                                            'No Kendaraan',
                                                             style: TextStyle(
                                                                 color: gold,
                                                                 fontSize: 15,
@@ -248,8 +204,7 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                                         .bold)),
                                                       ),
                                                       DataColumn(
-                                                        label: Text(
-                                                            'Temperature',
+                                                        label: Text('Bast      ',
                                                             style: TextStyle(
                                                                 color: gold,
                                                                 fontSize: 15,
@@ -257,65 +212,112 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                                     FontWeight
                                                                         .bold)),
                                                       ),
-                                                      DataColumn(
-                                                        label: Text(
-                                                            'Departure Time',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text(
-                                                            'Arrival Time',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text(
-                                                            'Unloading StartTime',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text(
-                                                            'Unloading EndTime',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text(
-                                                            'Departure Time Depot',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Text('Bast',
-                                                            style: TextStyle(
-                                                                color: gold,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
+                                                      // DataColumn(
+                                                      //   label: Text('KM Start',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text('KM End',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text('SG Meter',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text('Top Seal',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text(
+                                                      //       'Bottom Seal',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text(
+                                                      //       'Temperature',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text(
+                                                      //       'Departure Time',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text(
+                                                      //       'Arrival Time',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text(
+                                                      //       'Unloading StartTime',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text(
+                                                      //       'Unloading EndTime',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
+                                                      // DataColumn(
+                                                      //   label: Text(
+                                                      //       'Departure Time Depot',
+                                                      //       style: TextStyle(
+                                                      //           color: gold,
+                                                      //           fontSize: 15,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .bold)),
+                                                      // ),
                                                     ],
                                                     rows: _listDetaildoAgen
                                                         .listDetailDoAgen[0]
@@ -323,309 +325,144 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                         .map(
                                                           (delivery) => DataRow(
                                                               cells: [
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .deliveryOrderNumber,
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   // Add tap in the row and populate the
+                                                                //   // textfields with the corresponding values to update
+                                                                //   onTap: () {
+                                                                //     // _showValues(
+                                                                //     //     delivery);
+                                                                //     // // Set the Selected delivery to Update
+                                                                //     // _selecteddelivery =
+                                                                //     //     delivery;
+                                                                //     // setState(() {
+                                                                //     //   _isUpdating =
+                                                                //     //       true;
+                                                                //     // });
+                                                                //   },
+                                                                // ),
                                                                 DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .deliveryOrderNumber,
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  // Add tap in the row and populate the
-                                                                  // textfields with the corresponding values to update
-                                                                  onTap: () {
-                                                                    // _showValues(
-                                                                    //     delivery);
-                                                                    // // Set the Selected delivery to Update
-                                                                    // _selecteddelivery =
-                                                                    //     delivery;
-                                                                    // setState(() {
-                                                                    //   _isUpdating =
-                                                                    //       true;
-                                                                    // });
-                                                                  },
+                                                                  Container(
+                                                                      width:
+                                                                          100.0,
+                                                                      child: Center(
+                                                                          child: Text(delivery.deliveryOrderNumber.toString().toUpperCase(),
+                                                                              style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontSize: 12,
+                                                                              )))),
+                                                                  onTap: () {},
                                                                 ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .effectiveDateStart
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .effectiveDateEnd
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+
                                                                 DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .deliveryOrderNumber
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
+                                                                  Container(
+                                                                      width:
+                                                                          100.0,
+                                                                      child: Center(
+                                                                          child: Text(delivery.product.toString().toUpperCase(),
+                                                                              style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontSize: 12,
+                                                                              )))),
                                                                   onTap: () {},
                                                                 ),
                                                                 DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .effectiveDateStart
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
+                                                                  Container(
+                                                                      width:
+                                                                          100.0,
+                                                                      child: Center(
+                                                                          child: Text(delivery.quantity.toString().replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},').toUpperCase(),
+                                                                              style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontSize: 12,
+                                                                              )))),
                                                                   onTap: () {},
                                                                 ),
                                                                 DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .effectiveDateEnd
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
+                                                                  Container(
+                                                                      width:
+                                                                          100.0,
+                                                                      child: Center(
+                                                                          child: Text(delivery.shippedWith.toString().toUpperCase(),
+                                                                              style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontSize: 12,
+                                                                              )))),
                                                                   onTap: () {},
                                                                 ),
                                                                 DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .product
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
+                                                                  Container(
+                                                                      width:
+                                                                          100.0,
+                                                                      child: Center(
+                                                                          child: Text(delivery.shippedVia.toString().toUpperCase(),
+                                                                              style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontSize: 12,
+                                                                              )))),
+                                                                  onTap: () {},
+                                                                ),
+
+                                                                DataCell(
+                                                                  Container(
+                                                                      width:
+                                                                          100.0,
+                                                                      child: Center(
+                                                                          child: Text(delivery.noVehicles.toString().toUpperCase(),
+                                                                              style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontSize: 12,
+                                                                              )))),
                                                                   onTap: () {},
                                                                 ),
                                                                 DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .quantity
-                                                                          .toString()
-                                                                          .replaceAllMapped(
-                                                                              new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                                              (Match m) => '${m[1]},')
-                                                                          .toUpperCase(),
-                                                                      style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .noVehicles
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .kmStart
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .kmEnd
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .sgMeter
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .topSeal
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .bottomSeal
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .temperature
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .departureTime
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .arrivalTime
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .unloadingStartTime
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .unloadingEndTime
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .departureTimeDepot
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Text(
-                                                                      delivery
-                                                                          .departureTimeDepot
-                                                                          .toString()
-                                                                          .toUpperCase(),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12,
-                                                                      )),
-                                                                  onTap: () {},
-                                                                ),
-                                                                DataCell(
-                                                                  Image.network(
-                                                                    delivery
-                                                                        .bast
-                                                                        .toString(),
-                                                                  ),
+                                                                  Center(
+                                                                      child: Container(
+                                                                          // padding: EdgeInsets.only(left: 25),
+                                                                          width: 50.0,
+                                                                          child: Image.network(
+                                                                            delivery.bast.toString(),
+                                                                            // width: 100,
+                                                                          ))),
                                                                   onTap: () {
                                                                     Navigator.push(
                                                                         context,
@@ -635,6 +472,186 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                                                 )));
                                                                   },
                                                                 ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .kmStart
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .kmEnd
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .sgMeter
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .topSeal
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .bottomSeal
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .temperature
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .departureTime
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .arrivalTime
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .unloadingStartTime
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .unloadingEndTime
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .departureTimeDepot
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
+                                                                // DataCell(
+                                                                //   Text(
+                                                                //       delivery
+                                                                //           .departureTimeDepot
+                                                                //           .toString()
+                                                                //           .toUpperCase(),
+                                                                //       style:
+                                                                //           TextStyle(
+                                                                //         color: Colors
+                                                                //             .white,
+                                                                //         fontSize:
+                                                                //             12,
+                                                                //       )),
+                                                                //   onTap: () {},
+                                                                // ),
                                                               ]),
                                                         )
                                                         .toList(),

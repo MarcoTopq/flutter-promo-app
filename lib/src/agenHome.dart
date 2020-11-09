@@ -1,31 +1,24 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee_flutter/marquee_flutter.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:warnakaltim/src/all_coupon.dart';
+import 'package:warnakaltim/src/all_critic.dart';
 import 'package:warnakaltim/src/all_event.dart';
 import 'package:warnakaltim/src/all_hotPromo.dart';
 import 'package:warnakaltim/src/all_news.dart';
 import 'package:warnakaltim/src/all_promo.dart';
 import 'package:warnakaltim/src/all_videos.dart';
-import 'package:warnakaltim/src/all_voucher.dart';
 import 'package:warnakaltim/src/company.dart';
-import 'package:warnakaltim/src/deliveryHistory.dart';
 import 'package:warnakaltim/src/detail_Promo.dart';
 import 'package:warnakaltim/src/detail_event.dart';
 import 'package:warnakaltim/src/detail_news.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:warnakaltim/main.dart';
 import 'package:warnakaltim/src/doApproveAgen.dart';
-import 'package:warnakaltim/src/driverHistory.dart';
 import 'package:warnakaltim/src/login.dart';
-import 'package:warnakaltim/src/distributor.dart';
 import 'package:warnakaltim/src/model/HomeAgenModel.dart';
-import 'package:warnakaltim/src/model/HomeUserModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warnakaltim/src/profileAgen.dart';
-import 'package:warnakaltim/src/profileCustomer.dart';
 import 'package:warnakaltim/src/salesOrder.dart';
 import 'package:http/http.dart' as http;
 
@@ -638,7 +631,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                                   .center,
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .start,
+                                                                  .spaceEvenly,
                                                           children: <Widget>[
                                                             ClipRRect(
                                                                 borderRadius:
@@ -715,48 +708,56 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                                                 padding: EdgeInsets
                                                                     .only(
                                                                         left:
-                                                                            50,
-                                                                        right:
-                                                                            10)),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              DoApproveAgen(),
-                                                                    ));
-                                                              },
-                                                              child: badges == 0
-                                                                  ? Icon(
-                                                                      Icons
-                                                                          .notifications_active,
-                                                                      size: 30,
-                                                                      color:
-                                                                          gold,
-                                                                    )
-                                                                  : Badge(
-                                                                      badgeContent:
-                                                                          Text(
-                                                                        '$badges',
-                                                                        // style: TextStyle(
-                                                                        //     color:
-                                                                        //         Colors.white,
-                                                                        //     fontSize: 12),
-                                                                      ),
-                                                                      badgeColor:
-                                                                          Colors.red[
-                                                                              900],
-                                                                      child:
-                                                                          Icon(
+                                                                            5)),
+                                                            // Padding(
+                                                            //     padding: EdgeInsets
+                                                            //         .only(
+                                                            //             left:
+                                                            //                 50,
+                                                            //             right:
+                                                            //                 10)),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(right: 15.0),
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                DoApproveAgen(),
+                                                                      ));
+                                                                },
+                                                                child: badges == 0
+                                                                    ? Icon(
                                                                         Icons
                                                                             .notifications_active,
-                                                                        size:
-                                                                            30,
+                                                                        size: 30,
                                                                         color:
                                                                             gold,
-                                                                      )),
+                                                                      )
+                                                                    : Badge(
+                                                                        badgeContent:
+                                                                            Text(
+                                                                          '$badges',
+                                                                          // style: TextStyle(
+                                                                          //     color:
+                                                                          //         Colors.white,
+                                                                          //     fontSize: 12),
+                                                                        ),
+                                                                        badgeColor:
+                                                                            Colors.red[
+                                                                                900],
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .notifications_active,
+                                                                          size:
+                                                                              30,
+                                                                          color:
+                                                                              gold,
+                                                                        )),
+                                                              ),
                                                             )
                                                           ],
                                                         )),
@@ -1470,6 +1471,30 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               SalesOrderDetail()));
+                                },
+                              )),
+                           Container(
+                              padding: EdgeInsets.only(top: 2),
+                              decoration: new BoxDecoration(
+                                  color: Colors.black12,
+                                  border: new Border(
+                                      bottom: new BorderSide(
+                                          color: Colors.grey[850]))),
+                              child: ListTile(
+                                leading: Icon(Icons.star, color: gold),
+
+                                title: Text('Rate ',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold)),
+                                // isThreeLine: true,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Allcritic()));
                                 },
                               )),
                           Container(

@@ -618,7 +618,7 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                   .center,
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .start,
+                                                                  .spaceEvenly,
                                                           children: <Widget>[
                                                             ClipRRect(
                                                                 borderRadius:
@@ -699,22 +699,28 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                                             30,
                                                                         right:
                                                                             10)),
-                                                            InkWell(
-                                                                onTap: () {
-                                                                  Navigator.push(
-                                                                      context,
-                                                                      MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                DeliveryHistoryDetail(),
-                                                                      ));
-                                                                },
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .notifications_active,
-                                                                  size: 30,
-                                                                  color: gold,
-                                                                ))
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      right:
+                                                                          15.0),
+                                                              child: InkWell(
+                                                                  onTap: () {
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              DeliveryHistoryDetail(),
+                                                                        ));
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .notifications_active,
+                                                                    size: 30,
+                                                                    color: gold,
+                                                                  )),
+                                                            )
                                                           ],
                                                         )),
                                                     Divider(
@@ -980,6 +986,10 @@ class _UserHomeState extends State<UserHomeDetail> {
                                                         )),
                                                       ],
                                                     )),
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                bottom: 10)),
                                                   ],
                                                 )),
                                           );

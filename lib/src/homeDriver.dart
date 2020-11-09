@@ -8,6 +8,7 @@ import 'package:marquee_flutter/marquee_flutter.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:toast/toast.dart';
 import 'package:warnakaltim/src/all_arrival.dart';
@@ -62,10 +63,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
   var releaseTime = TimeOfDay.now(); // 3:00pm
   String id;
   bool accept;
-  File files;
   var file;
-  var posisi;
-  var idnya;
   var data;
   var prf;
 
@@ -83,7 +81,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
     accept = false;
     _getToken();
     // WidgetsBinding.instance.addObserver(this);
-    _refreshData(context);
+    // _refreshData(context);
   }
 
   final GlobalKey<ScaffoldState> _driverKey = new GlobalKey<ScaffoldState>();
@@ -214,6 +212,335 @@ class _DriverHomeState extends State<DriverHomeDetail> {
             duration: 10, gravity: Toast.BOTTOM);
       }
       // return Future<http.Response>(response.headers);
+    }
+
+    Future<void> _showMyDialog(
+        String idxnya,
+        String deliveryOrderNumber,
+        String salesOrderId,
+        String noVehicles,
+        String effectiveDateStart,
+        String effectiveDateEnd,
+        String product,
+        String quantity,
+        index) async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: BorderSide(
+                color: Colors.green[900],
+                width: 5.0,
+              ),
+            ),
+            title: Icon(
+              Icons.directions_car,
+              size: 120,
+              color: Colors.green[900],
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Pengiriman ' + product,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold)),
+
+                  Text(
+                    'Apakah anda menerima pesanan pengiriman ini ?',
+                  ),
+                  // Text('Would you like to approve of this message?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: Colors.lightBlueAccent[400],
+                child: Text('Terima',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await accepted(idxnya.toString());
+
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  setState(() {
+                    prefs.setString('Idnya', idxnya);
+                    prefs.setString('deliveryOrderNumber', deliveryOrderNumber);
+                    prefs.setString('salesOrderId', salesOrderId);
+                    prefs.setString('noVehicles', noVehicles);
+                    prefs.setString('effectiveDateStart', effectiveDateStart);
+                    prefs.setString('effectiveDateEnd', effectiveDateEnd);
+                    prefs.setString('product', product);
+                    prefs.setString('quantity', quantity);
+                    idnya = idxnya;
+                    posisi = index;
+                    accept = true;
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                  color: Colors.red[900],
+                  child: Text('Batal'),
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                    // Navigator.pop(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => DriverHomeDetail()),
+                    // );
+                  }),
+            ],
+          );
+        },
+      );
+    }
+
+    Future<void> __showMyDialog() async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: BorderSide(
+                color: Colors.green[900],
+                width: 5.0,
+              ),
+            ),
+            title: Icon(
+              Icons.pin_drop,
+              size: 120,
+              color: Colors.green[900],
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Bukti Pengiriman',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold)),
+                  Text(
+                      'Apakah anda telah sampai ditujuan & mengunggah bukti pengiriman ?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: Colors.lightBlue[400],
+                child: Text('Unggah',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  var idDO = prefs.get('Idnya');
+
+                  await kirimdata(files, idDO == null ? idnya : idDO)
+                      .then((value) async {
+                    prefs.remove('Idnya');
+                    prefs.remove('deliveryOrderNumber');
+                    prefs.remove('salesOrderId');
+                    prefs.remove('noVehicles');
+                    prefs.remove('effectiveDateStart');
+                    prefs.remove('effectiveDateEnd');
+                    prefs.remove('product');
+                    prefs.remove('quantity');
+                    print(value);
+                    if (value.statusCode == 200) {
+                      setState(() {
+                        posisi = null;
+                      });
+
+                      print('hahahahahaahah');
+                      final responseJson = json.decode(value.body);
+                    } else {
+                      return AlertDialog(
+                        title: new Text("Penukaran Promo "
+                            "Gagal !!!"),
+                        actions: <Widget>[
+                          new FlatButton(
+                            child: new Text("Ok"),
+                            onPressed: () {
+                              Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DriverHomeDetail()),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    }
+                  });
+                  // setState(() {
+                  //   prefs.setString('Idnya', idnya);
+                  //   prefs.setString('deliveryOrderNumber', deliveryOrderNumber);
+                  //   prefs.setString('salesOrderId', salesOrderId);
+                  //   prefs.setString('noVehicles', noVehicles);
+                  //   prefs.setString('effectiveDateStart', effectiveDateStart);
+                  //   prefs.setString('effectiveDateEnd', effectiveDateEnd);
+                  //   prefs.setString('product', product);
+                  //   prefs.setString('quantity', quantity);
+                  //   idnya = idnya;
+                  //   posisi = index;
+                  //   accept = true;
+                  // });
+                  await accepted(idnya.toString()).then((value) async {
+                    if (value.statusCode == 200) {
+                      print('hahahahahaahah');
+                      final responseJson = json.decode(value.body);
+                      await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: Colors.green[900],
+                                  width: 5.0,
+                                ),
+                              ),
+                              title: Icon(
+                                Icons.check,
+                                size: 120,
+                                color: Colors.green[900],
+                              ),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    Text("Upload Bast ",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold)),
+
+                                    Text("Telah berhasil !!!",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold)),
+                                    // Text('Would you like to approve of this message?'),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                new FlatButton(
+                                  color: Colors.lightBlueAccent[400],
+                                  child: new Text("Ok",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      )),
+                                  onPressed: () {
+                                    Navigator.pop(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DriverHomeDetail()),
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          });
+                    } else {
+                      await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: Colors.red[900],
+                                  width: 5.0,
+                                ),
+                              ),
+                              title: Icon(
+                                Icons.clear,
+                                size: 120,
+                                color: Colors.red[900],
+                              ),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    Text("Upload Bast ",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold)),
+
+                                    Text("Gagal !!!",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold)),
+                                    // Text('Would you like to approve of this message?'),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                new FlatButton(
+                                  color: Colors.red[900],
+                                  child: new Text("Ok"),
+                                  onPressed: () {
+                                    Navigator.pop(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DriverHomeDetail()),
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => DetailPromo(
+                            //             id: _listPromoDetail
+                            //                 .listDetailPromo[0]
+                            //                 .id
+                            //                 .toString())));
+                          });
+                    }
+                  });
+
+                  // Navigator.of(context).pop();
+                  Navigator.pop(
+                    context,
+                    MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                  );
+                },
+              ),
+              FlatButton(
+                  color: Colors.red[900],
+                  child: Text('Batal',
+                      style: TextStyle(
+                        color: Colors.white,
+                      )),
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                    // Navigator.pop(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => DriverHomeDetail()),
+                    // );
+                  }),
+            ],
+          );
+        },
+      );
     }
 
     return Scaffold(
@@ -495,7 +822,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'No Vehicles : ' +
+                                                                    'No Kendaraan : ' +
                                                                         _listNews
                                                                             .listHomeDetail[
                                                                                 0]
@@ -512,7 +839,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Start : ' +
+                                                                    'Jam Berangkat Efektif : ' +
                                                                         _listNews
                                                                             .listHomeDetail[
                                                                                 0]
@@ -529,7 +856,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'End : ' +
+                                                                    'Jam Tiba Efektif : ' +
                                                                         _listNews
                                                                             .listHomeDetail[
                                                                                 0]
@@ -546,7 +873,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Product : ' +
+                                                                    'Produk : ' +
                                                                         _listNews
                                                                             .listHomeDetail[
                                                                                 0]
@@ -563,7 +890,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Quantity : ' +
+                                                                    'Kwantitas : ' +
                                                                         _listNews
                                                                             .listHomeDetail[
                                                                                 0]
@@ -592,8 +919,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                       MainAxisAlignment
                                                                           .spaceEvenly,
                                                                   children: [
-                                                                    posisi ==
-                                                                            null
+                                                                    posisi == null
                                                                         ? Container()
                                                                         : Row(
                                                                             crossAxisAlignment:
@@ -611,12 +937,17 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                                     files = await FilePicker.getFile();
                                                                                     setState(() {
                                                                                       file = 1;
+                                                                                      print(files);
+                                                                                      print(file);
+                                                                                      // data= null;
                                                                                     });
                                                                                     // _btnController
                                                                                     //     .reset();
 
-                                                                                    // Navigator.push(context,
-                                                                                    //     MaterialPageRoute(builder: (context) => Register()));
+                                                                                    // Navigator.pop(
+                                                                                    //   context,
+                                                                                    //   // MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                                    // );
                                                                                   },
                                                                                 ),
                                                                               ),
@@ -649,27 +980,201 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                               SpringButtonType.OnlyScale,
                                                                               roundedRectButton("Accept", signInGradients, false),
                                                                               onTap: () async {
-                                                                                SharedPreferences prefs = await SharedPreferences.getInstance();
-                                                                                setState(() {
-                                                                                  prefs.setString('Idnya', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
-                                                                                  prefs.setString('deliveryOrderNumber', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].deliveryOrderNumber.toString());
-                                                                                  prefs.setString('salesOrderId', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].salesOrderId.toString());
-                                                                                  prefs.setString('noVehicles', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].noVehicles.toString());
-                                                                                  prefs.setString('effectiveDateStart', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateStart.toString());
-                                                                                  prefs.setString('effectiveDateEnd', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateEnd.toString());
-                                                                                  prefs.setString('product', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].product.toString());
-                                                                                  prefs.setString('quantity', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].quantity.toString());
-                                                                                  idnya = _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
-                                                                                  posisi = index;
-                                                                                  accept = true;
-                                                                                });
-                                                                                await accepted(_listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+                                                                                await showDialog(
+                                                                                    context: context,
+                                                                                    builder: (BuildContext context) {
+                                                                                      return AlertDialog(
+                                                                                        shape: RoundedRectangleBorder(
+                                                                                          borderRadius: BorderRadius.circular(10),
+                                                                                          side: BorderSide(
+                                                                                            color: Colors.green[900],
+                                                                                            width: 5.0,
+                                                                                          ),
+                                                                                        ),
+                                                                                        title: Icon(
+                                                                                          Icons.directions_car,
+                                                                                          size: 120,
+                                                                                          color: Colors.green[900],
+                                                                                        ),
+                                                                                        content: SingleChildScrollView(
+                                                                                          child: ListBody(
+                                                                                            children: <Widget>[
+                                                                                              Text("Pengiriman Pesanan", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
 
-                                                                                _btnController.reset();
+                                                                                              Text(
+                                                                                                "Apakah anda yakin menerima pengiriman pesanan ini ?",
+                                                                                              ),
+                                                                                              // Text('Would you like to approve of this message?'),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                        actions: <Widget>[
+                                                                                          new FlatButton(
+                                                                                            color: Colors.lightBlue[400],
+                                                                                            child: new Text("Ok",
+                                                                                                style: TextStyle(
+                                                                                                  color: Colors.white,
+                                                                                                )),
+                                                                                            onPressed: () async {
+                                                                                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                                              setState(() {
+                                                                                                prefs.setString('Idnya', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+                                                                                                prefs.setString('deliveryOrderNumber', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].deliveryOrderNumber.toString());
+                                                                                                prefs.setString('salesOrderId', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].salesOrderId.toString());
+                                                                                                prefs.setString('noVehicles', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].noVehicles.toString());
+                                                                                                prefs.setString('effectiveDateStart', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateStart.toString());
+                                                                                                prefs.setString('effectiveDateEnd', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateEnd.toString());
+                                                                                                prefs.setString('product', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].product.toString());
+                                                                                                prefs.setString('quantity', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].quantity.toString());
+                                                                                                idnya = _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
+                                                                                                posisi = index;
+                                                                                                data = _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
+                                                                                                accept = true;
+                                                                                              });
 
-                                                                                // Navigator.push(context,
-                                                                                //     MaterialPageRoute(builder: (context) => Register()));
+                                                                                              await accepted(_listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString()).then((value) async {
+                                                                                                if (value.statusCode == 200) {
+                                                                                                  print('hahahahahaahah');
+                                                                                                  final responseJson = json.decode(value.body);
+                                                                                                  await showDialog(
+                                                                                                      context: context,
+                                                                                                      builder: (BuildContext context) {
+                                                                                                        return AlertDialog(
+                                                                                                          shape: RoundedRectangleBorder(
+                                                                                                            borderRadius: BorderRadius.circular(10),
+                                                                                                            side: BorderSide(
+                                                                                                              color: Colors.green[900],
+                                                                                                              width: 5.0,
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          title: Icon(
+                                                                                                            Icons.check,
+                                                                                                            size: 120,
+                                                                                                            color: Colors.green[900],
+                                                                                                          ),
+                                                                                                          content: SingleChildScrollView(
+                                                                                                            child: ListBody(
+                                                                                                              children: <Widget>[
+                                                                                                                Text("Pesanan Pengiriman ", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+
+                                                                                                                Text("Telah berhasil diterima !!!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+                                                                                                                // Text('Would you like to approve of this message?'),
+                                                                                                              ],
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          actions: <Widget>[
+                                                                                                            new FlatButton(
+                                                                                                              color: Colors.lightBlueAccent[400],
+                                                                                                              child: new Text("Ok",
+                                                                                                                  style: TextStyle(
+                                                                                                                    color: Colors.white,
+                                                                                                                  )),
+                                                                                                              onPressed: () {
+                                                                                                                Navigator.pop(
+                                                                                                                  context,
+                                                                                                                  // MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                                                                );
+                                                                                                              },
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        );
+                                                                                                      });
+                                                                                                } else {
+                                                                                                  await showDialog(
+                                                                                                      context: context,
+                                                                                                      builder: (BuildContext context) {
+                                                                                                        return AlertDialog(
+                                                                                                          shape: RoundedRectangleBorder(
+                                                                                                            borderRadius: BorderRadius.circular(10),
+                                                                                                            side: BorderSide(
+                                                                                                              color: Colors.red[900],
+                                                                                                              width: 5.0,
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          title: Icon(
+                                                                                                            Icons.clear,
+                                                                                                            size: 120,
+                                                                                                            color: Colors.red[900],
+                                                                                                          ),
+                                                                                                          content: SingleChildScrollView(
+                                                                                                            child: ListBody(
+                                                                                                              children: <Widget>[
+                                                                                                                Text("Pesanan Pengiriman ", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+
+                                                                                                                Text("Gagal !!!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+                                                                                                                // Text('Would you like to approve of this message?'),
+                                                                                                              ],
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          actions: <Widget>[
+                                                                                                            new FlatButton(
+                                                                                                              color: Colors.red[900],
+                                                                                                              child: new Text("Ok"),
+                                                                                                              onPressed: () {
+                                                                                                                Navigator.pop(
+                                                                                                                  context,
+                                                                                                                  // MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                                                                );
+                                                                                                              },
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        );
+                                                                                                        // Navigator.pushReplacement(
+                                                                                                        //     context,
+                                                                                                        //     MaterialPageRoute(
+                                                                                                        //         builder: (context) => DetailPromo(
+                                                                                                        //             id: _listPromoDetail
+                                                                                                        //                 .listDetailPromo[0]
+                                                                                                        //                 .id
+                                                                                                        //                 .toString())));
+                                                                                                      });
+                                                                                                }
+                                                                                              });
+                                                                                              Navigator.pop(
+                                                                                                context,
+                                                                                                // MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                                              );
+                                                                                            },
+                                                                                          ),
+                                                                                          new FlatButton(
+                                                                                            color: Colors.red[900],
+                                                                                            child: new Text("Batal"),
+                                                                                            onPressed: () {
+                                                                                              Navigator.pop(
+                                                                                                context,
+                                                                                                MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                                              );
+                                                                                            },
+                                                                                          ),
+                                                                                        ],
+                                                                                      );
+                                                                                      // });
+                                                                                      //
+                                                                                    });
                                                                               },
+
+                                                                              // onTap: () async {
+                                                                              //   SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                              //   setState(() {
+                                                                              //     prefs.setString('Idnya', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+                                                                              //     prefs.setString('deliveryOrderNumber', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].deliveryOrderNumber.toString());
+                                                                              //     prefs.setString('salesOrderId', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].salesOrderId.toString());
+                                                                              //     prefs.setString('noVehicles', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].noVehicles.toString());
+                                                                              //     prefs.setString('effectiveDateStart', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateStart.toString());
+                                                                              //     prefs.setString('effectiveDateEnd', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateEnd.toString());
+                                                                              //     prefs.setString('product', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].product.toString());
+                                                                              //     prefs.setString('quantity', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].quantity.toString());
+                                                                              //     idnya = _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
+                                                                              //     posisi = index;
+                                                                              //     accept = true;
+                                                                              //   });
+                                                                              //   await accepted(_listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+
+                                                                              //   _btnController.reset();
+
+                                                                              // Navigator.push(context,
+                                                                              //     MaterialPageRoute(builder: (context) => Register()));
+                                                                              // },
                                                                             ),
                                                                           )
                                                                   ],
@@ -743,7 +1248,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'No Vehicles : ' +
+                                                                    'No Kendaraan : ' +
                                                                         prf.get(
                                                                             'noVehicles'),
                                                                     style: TextStyle(
@@ -754,7 +1259,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Start : ' +
+                                                                    'Jam Berangkat Efektif : ' +
                                                                         prf.get(
                                                                             'effectiveDateStart'),
                                                                     style: TextStyle(
@@ -765,7 +1270,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'End : ' +
+                                                                    'Jam Tiba Efektif : ' +
                                                                         prf.get(
                                                                             'effectiveDateEnd'),
                                                                     style: TextStyle(
@@ -776,7 +1281,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Product : ' +
+                                                                    'Produk : ' +
                                                                         prf.get(
                                                                             'product'),
                                                                     style: TextStyle(
@@ -787,7 +1292,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Quantity : ' +
+                                                                    'Kwantitas : ' +
                                                                         prf.get(
                                                                             'quantity'),
                                                                     style: TextStyle(
@@ -834,12 +1339,16 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                               files = await FilePicker.getFile();
                                                                               setState(() {
                                                                                 file = 1;
+                                                                                print(files);
+                                                                                      print(file);
                                                                               });
                                                                               // _btnController
                                                                               //     .reset();
 
-                                                                              // Navigator.push(context,
-                                                                              //     MaterialPageRoute(builder: (context) => Register()));
+                                                                              // Navigator.pop(
+                                                                              //   context,
+                                                                              //   // MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                              // );
                                                                             },
                                                                           ),
                                                                         ),
@@ -859,8 +1368,9 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                     Padding(
                                                                         padding:
                                                                             EdgeInsets.all(5)),
-                                                                    // posisi !=
-                                                                    //         null
+                                                                    // posisi != null &&
+                                                                    //         data ==
+                                                                    //             null
                                                                     //     ? Container()
                                                                     //     : Container(
                                                                     //         width:
@@ -872,27 +1382,204 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                     //           SpringButtonType.OnlyScale,
                                                                     //           roundedRectButton("Accept", signInGradients, false),
                                                                     //           onTap: () async {
-                                                                    //             SharedPreferences prefs = await SharedPreferences.getInstance();
-                                                                    //             setState(() {
-                                                                    //               prefs.setString('Idnya', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
-                                                                    //               prefs.setString('deliveryOrderNumber', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].deliveryOrderNumber.toString());
-                                                                    //               prefs.setString('salesOrderId', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].salesOrderId.toString());
-                                                                    //               prefs.setString('noVehicles', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].noVehicles.toString());
-                                                                    //               prefs.setString('effectiveDateStart', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateStart.toString());
-                                                                    //               prefs.setString('effectiveDateEnd', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateEnd.toString());
-                                                                    //               prefs.setString('product', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].product.toString());
-                                                                    //               prefs.setString('quantity', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].quantity.toString());
-                                                                    //               idnya = _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
-                                                                    //               posisi = index;
-                                                                    //               accept = true;
-                                                                    //             });
-                                                                    //             await accepted(_listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+                                                                    //             await showDialog(
+                                                                    //                 context: context,
+                                                                    //                 builder: (BuildContext context) {
+                                                                    //                   return AlertDialog(
+                                                                    //                     shape: RoundedRectangleBorder(
+                                                                    //                       borderRadius: BorderRadius.circular(10),
+                                                                    //                       side: BorderSide(
+                                                                    //                         color: Colors.green[900],
+                                                                    //                         width: 5.0,
+                                                                    //                       ),
+                                                                    //                     ),
+                                                                    //                     // title: Image.network(
+                                                                    //                     //     _listPromoDetail
+                                                                    //                     //         .listDetailPromo[
+                                                                    //                     //             0]
+                                                                    //                     //         .image),
+                                                                    //                     content: SingleChildScrollView(
+                                                                    //                       child: ListBody(
+                                                                    //                         children: <Widget>[
+                                                                    //                           Text("Pengiriman Pesanan", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
 
-                                                                    //             _btnController.reset();
+                                                                    //                           Text(
+                                                                    //                             "Apakah anda yakin menerima prngiriman pesanan ?",
+                                                                    //                           ),
+                                                                    //                           // Text('Would you like to approve of this message?'),
+                                                                    //                         ],
+                                                                    //                       ),
+                                                                    //                     ),
+                                                                    //                     actions: <Widget>[
+                                                                    //                       new FlatButton(
+                                                                    //                         color: Colors.lightBlue[400],
+                                                                    //                         child: new Text("Ok",
+                                                                    //                             style: TextStyle(
+                                                                    //                               color: Colors.white,
+                                                                    //                             )),
+                                                                    //                         onPressed: () async {
+                                                                    //                           SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                    //                           setState(() {
+                                                                    //                             prefs.setString('Idnya', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+                                                                    //                             prefs.setString('deliveryOrderNumber', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].deliveryOrderNumber.toString());
+                                                                    //                             prefs.setString('salesOrderId', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].salesOrderId.toString());
+                                                                    //                             prefs.setString('noVehicles', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].noVehicles.toString());
+                                                                    //                             prefs.setString('effectiveDateStart', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateStart.toString());
+                                                                    //                             prefs.setString('effectiveDateEnd', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateEnd.toString());
+                                                                    //                             prefs.setString('product', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].product.toString());
+                                                                    //                             prefs.setString('quantity', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].quantity.toString());
+                                                                    //                             idnya = _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
+                                                                    //                             posisi = index;
+                                                                    //                             accept = true;
+                                                                    //                           });
 
-                                                                    //             // Navigator.push(context,
-                                                                    //             //     MaterialPageRoute(builder: (context) => Register()));
+                                                                    //                           await accepted(_listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString()).then((value) async {
+                                                                    //                             if (value.statusCode == 200) {
+                                                                    //                               print('hahahahahaahah');
+                                                                    //                               final responseJson = json.decode(value.body);
+                                                                    //                               await showDialog(
+                                                                    //                                   context: context,
+                                                                    //                                   builder: (BuildContext context) {
+                                                                    //                                     return AlertDialog(
+                                                                    //                                       shape: RoundedRectangleBorder(
+                                                                    //                                         borderRadius: BorderRadius.circular(10),
+                                                                    //                                         side: BorderSide(
+                                                                    //                                           color: Colors.green[900],
+                                                                    //                                           width: 5.0,
+                                                                    //                                         ),
+                                                                    //                                       ),
+                                                                    //                                       title: Icon(
+                                                                    //                                         Icons.check,
+                                                                    //                                         size: 120,
+                                                                    //                                         color: Colors.green[900],
+                                                                    //                                       ),
+                                                                    //                                       content: SingleChildScrollView(
+                                                                    //                                         child: ListBody(
+                                                                    //                                           children: <Widget>[
+                                                                    //                                             Text("Pesanan Pengiriman ", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+
+                                                                    //                                             Text("Telah berhasil diterima !!!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+                                                                    //                                             // Text('Would you like to approve of this message?'),
+                                                                    //                                           ],
+                                                                    //                                         ),
+                                                                    //                                       ),
+                                                                    //                                       actions: <Widget>[
+                                                                    //                                         new FlatButton(
+                                                                    //                                           color: Colors.lightBlueAccent[400],
+                                                                    //                                           child: new Text("Ok",
+                                                                    //                                               style: TextStyle(
+                                                                    //                                                 color: Colors.white,
+                                                                    //                                               )),
+                                                                    //                                           onPressed: () {
+                                                                    //                                             Navigator.pop(
+                                                                    //                                               context,
+                                                                    //                                               // MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                    //                                             );
+                                                                    //                                           },
+                                                                    //                                         ),
+                                                                    //                                       ],
+                                                                    //                                     );
+                                                                    //                                   });
+                                                                    //                             } else {
+                                                                    //                               await showDialog(
+                                                                    //                                   context: context,
+                                                                    //                                   builder: (BuildContext context) {
+                                                                    //                                     return AlertDialog(
+                                                                    //                                       shape: RoundedRectangleBorder(
+                                                                    //                                         borderRadius: BorderRadius.circular(10),
+                                                                    //                                         side: BorderSide(
+                                                                    //                                           color: Colors.red[900],
+                                                                    //                                           width: 5.0,
+                                                                    //                                         ),
+                                                                    //                                       ),
+                                                                    //                                       title: Icon(
+                                                                    //                                         Icons.clear,
+                                                                    //                                         size: 120,
+                                                                    //                                         color: Colors.red[900],
+                                                                    //                                       ),
+                                                                    //                                       content: SingleChildScrollView(
+                                                                    //                                         child: ListBody(
+                                                                    //                                           children: <Widget>[
+                                                                    //                                             Text("Pesanan Pengiriman ", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+
+                                                                    //                                             Text("Gagal !!!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+                                                                    //                                             // Text('Would you like to approve of this message?'),
+                                                                    //                                           ],
+                                                                    //                                         ),
+                                                                    //                                       ),
+                                                                    //                                       actions: <Widget>[
+                                                                    //                                         new FlatButton(
+                                                                    //                                           color: Colors.red[900],
+                                                                    //                                           child: new Text("Ok"),
+                                                                    //                                           onPressed: () {
+                                                                    //                                             Navigator.pop(
+                                                                    //                                               context,
+                                                                    //                                               MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                    //                                             );
+                                                                    //                                           },
+                                                                    //                                         ),
+                                                                    //                                       ],
+                                                                    //                                     );
+                                                                    //                                     // Navigator.pushReplacement(
+                                                                    //                                     //     context,
+                                                                    //                                     //     MaterialPageRoute(
+                                                                    //                                     //         builder: (context) => DetailPromo(
+                                                                    //                                     //             id: _listPromoDetail
+                                                                    //                                     //                 .listDetailPromo[0]
+                                                                    //                                     //                 .id
+                                                                    //                                     //                 .toString())));
+                                                                    //                                   });
+                                                                    //                             }
+                                                                    //                           });
+                                                                    //                           Navigator.pop(
+                                                                    //                             context,
+                                                                    //                             MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                    //                           );
+                                                                    //                         },
+                                                                    //                       ),
+                                                                    //                       new FlatButton(
+                                                                    //                         color: Colors.red[900],
+                                                                    //                         child: new Text("Batal"),
+                                                                    //                         onPressed: () {
+                                                                    //                           // Navigator
+                                                                    //                           //     .pop(
+                                                                    //                           //   context,
+                                                                    //                           //   MaterialPageRoute(
+                                                                    //                           //       builder: (context) =>
+                                                                    //                           //           Driver()),
+                                                                    //                           // );
+                                                                    //                         },
+                                                                    //                       ),
+                                                                    //                     ],
+                                                                    //                   );
+                                                                    //                   // });
+                                                                    //                   //
+                                                                    //                 });
                                                                     //           },
+                                                                    //           // _showMyDialog(_listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString(), _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].deliveryOrderNumber.toString(), _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].salesOrderId.toString(), _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].noVehicles.toString(), _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateStart.toString(), _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateEnd.toString(), _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].product.toString(), _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].quantity.toString(), index),
+                                                                    //           // onTap: () => _showMyDialog('minyak')
+                                                                    //           //  async {
+                                                                    //           //             SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                    //           //             setState(() {
+                                                                    //           //               prefs.setString('Idnya', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+                                                                    //           //               prefs.setString('deliveryOrderNumber', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].deliveryOrderNumber.toString());
+                                                                    //           //               prefs.setString('salesOrderId', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].salesOrderId.toString());
+                                                                    //           //               prefs.setString('noVehicles', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].noVehicles.toString());
+                                                                    //           //               prefs.setString('effectiveDateStart', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateStart.toString());
+                                                                    //           //               prefs.setString('effectiveDateEnd', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].effectiveDateEnd.toString());
+                                                                    //           //               prefs.setString('product', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].product.toString());
+                                                                    //           //               prefs.setString('quantity', _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].quantity.toString());
+                                                                    //           //               idnya = _listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString();
+                                                                    //           //               posisi = index;
+                                                                    //           //               accept = true;
+                                                                    //           //             });
+                                                                    //           //             await accepted(_listNews.listHomeDetail[0].user.readyDeliveryOrder[index].id.toString());
+
+                                                                    //           // _btnController.reset();
+
+                                                                    //           // Navigator.push(context,
+                                                                    //           //     MaterialPageRoute(builder: (context) => Register()));
+                                                                    //           // },
                                                                     //         ),
                                                                     //       )
                                                                   ],
@@ -1065,92 +1752,85 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                       width: 200,
                                                       height: 200,
                                                       child: RawMaterialButton(
-                                                        onPressed: () async {
-                                                          SharedPreferences
-                                                              prefs =
-                                                              await SharedPreferences
-                                                                  .getInstance();
-                                                          var idDO = prefs
-                                                              .get('Idnya');
+                                                        onPressed: () =>
+                                                            // _showMyDialog(),
+                                                            // async {
+                                                            __showMyDialog(),
 
-                                                          await kirimdata(
-                                                                  files,
-                                                                  idDO == null
-                                                                      ? idnya
-                                                                      : idDO)
-                                                              .then(
-                                                                  (value) async {
-                                                            print(value);
-                                                            if (value
-                                                                    .statusCode ==
-                                                                200) {
-                                                              setState(() {
-                                                                posisi = null;
-                                                              });
+                                                        // SharedPreferences
+                                                        //     prefs =
+                                                        //     await SharedPreferences
+                                                        //         .getInstance();
+                                                        // var idDO = prefs
+                                                        //     .get('Idnya');
 
-                                                              print(
-                                                                  'hahahahahaahah');
-                                                              final responseJson =
-                                                                  json.decode(
-                                                                      value
-                                                                          .body);
+                                                        // await kirimdata(
+                                                        //         files,
+                                                        //         idDO == null
+                                                        //             ? idnya
+                                                        //             : idDO)
+                                                        //     .then(
+                                                        //         (value) async {
+                                                        //   prefs.remove(
+                                                        //       'Idnya');
+                                                        //   prefs.remove(
+                                                        //       'deliveryOrderNumber');
+                                                        //   prefs.remove(
+                                                        //       'salesOrderId');
+                                                        //   prefs.remove(
+                                                        //       'noVehicles');
+                                                        //   prefs.remove(
+                                                        //       'effectiveDateStart');
+                                                        //   prefs.remove(
+                                                        //       'effectiveDateEnd');
+                                                        //   prefs.remove(
+                                                        //       'product');
+                                                        //   prefs.remove(
+                                                        //       'quantity');
+                                                        //   print(value);
+                                                        //   if (value
+                                                        //           .statusCode ==
+                                                        //       200) {
+                                                        //     setState(() {
+                                                        //       posisi = null;
+                                                        //     });
 
-                                                              await showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (BuildContext
-                                                                          context) {
-                                                                    return AlertDialog(
-                                                                      title: new Text(
-                                                                          "Code " +
-                                                                              responseJson['code']),
-                                                                      actions: <
-                                                                          Widget>[
-                                                                        new FlatButton(
-                                                                          child:
-                                                                              new Text("Ok"),
-                                                                          onPressed:
-                                                                              () {
-                                                                            Navigator.pushReplacement(
-                                                                              context,
-                                                                              MaterialPageRoute(builder: (context) => DriverHomeDetail()),
-                                                                            );
-                                                                          },
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  });
-                                                            } else {
-                                                              showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (BuildContext
-                                                                          context) {
-                                                                    return AlertDialog(
-                                                                      title: new Text(
-                                                                          "Penukaran Promo "
-                                                                          "Gagal !!!"),
-                                                                      actions: <
-                                                                          Widget>[
-                                                                        new FlatButton(
-                                                                          child:
-                                                                              new Text("Ok"),
-                                                                          onPressed:
-                                                                              () {
-                                                                            Navigator.pop(
-                                                                              context,
-                                                                              MaterialPageRoute(builder: (context) => DriverHomeDetail()),
-                                                                            );
-                                                                          },
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  });
-                                                            }
-                                                          });
-                                                        },
+                                                        //     print(
+                                                        //         'hahahahahaahah');
+                                                        //     final responseJson =
+                                                        //         json.decode(
+                                                        //             value
+                                                        //                 .body);
+                                                        //   } else {
+                                                        //     showDialog(
+                                                        //         context:
+                                                        //             context,
+                                                        //         builder:
+                                                        //             (BuildContext
+                                                        //                 context) {
+                                                        //           return AlertDialog(
+                                                        //             title: new Text(
+                                                        //                 "Penukaran Promo "
+                                                        //                 "Gagal !!!"),
+                                                        //             actions: <
+                                                        //                 Widget>[
+                                                        //               new FlatButton(
+                                                        //                 child:
+                                                        //                     new Text("Ok"),
+                                                        //                 onPressed:
+                                                        //                     () {
+                                                        //                   Navigator.pop(
+                                                        //                     context,
+                                                        //                     MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                        //                   );
+                                                        //                 },
+                                                        //               ),
+                                                        //             ],
+                                                        //           );
+                                                        //         });
+                                                        //   }
+                                                        // });
+                                                        // },
                                                         child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
@@ -1312,9 +1992,19 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                 .getInstance();
                                         prefs.remove('Email');
                                         prefs.remove('Token');
+                                        prefs.remove('Idnya');
+                                        prefs.remove('deliveryOrderNumber');
+                                        prefs.remove('salesOrderId');
+                                        prefs.remove('noVehicles');
+                                        prefs.remove('effectiveDateStart');
+                                        prefs.remove('effectiveDateEnd');
+                                        prefs.remove('product');
+                                        prefs.remove('quantity');
+
                                         login = false;
                                         email = null;
                                         token = null;
+                                        data = null;
                                         // });
 
                                         Navigator.pushReplacement(
