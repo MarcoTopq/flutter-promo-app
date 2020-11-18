@@ -97,7 +97,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
     double b_height = MediaQuery.of(context).size.width * 0.4;
 
     double a_width = MediaQuery.of(context).size.width * 0.6;
-    double a_height = MediaQuery.of(context).size.width * 0.5;
+    double a_height = MediaQuery.of(context).size.height* 0.5;
 
     double c_width = MediaQuery.of(context).size.width * 0.8;
     double c_height = MediaQuery.of(context).size.height * 0.3;
@@ -747,7 +747,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                       child: Container(
                                         padding: EdgeInsets.all(10),
                                         width: a_width,
-                                        height: 350,
+                                        height: a_height,
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount: posisi == null
@@ -786,6 +786,30 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                   MainAxisAlignment
                                                                       .start,
                                                               children: [
+                                                                Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                        Icons
+                                                                            .warning,
+                                                                        color: Colors
+                                                                            .yellow,
+                                                                        size:
+                                                                            20),
+                                                                    Text(
+                                                                        'Tunjukan Notifikasi ini ke Layanan Jual PPN',
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .white,
+                                                                            fontSize:
+                                                                                15,
+                                                                            fontWeight:
+                                                                                FontWeight.bold))
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            5)),
                                                                 Text(
                                                                     'No DO : ' +
                                                                         _listNews
@@ -839,7 +863,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Jam Berangkat Efektif : ' +
+                                                                    'Estimasi Berangkat : ' +
                                                                         _listNews
                                                                             .listHomeDetail[
                                                                                 0]
@@ -856,7 +880,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Jam Tiba Efektif : ' +
+                                                                    'Estimasi Tiba : ' +
                                                                         _listNews
                                                                             .listHomeDetail[
                                                                                 0]
@@ -910,7 +934,31 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                 Padding(
                                                                     padding:
                                                                         EdgeInsets.all(
-                                                                            10)),
+                                                                            20)),
+                                                                Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                        Icons
+                                                                            .warning,
+                                                                        color: Colors
+                                                                            .yellow,
+                                                                        size:
+                                                                            15),
+                                                                    Text(
+                                                                        'JANGAN DI ACCEPT SEBELUM ANDA SELESAI MELAKUKAN PENGISIAN BBM.',
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .red,
+                                                                            fontSize:
+                                                                                12,
+                                                                            fontWeight:
+                                                                                FontWeight.bold))
+                                                                  ],
+                                                                ),
+                                                                 Padding(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            2)),
                                                                 Row(
                                                                   crossAxisAlignment:
                                                                       CrossAxisAlignment
@@ -919,7 +967,8 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                       MainAxisAlignment
                                                                           .spaceEvenly,
                                                                   children: [
-                                                                    posisi == null
+                                                                    posisi ==
+                                                                            null
                                                                         ? Container()
                                                                         : Row(
                                                                             crossAxisAlignment:
@@ -1002,7 +1051,8 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                                               Text("Pengiriman Pesanan", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
 
                                                                                               Text(
-                                                                                                "Apakah anda yakin menerima pengiriman pesanan ini ?",
+                                                                                                "Apakah anda sudah selesai melakukan proses pengisian dan siap untuk berangkat ke lokasi customer?",
+                                                                                              style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)
                                                                                               ),
                                                                                               // Text('Would you like to approve of this message?'),
                                                                                             ],
@@ -1119,14 +1169,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                                                             ),
                                                                                                           ],
                                                                                                         );
-                                                                                                        // Navigator.pushReplacement(
-                                                                                                        //     context,
-                                                                                                        //     MaterialPageRoute(
-                                                                                                        //         builder: (context) => DetailPromo(
-                                                                                                        //             id: _listPromoDetail
-                                                                                                        //                 .listDetailPromo[0]
-                                                                                                        //                 .id
-                                                                                                        //                 .toString())));
+                                                                                                      
                                                                                                       });
                                                                                                 }
                                                                                               });
@@ -1259,7 +1302,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Jam Berangkat Efektif : ' +
+                                                                    'Estimasi Berangkat : ' +
                                                                         prf.get(
                                                                             'effectiveDateStart'),
                                                                     style: TextStyle(
@@ -1270,7 +1313,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                         fontWeight:
                                                                             FontWeight.bold)),
                                                                 Text(
-                                                                    'Jam Tiba Efektif : ' +
+                                                                    'Estimasi Tiba : ' +
                                                                         prf.get(
                                                                             'effectiveDateEnd'),
                                                                     style: TextStyle(
@@ -1340,7 +1383,7 @@ class _DriverHomeState extends State<DriverHomeDetail> {
                                                                               setState(() {
                                                                                 file = 1;
                                                                                 print(files);
-                                                                                      print(file);
+                                                                                print(file);
                                                                               });
                                                                               // _btnController
                                                                               //     .reset();

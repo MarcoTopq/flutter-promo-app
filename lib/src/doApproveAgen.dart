@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -299,33 +301,224 @@ class _DoApproveAgenState extends State<DoApproveAgen> {
                                                                   signInGradients,
                                                                   false),
                                                               onTap: () async {
-                                                            await accepted(
-                                                                _listDelivery
-                                                                    .listDoApprove[
-                                                                        index]
-                                                                    .id
-                                                                    .toString());
-                                                            setState(() {
-                                                              // badges--;
-                                                              _increment();
-                                                              Toast.show(
-                                                                  "Approve Berhasil",
-                                                                  context);
-                                                              Navigator.pop(
-                                                                  context);
-                                                              Navigator.pushReplacement(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              Homepage()));
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              DoApproveAgen()));
-                                                            });
+                                                            await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (BuildContext
+                                                                        context) {
+                                                                  return AlertDialog(
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10),
+                                                                      side:
+                                                                          BorderSide(
+                                                                        color: Colors
+                                                                            .green[900],
+                                                                        width:
+                                                                            5.0,
+                                                                      ),
+                                                                    ),
+                                                                    title: Icon(
+                                                                      Icons
+                                                                          .directions_car,
+                                                                      size: 120,
+                                                                      color: Colors
+                                                                              .green[
+                                                                          900],
+                                                                    ),
+                                                                    content:
+                                                                        SingleChildScrollView(
+                                                                      child:
+                                                                          ListBody(
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                              "Approve Delivery Order",
+                                                                              style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+
+                                                                          Text(
+                                                                              "Apakah anda menyetujui delivery order ini?",
+                                                                              style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
+                                                                          // Text('Would you like to approve of this message?'),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    actions: <
+                                                                        Widget>[
+                                                                      new FlatButton(
+                                                                        color: Colors
+                                                                            .lightBlue[400],
+                                                                        child: new Text(
+                                                                            "Ok",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: Colors.white,
+                                                                            )),
+                                                                        onPressed:
+                                                                            () async {
+                                                                          SharedPreferences
+                                                                              prefs =
+                                                                              await SharedPreferences.getInstance();
+
+                                                                          await accepted(_listDelivery.listDoApprove[index].id.toString())
+                                                                              .then((value) async {
+                                                                            if (value.statusCode ==
+                                                                                200) {
+                                                                              print('hahahahahaahah');
+                                                                              final responseJson = json.decode(value.body);
+                                                                              await showDialog(
+                                                                                  context: context,
+                                                                                  builder: (BuildContext context) {
+                                                                                    return AlertDialog(
+                                                                                      shape: RoundedRectangleBorder(
+                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                        side: BorderSide(
+                                                                                          color: Colors.green[900],
+                                                                                          width: 5.0,
+                                                                                        ),
+                                                                                      ),
+                                                                                      title: Icon(
+                                                                                        Icons.check,
+                                                                                        size: 120,
+                                                                                        color: Colors.green[900],
+                                                                                      ),
+                                                                                      content: SingleChildScrollView(
+                                                                                        child: ListBody(
+                                                                                          children: <Widget>[
+                                                                                            Text("Delivery Order", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+
+                                                                                            Text("Telah berhasil disetujui !!!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+                                                                                            // Text('Would you like to approve of this message?'),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                      actions: <Widget>[
+                                                                                        new FlatButton(
+                                                                                          color: Colors.lightBlueAccent[400],
+                                                                                          child: new Text("Ok",
+                                                                                              style: TextStyle(
+                                                                                                color: Colors.white,
+                                                                                              )),
+                                                                                          onPressed: () {
+                                                                                            setState(() {
+                                                                                              _increment();
+                                                                                            });
+                                                                                            Navigator.pop(
+                                                                                              context,
+                                                                                              // MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  });
+                                                                            } else {
+                                                                              await showDialog(
+                                                                                  context: context,
+                                                                                  builder: (BuildContext context) {
+                                                                                    return AlertDialog(
+                                                                                      shape: RoundedRectangleBorder(
+                                                                                        borderRadius: BorderRadius.circular(10),
+                                                                                        side: BorderSide(
+                                                                                          color: Colors.red[900],
+                                                                                          width: 5.0,
+                                                                                        ),
+                                                                                      ),
+                                                                                      title: Icon(
+                                                                                        Icons.clear,
+                                                                                        size: 120,
+                                                                                        color: Colors.red[900],
+                                                                                      ),
+                                                                                      content: SingleChildScrollView(
+                                                                                        child: ListBody(
+                                                                                          children: <Widget>[
+                                                                                            Text("Pesanan Pengiriman ", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+
+                                                                                            Text("Gagal !!!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+                                                                                            // Text('Would you like to approve of this message?'),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                      actions: <Widget>[
+                                                                                        new FlatButton(
+                                                                                          color: Colors.red[900],
+                                                                                          child: new Text("Ok"),
+                                                                                          onPressed: () {
+                                                                                            Navigator.pop(
+                                                                                              context,
+                                                                                              // MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  });
+                                                                            }
+                                                                          });
+                                                                          Navigator
+                                                                              .pop(
+                                                                            context,
+                                                                            // MaterialPageRoute(builder: (context) => DriverHomeDetail()),
+                                                                          );
+                                                                          // Navigator.pop(
+                                                                          //     context);
+                                                                          // Navigator.pushReplacement(
+                                                                          //     context,
+                                                                          //     MaterialPageRoute(builder: (context) => Homepage()));
+                                                                          // Navigator.push(
+                                                                          //     context,
+                                                                          //     MaterialPageRoute(builder: (context) => DoApproveAgen()));
+                                                                        },
+                                                                      ),
+                                                                      new FlatButton(
+                                                                        color: Colors
+                                                                            .red[900],
+                                                                        child: new Text(
+                                                                            "Batal"),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator
+                                                                              .pop(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => DoApproveAgen()),
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                  // });
+                                                                  //
+                                                                });
+                                                            // await accepted(
+                                                            //     _listDelivery
+                                                            //         .listDoApprove[
+                                                            //             index]
+                                                            //         .id
+                                                            //         .toString());
+                                                            // setState(() {
+                                                            //   // badges--;
+                                                            //   _increment();
+                                                            //   Toast.show(
+                                                            //       "Approve Berhasil",
+                                                            //       context);
+                                                            //   Navigator.pop(
+                                                            //       context);
+                                                            //   Navigator.pushReplacement(
+                                                            //       context,
+                                                            //       MaterialPageRoute(
+                                                            //           builder:
+                                                            //               (context) =>
+                                                            //                   Homepage()));
+                                                            //   Navigator.push(
+                                                            //       context,
+                                                            //       MaterialPageRoute(
+                                                            //           builder:
+                                                            //               (context) =>
+                                                            //                   DoApproveAgen()));
+                                                            // });
                                                           }),
                                                         ),
                                                       ],

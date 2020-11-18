@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:warnakaltim/src/agenHome.dart';
 import 'package:warnakaltim/src/chartAgen.dart';
@@ -44,6 +45,7 @@ import 'package:warnakaltim/src/ringkasan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warnakaltim/src/talk.dart';
 import 'package:warnakaltim/src/userHome.dart';
+import 'package:warnakaltim/src/doApproveAgen.dart';
 
 var urls = 'http://rpm.lensaborneo.id';
 File files;
@@ -188,7 +190,7 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider.value(
             value: DetailVoucherCustomerModel(),
           ),
-           ChangeNotifierProvider.value(
+          ChangeNotifierProvider.value(
             value: CriticDetailModel(),
           ),
         ],
@@ -253,7 +255,9 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage>
     with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _homepageKey = new GlobalKey<ScaffoldState>();
-
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      new FlutterLocalNotificationsPlugin();
   var gold = Color.fromRGBO(
     212,
     175,
@@ -273,8 +277,87 @@ class _HomepageState extends State<Homepage>
 
   @override
   void initState() {
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        // _showItemDialog(message);
+        showNotification(
+            message['notification']['title'], message['notification']['body']);
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        showNotification(
+            message['notification']['title'], message['notification']['body']);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // _navigateToItemDetail(message);
+        showNotification(
+            message['notification']['title'], message['notification']['body']);
+        _navigateToItemDetail(message);
+      },
+    );
     super.initState();
     _getToken();
+  }
+
+  void _navigateToItemDetail(Map<String, dynamic> message) {
+    // final Item item = _itemForMessage(message);
+    // Clear away dialogs
+    // Navigator.popUntil(context, (Route<dynamic> route) => route is PageRoute);
+    // if (!item.route.isCurrent) {
+    //   Navigator.push(context, item.route);
+    // }
+    if (message['notification']['data']['screen'] == 'detaildo') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => DoApproveAgen()));
+    }
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => DoApproveAgen()));
+  }
+
+  Future onSelectNotification(String payload) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DoApproveAgen()));
+    // showDialog(
+    //   context: context,
+    //   builder: (_) {
+    //     return new AlertDialog(
+    //       title: Text("PayLoad"),
+    //       content: Text("Payload : $payload"),
+    //     );
+    // },
+    // );
+  }
+
+  void showNotification(String title, String body) async {
+    await _demoNotification(title, body);
+  }
+
+  Future<void> _demoNotification(String title, String body) async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'channel_ID', 'channel name', 'channel description',
+        importance: Importance.max,
+        playSound: true,
+        // sound: '',
+        showProgress: true,
+        priority: Priority.high,
+        ticker: 'test ticker');
+
+    var iOSChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSChannelSpecifics,
+    );
+    await flutterLocalNotificationsPlugin
+        .show(0, title, body, platformChannelSpecifics, payload: 'test');
   }
 
   TabController controller;

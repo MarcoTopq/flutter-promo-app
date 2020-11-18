@@ -88,7 +88,7 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                 } else {
                   if (snapshop.error != null) {
                     return Center(
-                      child: Text("Error Loading Data"),
+                      child: Text("Data DO belum tersedia"),
                     );
                   }
                   return Consumer<DetailDoAgenModel>(

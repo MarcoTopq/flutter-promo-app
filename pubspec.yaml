@@ -51,6 +51,7 @@ dependencies:
   badges: ^1.1.3
   flutter_rating_bar: ^3.0.1+1
   rflutter_alert: ^1.1.0
+  flutter_local_notifications: ^3.0.1+4
 
 
 dev_dependencies:
