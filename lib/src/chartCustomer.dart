@@ -26,7 +26,7 @@ class _ChartCustomerState extends State<ChartCustomer> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Colors.white, //change your color here
+          color: Colors.black, //change your color here
         ),
         title: Text(
           'Chart',
@@ -38,9 +38,11 @@ class _ChartCustomerState extends State<ChartCustomer> {
         backgroundColor: Colors.black.withOpacity(0.5),
       ),
       backgroundColor: Colors.grey[850],
-      body: new WebviewScaffold(url: urls + '/chart/customer/1'
-          // widget.id,
-          ),
+      body: new WebviewScaffold(
+        url: urls + '/chart/customer/' + idnya.toString(),
+        withJavascript: true,
+        // widget.id,
+      ),
     );
   }
 }

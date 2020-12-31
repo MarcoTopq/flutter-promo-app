@@ -6,8 +6,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:json_table/json_table.dart';
 import 'package:warnakaltim/src/bast.dart';
+import 'package:warnakaltim/src/driverHistory.dart';
 
 import 'package:warnakaltim/src/model/detailDoModel.dart';
+import 'package:warnakaltim/src/spring_button.dart';
+import 'package:warnakaltim/src/widget.dart';
 
 class DetailDeliveryAgen extends StatefulWidget {
   final String id;
@@ -121,9 +124,18 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                               child: Container(
                                                   // width: 1600,
                                                   color: Colors.grey[700],
-                                                  padding: EdgeInsets.all(20),
+                                                  // padding: EdgeInsets.all(20),
                                                   child: DataTable(
                                                     columns: [
+                                                      DataColumn(
+                                                        label: Text('Tracking',
+                                                            style: TextStyle(
+                                                                color: gold,
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                      ),
                                                       DataColumn(
                                                         label: Text('No DO',
                                                             style: TextStyle(
@@ -133,16 +145,7 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                                     FontWeight
                                                                         .bold)),
                                                       ),
-                                                      // DataColumn(
-                                                      //   label: Text(
-                                                      //       'Effective Date Start',
-                                                      //       style: TextStyle(
-                                                      //           color: gold,
-                                                      //           fontSize: 15,
-                                                      //           fontWeight:
-                                                      //               FontWeight
-                                                      //                   .bold)),
-                                                      // ),
+
                                                       // DataColumn(
                                                       //   label: Text(
                                                       //       'Effective Date End',
@@ -325,31 +328,28 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
                                                         .map(
                                                           (delivery) => DataRow(
                                                               cells: [
-                                                                // DataCell(
-                                                                //   Text(
-                                                                //       delivery
-                                                                //           .deliveryOrderNumber,
-                                                                //       style:
-                                                                //           TextStyle(
-                                                                //         color: Colors
-                                                                //             .white,
-                                                                //         fontSize:
-                                                                //             12,
-                                                                //       )),
-                                                                //   // Add tap in the row and populate the
-                                                                //   // textfields with the corresponding values to update
-                                                                //   onTap: () {
-                                                                //     // _showValues(
-                                                                //     //     delivery);
-                                                                //     // // Set the Selected delivery to Update
-                                                                //     // _selecteddelivery =
-                                                                //     //     delivery;
-                                                                //     // setState(() {
-                                                                //     //   _isUpdating =
-                                                                //     //       true;
-                                                                //     // });
-                                                                //   },
-                                                                // ),
+                                                                DataCell(
+                                                                  Container(
+                                                                    width: 120,
+                                                                    height: 60,
+                                                                    child: SpringButton(
+                                                                        SpringButtonType
+                                                                            .OnlyScale,
+                                                                        roundedRectButtondo(
+                                                                            "History",
+                                                                            signInGradients,
+                                                                            false),
+                                                                        onTapDown:
+                                                                            (_) async {
+                                                                      setState(
+                                                                          () {
+                                                                        Navigator.push(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => DriverHistory(id: _listDetaildoAgen.listDetailDoAgen[index].id.toString())));
+                                                                      });
+                                                                    }),
+                                                                  ),
+                                                                ),
                                                                 DataCell(
                                                                   Container(
                                                                       width:
@@ -395,8 +395,9 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
 
                                                                 DataCell(
                                                                   Container(
+                                                                      // height: 1000,
                                                                       width:
-                                                                          100.0,
+                                                                          200.0,
                                                                       child: Center(
                                                                           child: Text(delivery.product.toString().toUpperCase(),
                                                                               style: TextStyle(
@@ -681,4 +682,46 @@ class _DetailDeliveryAgenState extends State<DetailDeliveryAgen>
     String jsonString = encoder.convert(json.decode(jsonObject));
     return jsonString;
   }
+}
+
+Widget roundedRectButtondo(
+    String title, List<Color> gradient, bool isEndIconVisible) {
+  return Builder(builder: (BuildContext mContext) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10),
+      child: Stack(
+        alignment: Alignment(1.0, 0.0),
+        children: <Widget>[
+          Container(
+            alignment: Alignment.center,
+            width: MediaQuery.of(mContext).size.width / 1.7,
+            decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              gradient: LinearGradient(
+                  colors: gradient,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight),
+            ),
+            child: Text(title,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500)),
+            // padding: EdgeInsets.only(top: 16, bottom: 16),
+          ),
+          Visibility(
+            visible: isEndIconVisible,
+            child: Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: ImageIcon(
+                  AssetImage("assets/ic_forward.png"),
+                  size: 30,
+                  color: Colors.white,
+                )),
+          ),
+        ],
+      ),
+    );
+  });
 }

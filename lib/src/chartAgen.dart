@@ -26,7 +26,7 @@ class _ChartAgenState extends State<ChartAgen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Colors.white, //change your color here
+          color: Colors.black, //change your color here
         ),
         title: Text(
           'Chart',
@@ -38,7 +38,8 @@ class _ChartAgenState extends State<ChartAgen> {
         backgroundColor: Colors.black.withOpacity(0.5),
       ),
       backgroundColor: Colors.grey[850],
-      body: new WebviewScaffold(url: urls + '/chart/agen/1'
+      body: new WebviewScaffold(url: urls + '/chart/agen/'+idnya.toString(),
+      withJavascript: true,
           //  widget.id,
           ),
     );

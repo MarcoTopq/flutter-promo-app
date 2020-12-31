@@ -66,7 +66,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
     // WidgetsBinding.instance.addObserver(this);
   }
 
-  final GlobalKey<ScaffoldState> _AgenhomeKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _agenhomeKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     print('dapat' + email.toString());
@@ -115,7 +115,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
     }
 
     return Scaffold(
-      key: _AgenhomeKey,
+      key: _agenhomeKey,
       backgroundColor: Colors.grey[850],
       // appBar: AppBar(title: Text('WARNA KALTIM')),
       body: RefreshIndicator(
@@ -156,7 +156,7 @@ class _AgenHomeState extends State<AgenHomeDetail> {
                                               .listHomeDetail[0].company.profile
                                               .toString();
 
-                                          _AgenhomeKey.currentState
+                                          _agenhomeKey.currentState
                                               .openDrawer();
                                         }),
                                 flexibleSpace: FlexibleSpaceBar(

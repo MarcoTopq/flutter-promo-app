@@ -341,7 +341,7 @@ class _DoApproveAgenState extends State<DoApproveAgen> {
 
                                                                           Text(
                                                                               "Apakah anda menyetujui delivery order ini?",
-                                                                              style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
+                                                                              style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold)),
                                                                           // Text('Would you like to approve of this message?'),
                                                                         ],
                                                                       ),
@@ -390,7 +390,7 @@ class _DoApproveAgenState extends State<DoApproveAgen> {
                                                                                           children: <Widget>[
                                                                                             Text("Delivery Order", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
 
-                                                                                            Text("Telah berhasil disetujui !!!", style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold)),
+                                                                                            Text("Telah berhasil disetujui !!!", style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold)),
                                                                                             // Text('Would you like to approve of this message?'),
                                                                                           ],
                                                                                         ),

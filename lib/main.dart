@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:warnakaltim/src/agenHome.dart';
@@ -41,7 +41,6 @@ import 'package:warnakaltim/src/model/voucherCustomer.dart';
 import 'package:warnakaltim/src/model/voucherModel.dart';
 import 'package:warnakaltim/src/model/detailVoucherModel.dart';
 import 'package:warnakaltim/src/profile.dart';
-import 'package:warnakaltim/src/ringkasan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warnakaltim/src/talk.dart';
 import 'package:warnakaltim/src/userHome.dart';
@@ -68,9 +67,18 @@ var gold = Color.fromRGBO(
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    // systemNavigationBarColor: Colors.grey[700], // navigation bar color
+    // systemNavigationBarDividerColor: Colors.white,
+    statusBarBrightness: Brightness.light,
+    statusBarIconBrightness: Brightness.light,
+    // statusBarColor: Colors.white, // status bar color
+  ));
   SharedPreferences prefs = await SharedPreferences.getInstance();
   email = prefs.get('Email');
   role = prefs.get('Role');
+  idnya = prefs.get('Id');
+  print(idnya);
   print(email);
   print(role);
   if (email == null) {
@@ -198,6 +206,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Warna Kaltim',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+              indicatorColor: Colors.white,
               primaryColor: Colors.yellow[600],
               primarySwatch: MaterialColor(Colors.grey.shade200.value, {
                 50: Colors.grey.shade50,
@@ -212,12 +221,14 @@ class _MyAppState extends State<MyApp> {
                 900: Colors.grey.shade900
               }),
               fontFamily: 'OpenSans',
-              backgroundColor: Color.fromRGBO(
-                212,
-                175,
-                55,
-                2,
-              )),
+              backgroundColor: Colors.white
+              // Color.fromRGBO(
+              //   212,
+              //   175,
+              //   55,
+              //   2,
+              // )
+              ),
           home: Splash(),
         ));
   }
@@ -271,6 +282,7 @@ class _HomepageState extends State<Homepage>
       email = prefs.get('Email');
       token = prefs.get('Token');
       role = prefs.get('Role');
+      idnya = prefs.get('Id');
     });
     print(role);
   }
@@ -288,19 +300,16 @@ class _HomepageState extends State<Homepage>
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
         // _showItemDialog(message);
-        showNotification(
-            message['notification']['title'], message['notification']['body']);
+        showNotification(message['title'], message['body']);
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
-        showNotification(
-            message['notification']['title'], message['notification']['body']);
+        showNotification(message['title'], message['body']);
       },
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
         // _navigateToItemDetail(message);
-        showNotification(
-            message['notification']['title'], message['notification']['body']);
+        showNotification(message['title'], message['body']);
         _navigateToItemDetail(message);
       },
     );
@@ -315,7 +324,7 @@ class _HomepageState extends State<Homepage>
     // if (!item.route.isCurrent) {
     //   Navigator.push(context, item.route);
     // }
-    if (message['notification']['data']['screen'] == 'detaildo') {
+    if (message['data']['screen'] == 'detaildo') {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => DoApproveAgen()));
     }
@@ -370,8 +379,14 @@ class _HomepageState extends State<Homepage>
         ? Home()
         : role == 'driver'
             ? DriverHomeDetail()
-            : role == 'agen' ? AgenHomeDetail() : UserHomeDetail(),
-    email == null ? Login() : role == 'agen' ? ChartAgen() : ChartCustomer(),
+            : role == 'agen'
+                ? AgenHomeDetail()
+                : role == 'customer' ? UserHomeDetail() : Home(),
+    email == null
+        ? Login()
+        : role == 'agen'
+            ? ChartAgen()
+            : role == 'customer' ? ChartCustomer() : Login(),
     email == null ? Login() : Profile(),
     TalkService()
   ];

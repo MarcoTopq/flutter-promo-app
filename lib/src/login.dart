@@ -205,7 +205,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
                                         prefs.setString('Email',
                                             responseJson['user']['email']);
-
+                                        prefs.setString(
+                                            'Id',
+                                            responseJson['user']['id']
+                                                .toString());
                                         prefs.setString('Role',
                                             responseJson['user']['role']);
 
@@ -214,12 +217,13 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                             .toString());
                                         print('Token  :' + prefs.get('Token'));
                                         print('Token  :' + prefs.get('Email'));
-
+                                        print('Token  :' + prefs.get('Id'));
                                         setState(() {
                                           login = true;
                                           email = prefs.get('Email');
                                           token = prefs.get('Token');
                                           role = prefs.get('Role');
+                                          idnya = prefs.get('Id');
                                         });
                                         Toast.show("Login Berhasil", context);
                                         _btnController.reset();

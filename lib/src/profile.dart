@@ -76,7 +76,7 @@ class _ProfileState extends State<Profile> {
                                           // borderRadius:
                                           //     BorderRadius.circular(0.0),
                                           child: Image.asset(
-                                            'assets/pertamina.png',
+                                            'assets/patra.jpg',
                                             fit: BoxFit.cover,
                                             // width: 100,
                                             height: 100,
