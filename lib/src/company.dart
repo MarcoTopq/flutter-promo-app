@@ -7,7 +7,6 @@ import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
