@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:warnakaltim/main.dart';
 import 'package:warnakaltim/src/bast.dart';
 import 'package:warnakaltim/src/model/detailDeliveryModel.dart';
 
@@ -779,7 +780,7 @@ class _DetailDeliveryState extends State<DetailDelivery>
                                                                   index]
                                                               .bast
                                                               .toString() ==
-                                                          "http://rpm.lensaborneo.id/uploads"
+                                                          urls + "/uploads"
                                                       ? Text(
                                                           ' - ',
                                                           style: new TextStyle(
